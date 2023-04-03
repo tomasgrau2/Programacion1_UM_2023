@@ -1,6 +1,14 @@
-import os
 from flask import Flask
 from dotenv import load_dotenv
+
+#Importamos nuevas librerias clase 3
+from flask_restful import Api #Agrego la clase Api
+
+#Importo dir de recursos 
+import main.resources as resources
+
+#Inicio Restful
+api = Api()
 
 #Metodo que inicializa la app
 def create_app():
@@ -9,8 +17,14 @@ def create_app():
 
     #variables de entorno
     load_dotenv()
+    #cargar a la API el recurso Animales y especificar la ruta 
+    api.add_resource(resources.AnimalesResource, '/animales')
+    #cargar a la API el recurso Animal y especificar la ruta 
+    api.add_resource(resources.AnimalResource, '/animal/<id>')
 
-    #Iniciamos los demas modulos de la app
+    #Cargar la aplicacion en la API de Flask Restful
+    #es para que la aplicacion de flask funcione como API
+    api.init_app(app)
 
     #Por ultimo retornamos la aplicacion inicializada
     return app
