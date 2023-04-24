@@ -1,6 +1,6 @@
 from main import create_app
 import os
-
+from main import db
 
 #Llamada a la funcion que retorna la app
 app = create_app()
