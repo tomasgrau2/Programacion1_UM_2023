@@ -1,14 +1,14 @@
 #Cambiar el nombre en la importación para clarificar y evitar conflictos
-from .animal import Animal as AnimalResource
-from .animal import Animales as AnimalesResource
+from .animales import Animal as AnimalResource
+from .animales import Animales as AnimalesResource
 from .usuarios import Usuarios as UsuariosResource
 from .usuarios import Usuario as UsuarioResource
-from .usuarios import UsuariosAlumnos as UsuariosAlumnosResource
-from .usuarios import UsuarioProfesor as UsuariosProfesoresResource
-from .usuarios import UsuarioAlumno as UsuarioAlumnoResource
+from .profesores import UsuariosProfesores as UsuariosProfesoresResource
+from .profesores import UsuarioProfesor as UsuariosProfesoresResource
+from .alumnos import UsuarioAlumno as UsuarioAlumnoResource
 from .login import Login as LoginResource
 from .clases import ClasesProfesores as ClasesProfesoresResource
-from .planificacion import PlanificacionAlumno as PlanificacionAlumnoResource
-from .pago import Pago as PagoResource
-from .planificacion import PlanificacionesProfesores as PlanificacionesProfesoresResource
-from .planificacion import PlanificacionProfesores as PlanificacionProfesoresResource
+from .planificaciones import PlanificacionAlumno as PlanificacionAlumnoResource
+from .pagos import Pago as PagoResource
+from .planificaciones import PlanificacionesProfesores as PlanificacionesProfesoresResource
+from .planificaciones import PlanificacionProfesores as PlanificacionProfesoresResource

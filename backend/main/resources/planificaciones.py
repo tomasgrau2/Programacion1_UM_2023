@@ -2,7 +2,7 @@
 from flask_restful import Resource
 from flask import request
 
-from .usuarios import USUARIOS_ALUMNOS
+# from .usuarios import USUARIOS_ALUMNOS
 
 PLANIFICACIONES = {
     1: {'nombre':'PLANIFICACION 1', 'Ejercicios':'Press de banca 4x10, Biceps 4x10, Remo 3x15, Abdominales 4x15'},

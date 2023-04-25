@@ -2,7 +2,7 @@
 from flask_restful import Resource
 from flask import request
 from .. import db
-from main.models import ClassModel
+from main.models import ClaseModel
 
 #Datos de prueba de JSON
 
@@ -14,5 +14,5 @@ from main.models import ClassModel
 
 class ClasesProfesores(Resource):
     def get(self):
-        clase = db.session.query(ClassModel).get_or_404(id)
+        clase = db.session.query(ClaseModel).get_or_404(id)
         return clase.to_json()

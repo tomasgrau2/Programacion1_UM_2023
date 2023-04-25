@@ -1,4 +1,7 @@
 #Cambiar el nombre en la importación para clarificar y evitar conflictos
 from .animal import Animal as AnimalModel
-from .clases import Class as ClassModel
-from .usuarios import Usuarios as UsuariosModel
+from .clase import Clase as ClaseModel
+from .usuario import Usuario as UsuarioModel
+from .alumno import Alumno as AlumnoModel
+from .profesor import Profesor as ProfesorModel
+

@@ -1,4 +1,5 @@
 import os
+
 from flask import Flask
 from dotenv import load_dotenv
 
@@ -48,7 +49,7 @@ def create_app():
 
     api.add_resource(resources.UsuarioResource, '/usuario/<id>')
 
-    api.add_resource(resources.UsuariosAlumnosResource, '/alumnos')
+    # api.add_resource(resources.UsuariosAlumnosResource, '/alumnos')
 
     api.add_resource(resources.UsuarioAlumnoResource, '/alumno/<id>')
 

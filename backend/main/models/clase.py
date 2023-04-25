@@ -1,6 +1,6 @@
 from .. import db
 
-class Class(db.Model):
+class Clase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
     horario = db.Column(db.DateTime, nullable=False)
@@ -29,7 +29,7 @@ class Class(db.Model):
         id = clase_json.get('id')
         nombre = clase_json.get('nombre')
         horario = clase_json.get('horario')
-        return Class(id=id,
+        return Clase(id=id,
                     nombre=nombre,
                     horario=horario
                     )
