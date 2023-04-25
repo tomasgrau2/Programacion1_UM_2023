@@ -1,5 +1,7 @@
 from flask_restful import Resource
 from flask import request
+from .. import db
+from main.models import UsuariosModel
 
 #Datos de prueba en JSON
 USUARIOS = {

@@ -1,15 +1,12 @@
+import os
 from flask import Flask
 from dotenv import load_dotenv
-import os
 
 #Importamos nuevas librerias clase 3
 from flask_restful import Api #Agrego la clase Api
 
 #Importar SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
-
-#Importo dir de recursos 
-import main.resources as resources
 
 #Inicio Restful
 api = Api()
@@ -25,9 +22,22 @@ def create_app():
     #variables de entorno
     load_dotenv()
 
-    # Si no existe el archivo de base de datos, crearlo (solo válido si se utiliza sqlite)
-    if not os.path.exists(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')):
-        os.mknod(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME'))
+    #Si no existe el archivo de base de datos crearlo (solo válido si se utiliza SQLite)
+    # if not os.path.exists(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')):
+    #     os.mknod(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME'))
+
+    if not os.path.exists('/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/'+'clase4.db'):
+        os.mknod('/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/'+'clase4.db')
+
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    #Url de configuración de base de datos
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+'/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/'+'clase4.db'
+    db.init_app(app)
+
+    #Importar directorio de recursos
+    import main.resources as resources
 
     #cargar a la API el recurso Animales y especificar la ruta 
     api.add_resource(resources.AnimalesResource, '/animales')
@@ -56,11 +66,6 @@ def create_app():
     
     api.add_resource(resources.PlanificacionesProfesoresResource, '/planificaciones')
     
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    #Url de configuracion de base de datos
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')
-    db.init_app(app)
-
     #Cargar la aplicacion en la API de Flask Restful
     #es para que la aplicacion de flask funcione como API
     api.init_app(app)
