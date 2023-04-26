@@ -1,18 +1,36 @@
 # ProfesorClases
 from flask_restful import Resource
-from flask import request
+from flask import request, jsonify
 from .. import db
 from main.models import ClaseModel
 
-#Datos de prueba de JSON
-
-# CLASESPROFESORES = {
-#     1: {'nombre':'Pepe', 'apellido':'Argento', 'clase':'Crossfit'},
-#     2: {'nombre':'Monica', 'apellido':'Argento', 'clase':'Pesas'},
-#     3: {'nombre':'Stephen', 'apellido':'Perez', 'clase':'Zumba'}
-# }
-
-class ClasesProfesores(Resource):
+class Clases(Resource):
     def get(self):
+        clases = db.session.query(ClaseModel).all()
+        return jsonify([clase.to_json() for clase in clases])
+    def post(self):
+        clase = ClaseModel.from_json(request.get_json())
+        db.session.add(clase)
+        db.session.commit()
+        return clase.to_json(), 201
+
+
+class Clase(Resource):
+    def get(self, id):
         clase = db.session.query(ClaseModel).get_or_404(id)
         return clase.to_json()
+    
+    def delete(self, id):
+        clase = db.session.query(ClaseModel).get_or_404(id)
+        db.session.delete(clase)
+        db.session.commit()
+        return '', 204
+    
+    def put(self, id):
+        clase = db.session.query(ClaseModel).get_or_404(id)
+        data = request.get_json().items()
+        for key, value in data:
+            setattr(clase, key, value)
+        db.session.add(clase)
+        db.session.commit()
+        return clase.to_json() , 201

@@ -3,24 +3,6 @@ from flask import request, jsonify
 from .. import db
 from main.models import UsuarioModel
 
-# #Datos de prueba en JSON
-# USUARIOS = {
-#     1: {'nombre':'Carlos', 'apellido':'Samso'},
-#     2: {'nombre':'Guillermo', 'apellido':'Freytes'},
-#     3: {'nombre':'Eduardo', 'apellido':'Grau'}
-# }
-
-# USUARIOS_ALUMNOS = {
-#     1: {'nombre':'Charlie', 'apellido':'Messi'},
-#     2: {'nombre':'William', 'apellido':'Di Maria'},
-#     3: {'nombre':'Edward', 'apellido':'Montiel'}
-# }
-
-# USUARIOS_PROFESORES = {
-#     1: {'nombre':'Pepe', 'apellido':'Argento'},
-#     2: {'nombre':'Monica', 'apellido':'Argento'},
-#     3: {'nombre':'Stephen', 'apellido':'Perez'}
-# }
 
 #Defino el recurso usuario
 class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)

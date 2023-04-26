@@ -3,12 +3,6 @@ from flask import request, jsonify
 from .. import db
 from main.models import AnimalModel
 
-# #Datos de prueba en JSON
-# ANIMALES = {
-#     1: {'nombre':'Boby', 'raza':'Obejero Aleman'},
-#     2: {'nombre':'Peter', 'raza':'Caniche'}
-# }
-
 #Defino el recurso Animal
 class Animal(Resource): #A la clase animal le indico que va a ser del tipo recurso(Resource)
     #obtener recurso
