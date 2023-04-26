@@ -12,7 +12,7 @@ class Profesor(db.Model):
         clase_json = {
             'id': self.id,
             'id_usuario': self.id_usuario,
-            'socio': self.especialidad,
+            'especialidad': self.especialidad,
         }
         return clase_json
 
@@ -20,7 +20,7 @@ class Profesor(db.Model):
     def from_json(clase_json):
         id = clase_json.get('id')
         id_usuario = clase_json.get('id_usuario')
-        especialidad = clase_json.get('socio')
+        especialidad = clase_json.get('especialidad')
         return Profesor(id=id,
                     id_usuario=id_usuario,
                     especialidad=especialidad

@@ -7,7 +7,7 @@ class UsuariosAlumnos(Resource):
     #obtener lista de los alumnos
     def get(self):
         alumnos = db.session.query(AlumnoModel).all()
-        return jsonify([alumnos.to_json() for alumno in alumnos])
+        return jsonify([alumno.to_json() for alumno in alumnos])
     
     def post(self):
         alumno = AlumnoModel.from_json(request.get_json())
@@ -28,6 +28,7 @@ class UsuarioAlumno(Resource): #A la clase usuarioalumno le indico que va a ser 
         db.session.commit()
         return '', 204
     #Modificar el recurso usuario
+    
     def put(self, id):
         alumno = db.session.query(AlumnoModel).get_or_404(id)
         data = request.get_json().items()

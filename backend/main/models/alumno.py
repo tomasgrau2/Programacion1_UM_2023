@@ -11,8 +11,8 @@ class Alumno(db.Model):
     def to_json(self):
         alumno_json = {
             'id': self.id,
-            'id_usuario': self.id_usuario,
-            'socio': self.nro_socio,
+            'id_usuario': int(self.id_usuario),
+            'nro_socio': int(self.nro_socio),
         }
         return alumno_json
 
@@ -20,9 +20,8 @@ class Alumno(db.Model):
     def from_json(alumno_json):
         id = alumno_json.get('id')
         id_usuario = alumno_json.get('id_usuario')
-        nro_socio = alumno_json.get('socio')
+        nro_socio = alumno_json.get('nro_socio')
         return Alumno(id=id,
                     id_usuario=id_usuario,
                     nro_socio=nro_socio
                     )
-

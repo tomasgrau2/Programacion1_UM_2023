@@ -49,11 +49,13 @@ def create_app():
 
     api.add_resource(resources.UsuarioResource, '/usuario/<id>')
 
-    # api.add_resource(resources.UsuariosAlumnosResource, '/alumnos')
+    api.add_resource(resources.UsuariosAlumnosResource, '/alumnos')
 
     api.add_resource(resources.UsuarioAlumnoResource, '/alumno/<id>')
 
-    api.add_resource(resources.UsuariosProfesoresResource, '/profesor/<id>')
+    api.add_resource(resources.UsuarioProfesorResource, '/profesor/<id>')
+
+    api.add_resource(resources.UsuariosProfesoresResource, '/profesores')
 
     api.add_resource(resources.ClasesProfesoresResource, '/clases')
 

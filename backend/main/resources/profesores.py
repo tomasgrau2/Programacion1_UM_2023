@@ -8,7 +8,7 @@ class UsuariosProfesores(Resource):
     #obtener lista de los Profesores
     def get(self):
         profesores = db.session.query(ProfesorModel).all()
-        return jsonify([profesores.to_json() for profesor in profesores])
+        return jsonify([profesor.to_json() for profesor in profesores])
     
     def post(self):
         profesor = ProfesorModel.from_json(request.get_json())
@@ -21,6 +21,11 @@ class UsuarioProfesor(Resource): #A la clase UsuarioProfesor le indico que va a 
         profesor = db.session.query(ProfesorModel).get_or_404(id)
         return profesor.to_json()
     
+    def delete(self, id):
+        profesor = db.session.query(ProfesorModel).get_or_404(id)
+        db.session.delete(profesor)
+        db.session.commit()
+        return '', 204
     
     #Modificar el recurso usuario
     def put(self, id):

@@ -53,10 +53,6 @@ class Usuarios(Resource):
         usuarios = db.session.query(UsuarioModel).all()
         return jsonify([usuario.to_json() for usuario in usuarios])
     
-# def get(self):
-#         animales = db.session.query(AnimalModel).all()
-#         return jsonify([animal.to_json() for animal in animales])
-
     #insertar recurso
     def post(self):
         usuario = UsuarioModel.from_json(request.get_json())
