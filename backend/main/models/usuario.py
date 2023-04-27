@@ -8,7 +8,10 @@ class Usuario(db.Model):
     edad = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(100), nullable=False)
     contrasena = db.Column(db.String(100), nullable=False)
-    
+    r_alumno = db.relationship('Alumno', back_populates='r_usuario',cascade='all, delete-orphan')
+    r_profesor = db.relationship('Profesor', back_populates='r_usuario',cascade='all, delete-orphan')
+
+
     def __repr__(self):
         return '<Usuario: %r >' % (self.nombre)
     #Convertir objeto en JSON
@@ -25,7 +28,9 @@ class Usuario(db.Model):
         }
         return usuario_json
 
-    def to_json_short(self):
+    def to_json_complete(self):
+        r_alumnos = [r_alumno.to_json() for r_alumno in self.r_alumnos]
+        r_profesor = [r_profesor.to_json() for r_profesor in self.r_profesors]
         usuario_json = {
             'id': self.id,
             'nombre': str(self.nombre),
@@ -34,7 +39,15 @@ class Usuario(db.Model):
             'edad': int(self.edad),
             'email':str(self.email),
             'contrasena': str(self.contrasena),
-            
+            'r_alumnos':r_alumnos,
+            'r_profesor':r_profesor
+        }
+        return usuario_json
+
+    def to_json_short(self):
+        usuario_json = {
+            'id': self.id,
+            'nombre': str(self.nombre),
         }
         return usuario_json
 

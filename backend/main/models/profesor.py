@@ -1,20 +1,44 @@
 from .. import db
-
+from . import UsuarioModel
 
 class Profesor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    id_usuario = db.Column(db.Integer, nullable=False)
     especialidad = db.Column(db.Integer, nullable=False)
+    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'))
+    r_usuario = db.relationship("Usuario", back_populates="r_profesor")
+    r_clase = db.relationship("Clase", back_populates="r_profesor")
+
     def __repr__(self):
         return '<Alumno: %r >' % (self.id)
 
     def to_json(self):
-        clase_json = {
+        self.usuario = db.session.query(UsuarioModel).get_or_404(self.id_usuario)
+        profesor_json = {
             'id': self.id,
             'id_usuario': self.id_usuario,
             'especialidad': self.especialidad,
+            'usuario' : self.usuario.to_json()
         }
-        return clase_json
+        return profesor_json
+
+    def to_json_complete(self):
+        r_clase = [r_clase.to_json() for r_clase in self.r_clases]
+        profesor_json = {
+            'id': self.id,
+            'id_usuario': self.id_usuario,
+            'especialidad': self.especialidad,
+            'usuario' : self.usuario.to_json(),
+            'r_clase':r_clase
+        }
+        return profesor_json
+
+
+    def to_json_short(self):
+        profesor_json = {
+            'id': self.id,
+            'especialidad': str(self.especialidad),
+        }
+        return profesor_json
 
     @staticmethod
     def from_json(clase_json):

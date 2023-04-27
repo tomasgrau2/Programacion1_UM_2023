@@ -1,6 +1,5 @@
 from .. import db
 
-
 class Planificacion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     lunes = db.Column(db.String, nullable=False)
