@@ -2,7 +2,7 @@
 from flask_restful import Resource
 from flask import request,jsonify
 from .. import db
-from main.models import PlanificacionModel
+from main.models import PlanificacionModel, ClaseModel
 
 class Planificaciones(Resource):
     def get(self):
@@ -19,7 +19,13 @@ class Planificaciones(Resource):
         return planificacion.to_json() , 201
     
     def post(self):
+        clases_ids = request.get_json().get('clases')
         planificacion = PlanificacionModel.from_json(request.get_json())
+        
+        if clases_ids:
+            clases = ClaseModel.query.filter(ClaseModel.id.in_(clases_ids)).all()
+            planificacion.clases.extend(clases)
+            
         db.session.add(planificacion)
         db.session.commit()
         return planificacion.to_json(), 201

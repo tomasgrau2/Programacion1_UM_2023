@@ -1,5 +1,12 @@
 from .. import db
 
+
+alumnos_planificaciones = db.Table("alumnos_planificaciones",
+    db.Column("id_alumnos",db.Integer,db.ForeignKey("alumno.id"),primary_key=True),
+    db.Column("id_planificacion",db.Integer,db.ForeignKey("planificacion.id"),primary_key=True),
+    )
+
+
 class Planificacion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     lunes = db.Column(db.String, nullable=False)
@@ -7,6 +14,8 @@ class Planificacion(db.Model):
     miercoles = db.Column(db.String, nullable=False)
     jueves = db.Column(db.String, nullable=False)
     viernes = db.Column(db.String, nullable=False)
+    alumnos = db.relationship('Alumno', secondary=alumnos_planificaciones, backref=db.backref('planificaciones', lazy='dynamic'))
+
     def __repr__(self):
         return '<Planificacion: %r >' % (self.id)
 

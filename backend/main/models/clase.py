@@ -1,23 +1,31 @@
 from .. import db
-from . import ProfesorModel
+
+profesores_clases = db.Table("profesores_clases",
+    db.Column("id_profesor",db.Integer,db.ForeignKey("profesor.id"),primary_key=True),
+    db.Column("id_clase",db.Integer,db.ForeignKey("clase.id"),primary_key=True),
+    )
+
+planificaciones_clases = db.Table("planificaciones_clases",
+    db.Column("id_planificacion",db.Integer,db.ForeignKey("planificacion.id"),primary_key=True),
+    db.Column("id_clase",db.Integer,db.ForeignKey("clase.id"),primary_key=True),
+    )
+
 
 class Clase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
-    id_profesor = db.Column(db.Integer, db.ForeignKey('profesor.id'))
     horario = db.Column(db.String(100), nullable=False)
-    r_profesor = db.relationship("Profesor", back_populates="r_profesor")
-    
+    profesores = db.relationship('Profesor', secondary=profesores_clases, backref=db.backref('clases', lazy='dynamic'))
+    planificaciones = db.relationship('Planificacion', secondary=planificaciones_clases, backref=db.backref('clases', lazy='dynamic'))
+
     def __repr__(self):
         return '<Clase: %r >' % (self.nombre)
     #Convertir objeto en JSON
     def to_json(self):
-        self.profesor = db.session.query(ProfesorModel).get_or_404(self.id_profesor)
         clase_json = {
             'id': self.id,
             'nombre': str(self.nombre),
-            'horario': self.horario,
-            'profesor': self.profesor.to_json()
+            'horario': self.horario
         }
         return clase_json
 

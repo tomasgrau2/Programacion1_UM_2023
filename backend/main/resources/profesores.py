@@ -1,7 +1,8 @@
 from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
-from main.models import ProfesorModel
+from main.models import ProfesorModel, ClaseModel
+
 
 
 class UsuariosProfesores(Resource):
@@ -11,7 +12,13 @@ class UsuariosProfesores(Resource):
         return jsonify([profesor.to_json() for profesor in profesores])
     
     def post(self):
+        clases_ids = request.get_json().get('clases')
         profesor = ProfesorModel.from_json(request.get_json())
+        
+        if clases_ids:
+            clases = ClaseModel.query.filter(ClaseModel.id.in_(clases_ids)).all()
+            profesor.clases.extend(clases)
+            
         db.session.add(profesor)
         db.session.commit()
         return profesor.to_json(), 201

@@ -12,7 +12,4 @@ from .clases import Clases as ClasesResource
 from .clases import Clase as ClaseResource
 from .planificaciones import Planificaciones as PlanificacionesResource
 from .planificaciones import Planificacion as PlanificacionResource
-from .planificaciones_clases import PlanificacionesClases as PlanificacionClasesResource
 from .pagos import Pago as PagoResource
-from .profesores_clases import ProfesoresClases as ProfesoresClasesResource
-from .profesores_clases import ProfesorClase as ProfesorClaseResource

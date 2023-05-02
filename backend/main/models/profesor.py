@@ -6,7 +6,6 @@ class Profesor(db.Model):
     especialidad = db.Column(db.Integer, nullable=False)
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'))
     r_usuario = db.relationship("Usuario", back_populates="r_profesor")
-    r_clase = db.relationship("Clase", back_populates="r_profesor")
 
     def __repr__(self):
         return '<Alumno: %r >' % (self.id)
@@ -28,7 +27,6 @@ class Profesor(db.Model):
             'id_usuario': self.id_usuario,
             'especialidad': self.especialidad,
             'usuario' : self.usuario.to_json(),
-            'r_clase':r_clase
         }
         return profesor_json
 
