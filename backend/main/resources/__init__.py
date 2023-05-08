@@ -1,6 +1,4 @@
 #Cambiar el nombre en la importación para clarificar y evitar conflictos
-from .animales import Animal as AnimalResource
-from .animales import Animales as AnimalesResource
 from .usuarios import Usuarios as UsuariosResource
 from .usuarios import Usuario as UsuarioResource
 from .profesores import UsuariosProfesores as UsuariosProfesoresResource

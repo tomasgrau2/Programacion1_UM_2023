@@ -6,8 +6,22 @@ from main.models import PlanificacionModel, ClaseModel
 
 class Planificaciones(Resource):
     def get(self):
-        planificaciones = db.session.query(PlanificacionModel).all()
-        return jsonify([planificacion.to_json() for planificacion in planificaciones])
+        page = 1
+        per_page = 10
+        planificaciones = db.session.query(PlanificacionModel)
+        
+        if request.args.get('page'):
+            page = int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page = int(request.args.get('per_page'))
+        
+        planificaciones = planificaciones.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
+
+        return jsonify({'planificaciones': [planificacion.to_json() for planificacion in planificaciones],
+                  'total': planificaciones.total,
+                  'pages': planificaciones.pages,
+                  'page': page
+                })
     
     def put(self, id):
         planificacion = db.session.query(PlanificacionModel).get_or_404(id)

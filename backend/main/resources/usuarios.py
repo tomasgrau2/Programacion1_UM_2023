@@ -31,11 +31,24 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
 #Coleccion de recurso Usuarios
 class Usuarios(Resource):
     #obtener lista de los usuarios
-    def get(self):
-        usuarios = db.session.query(UsuarioModel).all()
-        return jsonify([usuario.to_json() for usuario in usuarios])
-    
-    #insertar recurso
+    def get(self):    
+        page = 1
+        per_page = 10
+        usuarios = db.session.query(UsuarioModel)
+        
+        if request.args.get('page'):
+            page = int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page = int(request.args.get('per_page'))
+        
+        usuarios = usuarios.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
+
+        return jsonify({'usuarios': [usuario.to_json() for usuario in usuarios],
+                  'total': usuarios.total,
+                  'pages': usuarios.pages,
+                  'page': page
+                })
+
     def post(self):
         usuario = UsuarioModel.from_json(request.get_json())
         db.session.add(usuario)

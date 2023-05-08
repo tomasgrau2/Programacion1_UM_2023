@@ -27,9 +27,8 @@ def create_app():
     if not os.path.exists(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')):
         os.mknod(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME'))
     
-
     # if not os.path.exists(('/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/')+('clase4.db')):
-    #     os.mknod(('/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/')+('clase4.db'))
+        # os.mknod(('/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/')+('clase4.db'))
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -40,11 +39,6 @@ def create_app():
 
     #Importar directorio de recursos
     import main.resources as resources
-
-    #cargar a la API el recurso Animales y especificar la ruta 
-    api.add_resource(resources.AnimalesResource, '/animales')
-    #cargar a la API el recurso Animal y especificar la ruta 
-    api.add_resource(resources.AnimalResource, '/animal/<id>')
 
     api.add_resource(resources.UsuariosResource, '/usuarios')
 

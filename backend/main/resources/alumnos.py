@@ -6,8 +6,23 @@ from main.models import AlumnoModel, PlanificacionModel
 class UsuariosAlumnos(Resource):
     #obtener lista de los alumnos
     def get(self):
-        alumnos = db.session.query(AlumnoModel).all()
-        return jsonify([alumno.to_json() for alumno in alumnos])
+        page = 1
+        per_page = 10
+        alumnos = db.session.query(AlumnoModel)
+        
+        if request.args.get('page'):
+            page = int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page = int(request.args.get('per_page'))
+
+        #Obtener valor paginado
+        alumnos = alumnos.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
+
+        return jsonify({'alumnos': [alumno.to_json() for alumno in alumnos],
+                  'total': alumnos.total,
+                  'pages': alumnos.pages,
+                  'page': page
+                })
     
     def post(self):
         planificaciones_ids = request.get_json().get('planificaciones')
@@ -20,6 +35,7 @@ class UsuariosAlumnos(Resource):
         db.session.add(alumno)
         db.session.commit()
         return alumno.to_json(), 201
+
 class UsuarioAlumno(Resource): #A la clase usuarioalumno le indico que va a ser del tipo recurso(Resource)
     #obtener recurso
     def get(self, id):

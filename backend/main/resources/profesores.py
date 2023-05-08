@@ -8,8 +8,22 @@ from main.models import ProfesorModel, ClaseModel
 class UsuariosProfesores(Resource):
     #obtener lista de los Profesores
     def get(self):
-        profesores = db.session.query(ProfesorModel).all()
-        return jsonify([profesor.to_json() for profesor in profesores])
+        page = 1
+        per_page = 10
+        profesores = db.session.query(ProfesorModel)
+        
+        if request.args.get('page'):
+            page = int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page = int(request.args.get('per_page'))
+        
+        profesores = profesores.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
+
+        return jsonify({'profesores': [profesor.to_json() for profesor in profesores],
+                  'total': profesores.total,
+                  'pages': profesores.pages,
+                  'page': page
+                })
     
     def post(self):
         clases_ids = request.get_json().get('clases')
