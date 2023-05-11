@@ -14,6 +14,25 @@ class Planificaciones(Resource):
             page = int(request.args.get('page'))
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
+
+        #Busqueda por dia
+        if request.args.get('lunes'):
+            planificaciones=planificaciones.filter(PlanificacionModel.lunes.like("%"+request.args.get('lunes')+"%"))
+
+        if request.args.get('martes'):
+            planificaciones=planificaciones.filter(PlanificacionModel.martes.like("%"+request.args.get('martes')+"%"))
+        
+        if request.args.get('miercoles'):
+            planificaciones=planificaciones.filter(PlanificacionModel.miercoles.like("%"+request.args.get('miercoles')+"%"))
+        
+        if request.args.get('jueves'):
+            planificaciones=planificaciones.filter(PlanificacionModel.jueves.like("%"+request.args.get('jueves')+"%"))
+        
+        if request.args.get('viernes'):
+            planificaciones=planificaciones.filter(PlanificacionModel.viernes.like("%"+request.args.get('viernes')+"%"))
+        
+        
+        
         
         planificaciones = planificaciones.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
 

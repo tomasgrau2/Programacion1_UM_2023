@@ -28,7 +28,7 @@ def create_app():
         os.mknod(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME'))
     
     # if not os.path.exists(('/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/')+('clase4.db')):
-        # os.mknod(('/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/')+('clase4.db'))
+    #     os.mknod(('/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/')+('clase4.db'))
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

@@ -2,7 +2,7 @@ from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
 from main.models import UsuarioModel
-
+from sqlalchemy import func, desc, asc
 
 #Defino el recurso usuario
 class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)
@@ -40,6 +40,18 @@ class Usuarios(Resource):
             page = int(request.args.get('page'))
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
+        
+        #Busqueda por apellido
+        if request.args.get('apellido'):
+            usuarios=usuarios.filter(UsuarioModel.apellido.like("%"+request.args.get('apellido')+"%"))
+            
+        #Busqueda por DNI
+        if request.args.get('dni'):
+            usuarios=usuarios.filter(UsuarioModel.dni.like("%"+request.args.get('dni')+"%"))
+            
+        #Ordeno por edad de menor a mayor
+        if request.args.get('sortby_edad'):
+            usuarios=usuarios.order_by(asc(UsuarioModel.edad))
         
         usuarios = usuarios.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
 

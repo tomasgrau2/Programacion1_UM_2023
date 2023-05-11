@@ -1,7 +1,8 @@
 from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
-from main.models import AlumnoModel, PlanificacionModel
+from main.models import AlumnoModel, PlanificacionModel, UsuarioModel
+from sqlalchemy import func, desc, asc
 
 class UsuariosAlumnos(Resource):
     #obtener lista de los alumnos
@@ -15,8 +16,21 @@ class UsuariosAlumnos(Resource):
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
 
+        #Busqueda por nro_socio
+        if request.args.get('nro_socio'):
+            alumnos=alumnos.filter(AlumnoModel.nro_socio.like("%"+request.args.get('nro_socio')+"%"))
+            
+        #Busqueda por id_usuario
+        if request.args.get('id_usuario'):
+            alumnos=alumnos.filter(AlumnoModel.id_usuario.like("%"+request.args.get('id_usuario')+"%"))
+            
+        #Orden por id_usuario
+        if request.args.get('sortby_usuarios'):
+            alumnos=alumnos.order_by(desc(AlumnoModel.id_usuario))
+
         #Obtener valor paginado
         alumnos = alumnos.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
+
 
         return jsonify({'alumnos': [alumno.to_json() for alumno in alumnos],
                   'total': alumnos.total,

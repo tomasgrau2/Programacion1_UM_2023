@@ -21,7 +21,6 @@ class Profesor(db.Model):
         return profesor_json
 
     def to_json_complete(self):
-        r_clase = [r_clase.to_json() for r_clase in self.r_clases]
         profesor_json = {
             'id': self.id,
             'id_usuario': self.id_usuario,

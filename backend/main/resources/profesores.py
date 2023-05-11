@@ -1,7 +1,8 @@
 from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
-from main.models import ProfesorModel, ClaseModel
+from main.models import ProfesorModel, ClaseModel, UsuarioModel
+from sqlalchemy import func, desc
 
 
 
@@ -16,6 +17,22 @@ class UsuariosProfesores(Resource):
             page = int(request.args.get('page'))
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
+
+                ### FILTROS ###
+        
+        #Busqueda por especialidad
+        if request.args.get('especialidad'):
+            profesores=profesores.filter(ProfesorModel.especialidad.like("%"+request.args.get('especialidad')+"%"))
+        
+        #Ordeno por especialidad
+        if request.args.get('sortby_especialidad'):
+            profesores=profesores.order_by(desc(ProfesorModel.especialidad))
+            
+        #Ordeno por id de usuario
+        if request.args.get('sortby_nrUsuario'):
+            profesores=profesores.outerjoin(ProfesorModel.id_usuario).group_by(ProfesorModel.id).order_by(func.count(UsuarioModel.id).desc())
+        
+        ### FIN FILTROS ####
         
         profesores = profesores.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
 
