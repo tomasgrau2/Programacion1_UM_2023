@@ -74,7 +74,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nombre\": \"Juan Pablo\",\n    \"apellido\": \"Muñon\",\n    \"dni\": \"43484711\",\n    \"edad\": \"22\",\n    \"email\": \"juanpabloututut@gmail.com\",\n    \"contrasena\": \"muñon123\"\n}\n\n\n"
+							"raw": "{\n    \"nombre\": \"María Fernández\",\n    \"apellido\": \"Gómez\",\n    \"dni\": \"56789123\",\n    \"edad\": \"30\",\n    \"email\": \"mariafdez@gmail.com\",\n    \"contrasena\": \"fernandez89\",\n    \"rol\": \"profesor\"\n}\n\n\n"
 						},
 						"url": {
 							"raw": "http://127.0.0.1:5000/usuarios",
@@ -155,7 +155,7 @@
 			"name": "Clases",
 			"item": [
 				{
-					"name": "Obtener lisa de clases",
+					"name": "Obtener lista de clases",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -207,6 +207,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg3OTA1OCwianRpIjoiNmJmODc3YjMtZmFjZS00ZjBlLWJiNzAtYzJkZGI1NjhmN2NmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjg0ODc5MDU4LCJleHAiOjE2ODQ4ODI2NTgsInJvbCI6ImFkbWluIiwiaWQiOjEsImVtYWlsIjoianVhbnBhYmxvdXR1dHV0QGdtYWlsLmNvbSJ9.YDkaUSOYY7MqknXWjN-6r9scWPr1SMKhJYCnTPARVfc",
 								"type": "text"
 							}
 						],
@@ -296,7 +301,13 @@
 					"name": "Lista de profesores",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4NDg4MDg5NiwianRpIjoiMGNlOTBjMTUtN2NjZS00NDYyLWJiYjItNTJkZmU0ODVjNDMwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjg0ODgwODk2LCJleHAiOjE2ODQ4ODQ0OTYsInJvbCI6ImFkbWluIiwiaWQiOjEsImVtYWlsIjoianVhbnBhYmxvdXR1dHV0QGdtYWlsLmNvbSJ9.aH7EjU-owwgrjpxZUxcbFKTgHY9x_iVArtz6jOA4heA",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://127.0.0.1:5000/profesores",
 							"protocol": "http",
@@ -351,7 +362,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id_usuario\": \"2\",\n    \"especialidad\":\"Pesas\",\n    \"clases\": [3] \n}",
+							"raw": "{\n    \"id_usuario\": \"9\",\n    \"especialidad\":\"Pesas\",\n    \"clases\": [4] \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -708,6 +719,43 @@
 							"path": [
 								"planificaciones",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"juanpabloututut@gmail.com\",\n    \"contrasena\": \"muñon123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/auth/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"login"
 							]
 						}
 					},

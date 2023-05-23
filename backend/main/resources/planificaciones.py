@@ -3,8 +3,12 @@ from flask_restful import Resource
 from flask import request,jsonify
 from .. import db
 from main.models import PlanificacionModel, ClaseModel
+from main.auth.decorators import role_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 class Planificaciones(Resource):
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def get(self):
         page = 1
         per_page = 10
@@ -42,6 +46,8 @@ class Planificaciones(Resource):
                   'page': page
                 })
     
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def put(self, id):
         planificacion = db.session.query(PlanificacionModel).get_or_404(id)
         data = request.get_json().items()
@@ -51,6 +57,8 @@ class Planificaciones(Resource):
         db.session.commit()
         return planificacion.to_json() , 201
     
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def post(self):
         clases_ids = request.get_json().get('clases')
         planificacion = PlanificacionModel.from_json(request.get_json())
@@ -65,11 +73,15 @@ class Planificaciones(Resource):
     
 class Planificacion(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)
     #obtener recurso
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor','alumno'])
     def get(self, id):
         planificacion = db.session.query(PlanificacionModel).get_or_404(id)
         return planificacion.to_json()
     
     #eliminar recurso
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def delete(self, id):
         planificacion = db.session.query(PlanificacionModel).get_or_404(id)
         db.session.delete(planificacion)
@@ -77,6 +89,8 @@ class Planificacion(Resource): #A la clase usuario le indico que va a ser del ti
         return '', 204
     
     #Modificar el recurso usuario
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def put(self, id):
         planificacion = db.session.query(PlanificacionModel).get_or_404(id)
         data = request.get_json().items()

@@ -1,4 +1,5 @@
 from .. import db 
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -6,10 +7,25 @@ class Usuario(db.Model):
     apellido = db.Column(db.String(100), nullable=False)
     dni = db.Column(db.Integer, nullable=False)
     edad = db.Column(db.Integer, nullable=False)
-    email = db.Column(db.String(100), nullable=False)
-    contrasena = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(64), unique=True, index=True, nullable=False)
+    contrasena = db.Column(db.String(128), nullable=False)
+    rol = db.Column(db.String(10), nullable=False, server_default='users')
     r_alumno = db.relationship('Alumno', back_populates='r_usuario',cascade='all, delete-orphan')
     r_profesor = db.relationship('Profesor', back_populates='r_usuario',cascade='all, delete-orphan')
+
+
+    #Getter de la contraseña plana no permite leerla
+    @property
+    def plain_password(self):
+        raise AttributeError('Password cant be read')
+    #Setter de la contraseña toma un valor en texto plano
+    # calcula el hash y lo guarda en el atributo contrasena
+    @plain_password.setter
+    def plain_password(self, contrasena):
+        self.contrasena = generate_password_hash(contrasena)
+    #Método que compara una contraseña en texto plano con el hash guardado en la db
+    def validate_pass(self,contrasena):
+        return check_password_hash(self.contrasena, contrasena)
 
 
     def __repr__(self):
@@ -61,11 +77,13 @@ class Usuario(db.Model):
         edad = usuario_json.get('edad')
         email = usuario_json.get('email')
         contrasena = usuario_json.get('contrasena')
+        rol = usuario_json.get('rol')
         return Usuario(id=id,
                     nombre=nombre,
                     apellido=apellido,
                     dni=dni,
                     edad=edad,
                     email=email,
-                    contrasena=contrasena
+                    plain_password=contrasena,
+                    rol=rol
                     )

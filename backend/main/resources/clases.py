@@ -3,11 +3,18 @@ from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
 from main.models import ClaseModel
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from main.auth.decorators import role_required
 
 class Clases(Resource):
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor','alumno'])
     def get(self):
         clases = db.session.query(ClaseModel).all()
         return jsonify([clase.to_json() for clase in clases])
+    
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def post(self):
         clases = ClaseModel.from_json(request.get_json())
         print(clases)
@@ -20,16 +27,22 @@ class Clases(Resource):
 
 
 class Clase(Resource):
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor','alumno'])
     def get(self, id):
         clase = db.session.query(ClaseModel).get_or_404(id)
         return clase.to_json()
     
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def delete(self, id):
         clase = db.session.query(ClaseModel).get_or_404(id)
         db.session.delete(clase)
         db.session.commit()
         return '', 204
     
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def put(self, id):
         clase = db.session.query(ClaseModel).get_or_404(id)
         data = request.get_json().items()

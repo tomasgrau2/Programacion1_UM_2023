@@ -3,9 +3,12 @@ from flask import request, jsonify
 from .. import db
 from main.models import AlumnoModel, PlanificacionModel, UsuarioModel
 from sqlalchemy import func, desc, asc
-
+from main.auth.decorators import role_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 class UsuariosAlumnos(Resource):
     #obtener lista de los alumnos
+    @jwt_required()
+    @role_required(roles = ["admin",'profesor'])
     def get(self):
         page = 1
         per_page = 10
@@ -38,6 +41,8 @@ class UsuariosAlumnos(Resource):
                   'page': page
                 })
     
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def post(self):
         planificaciones_ids = request.get_json().get('planificaciones')
         alumno = AlumnoModel.from_json(request.get_json())
@@ -52,18 +57,23 @@ class UsuariosAlumnos(Resource):
 
 class UsuarioAlumno(Resource): #A la clase usuarioalumno le indico que va a ser del tipo recurso(Resource)
     #obtener recurso
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def get(self, id):
         alumno = db.session.query(AlumnoModel).get_or_404(id)
         return alumno.to_json()
     
     #eliminar recurso
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def delete(self, id):
         alumno = db.session.query(AlumnoModel).get_or_404(id)
         db.session.delete(alumno)
         db.session.commit()
         return '', 204
     #Modificar el recurso usuario
-    
+    @jwt_required()
+    @role_required(roles = ['admin', 'profesor'])
     def put(self, id):
         alumno = db.session.query(AlumnoModel).get_or_404(id)
         data = request.get_json().items()
