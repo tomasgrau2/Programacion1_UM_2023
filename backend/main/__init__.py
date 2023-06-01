@@ -30,17 +30,14 @@ def create_app():
     load_dotenv()
 
     #Si no existe el archivo de base de datos crearlo (solo válido si se utiliza SQLite)
-    # if not os.path.exists(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')):
-    #     os.mknod(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME'))
-    
-    if not os.path.exists(('/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/')+('clase4.db')):
-        os.mknod(('/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/')+('clase4.db'))
+    if not os.path.exists(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')):
+        os.mknod(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME'))
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # Url de configuración de base de datos
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+('/home/tomas_grau/Desktop/Programacion oficial/Programacion1_UM_2023/backend/')+('clase4.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')
+
     db.init_app(app)
 
     #Importar directorio de recursos
@@ -77,11 +74,10 @@ def create_app():
     #Cargar clave secreta
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
 
-    # app.config['JWT_SECRET_KEY'] = 'clave-secreta-de-la-app'
+    
     #Cargar tiempo de expiración de los tokens
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
 
-    # app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(3600)
     jwt.init_app(app)
 
     from main.auth import routes
