@@ -5,7 +5,7 @@ class Alumno(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nro_socio = db.Column(db.Integer, nullable=False)
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'))
-    r_usuario = db.relationship("Usuario", back_populates="r_alumno", uselist=False, single_parent=True)
+    r_usuario = db.relationship("Usuario", back_populates="r_alumno")
 
      #animal = db.relationship("Animal", back_populates="historias", uselist=False, single_parent=True)
     
