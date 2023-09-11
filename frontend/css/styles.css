@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Candal&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 /* Establecer el fondo de imagen */
 .background-image {
     background-image: url('Banner.jpg');/* Reemplaza con la ruta de tu imagen de fondo */ 
@@ -21,14 +24,13 @@
 }
 
 /* Cambiar el color del texto de las cards */
-.card-title {
-    color: #333;
+.card-titulo {
+    color: #fff;
 }
 
-.card-text {
-    color: #777;
+.card-texto {
+    color: #D0FD3E;
 }
-
 /* Estilos para el footer */
 .footer {
     text-align: center;
@@ -37,10 +39,21 @@
 }
 
 .welcome-text {
-    font-size: 24px;
+    font-size: 38px;
+    font-style: normal;
     color: white;
-    text-align: center;
     position: relative;
+    font-weight: 400;
+    line-height: 43px;
+}
+
+.welcome-text2 {
+    font-size: 20px;
+    font-style: normal;
+    color: white;
+    position: relative;
+    font-weight: 400;
+    line-height: 43px;
 }
 
 
@@ -58,7 +71,7 @@
 }
 
 .borde-personalizado {
-    border: 2px solid #252525; /* Cambia el grosor y el color según tus preferencias */
+    border: 2px solid #474747; /* Cambia el grosor y el color según tus preferencias */
   }
 
 .card-text{
@@ -135,4 +148,354 @@ font-size: 18px;
     border: 2px solid #212123;
     background: #252527;
     box-shadow: 0px 11px 20px 0px rgba(0, 0, 0, 0.20);
+}
+
+.circle {
+    width: 75px;
+    height: 75px;
+    background-color: transparent; /* Fondo transparente */
+    border: 3px solid rgb(214, 87, 40); /* Borde naranja */
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+  }
+
+
+.fecha-home{
+    color:  #D0FD3E;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.texto-home{
+    color: #FFF;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.button-admin{
+    border-radius: 16px;
+    background: var(--Dark-2, #2C2C2E);
+    border-radius: 10px;
+    border: 2px solid #212123;
+    box-shadow: 0px 11px 20px 0px rgba(0, 0, 0, 0.20);
+}
+.btn-suggest1 {
+    font-size: 18px;
+    padding: 10px 20px; /* Adjust the padding to make it wider */
+    border-radius: 0px; 
+    width: 100%; /* Permite que el ancho se ajuste al contenido */
+    color: white; 
+    border-top: 1px solid #252525;
+    border-bottom: 1px solid #252525;
+    border-left: none;
+    border-right: none;
+}
+
+.btn-suggest2 {
+    font-size: 18px;
+    padding: 10px 20px; /* Adjust the padding to make it wider */
+    border-radius: 0px; 
+    width: 100%; /* Permite que el ancho se ajuste al contenido */
+    color: white; 
+    border-top: none;
+    border-bottom: 1px solid #252525;
+    border-left: none;
+    border-right: none;
+}
+
+/* Cambia el color de fondo al pasar el cursor sobre el botón */
+.btn-suggest1:hover {
+    background-color: #d4ff46;
+}
+.btn-suggest2:hover {
+    background-color: #d4ff46;
+}
+
+
+p.lead {
+    color: white;
+    font-size: 30px; 
+    font-family: 'Candal', sans-serif;
+    word-wrap: break-word;
+}
+
+.sign-out-link {
+    display: inline-block;
+    padding: 5px 5px;
+    color: rgb(255, 0, 0);
+    border-radius: 0px;
+    transition: background-color 0.3s ease;
+}
+
+.p-perfil{
+    color: #FFF;
+    font-weight: 300;
+    line-height: 43px; 
+    color: var(--White, #FFF);
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px; /* 125% */
+}
+
+.form-editar{
+    color: var(--Primary, #D0FD3E);
+/* Caption/Regular */
+    font-family: Open Sans;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 13px; 
+}
+
+/* Cambiar el color de fondo del campo cuando está enfocado o tiene contenido */
+.form-control1:focus,
+.form-control1:not(:placeholder-shown) {
+  background-color: #191919; /* Cambia esto al color que desees */
+}
+
+/* Estilo personalizado para la etiqueta flotante */
+
+.borde-editar{
+    border-bottom: 1px solid #252525;
+    border-top: 1px solid #252525;
+    border-left: none;
+    border-right: none;
+    border-radius: 0%;
+}
+
+#floatingInputValue23::placeholder {
+    color: rgb(255, 255, 255);
+    opacity: 50%;
+}
+
+.label{
+    color: #D0FD3E;
+}
+
+.borde-editar2{
+    border-bottom: 1px solid #252525;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0%;
+}
+
+.btn-editar-perfil{
+    color: #000;
+    border-radius: 24px;
+    background: var(--Primary, #D0FD3E);
+}
+
+.btn-editar-perfil:hover{
+    background-color: #000000;
+    color: #D0FD3E;
+}
+
+.btn-crear-alumno{
+    color: #ffffff;
+    border-radius: 24px;
+    background: #24df13;
+}
+.btn-crear-alumno:hover{
+    color: #ffffff;
+    border-radius: 24px;
+    border-color: #FFF;
+    background: #24df13;
+}
+
+
+.btn-volver{
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: rgb(122, 122, 122);
+    border: none;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.btn-eliminar-alumno{
+    color: #ffffff;
+    border-radius: 24px;
+    background: #df1a13;
+}
+.btn-eliminar-alumno:hover{
+    color: #ffffff;
+    border-radius: 24px;
+    background: #df1a13;
+    border-color: #f8acac;
+}
+
+.btn-custom-grey {
+    background-color:#252525;
+    border: #f8f9fa;
+    color: #f8f9fa;
+}
+
+.btn-custom-grey:hover {
+    background-color: #d4ff46;
+}
+
+.custom-search-bar {
+    background-color: #f0f0f0; /* Cambia el color de fondo */
+    border-radius: 10px;
+    border-color: #d4ff46;
+}
+
+.custom-search-input {
+    border-color: #d4ff46; /* Cambia el color del borde */
+}
+
+.custom-search-button {
+    background-color: #252525; /* Cambia el color de fondo del botón */
+    border-color: #d4ff46; /* Cambia el color del borde del botón */
+    color: #fff; /* Cambia el color del texto del botón */
+}
+
+.custom-search-button:hover {
+    background-color: #d4ff46;
+    color:#000
+}
+
+.btn-volver{
+    display: flex; /* Utiliza flexbox para centrar el contenido /
+    justify-content: center; / Centra horizontalmente el contenido /
+    align-items: center; / Centra verticalmente el contenido */
+    background-color: rgb(122, 122, 122);
+    border: none;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+.p-perfil{
+    color: #FFF;
+    font-weight: 300;
+    line-height: 43px; 
+    color: var(--White, #FFF);
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px; /* 125% */
+}
+
+.btn-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #3de120; /* Cambia el color de fondo */
+    color: #ffffff; /* Cambia el color del texto */
+    font-size: 20px; /* Cambia el tamaño del texto */
+    border: none; /* Elimina el borde */
+}
+
+.fecha-home{
+    color:  #D0FD3E;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.texto-home{
+    color: #FFF;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.contenedor{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.contenedor-carrusel {
+	width: 100%;
+	padding: 20px 0;
+	overflow: hidden;
+	scroll-behavior: smooth;
+}
+
+.contenedor-carrusel .carrusel {
+	display: flex;
+	flex-wrap: nowrap;
+}
+.flecha-izquierda{
+    position: absolute;
+	border: none;
+	background: rgba(0,0,0,0.3);
+	font-size: 30px;
+	height: 40%;
+	top: calc(50% - 25%);
+	line-height: 40px;
+	width: 30px;
+	color: #fff;
+	cursor: pointer;
+	z-index: 500;
+	transition: .2s ease all;
+    left: 0;
+}
+
+.flecha-derecha {
+    position: absolute;
+	border: none;
+	background: rgba(0,0,0,0.3);
+	font-size: 30px;
+	height: 40%;
+	top: calc(50% - 25%);
+	line-height: 40px;
+	width: 30px;
+	color: #fff;
+	cursor: pointer;
+	z-index: 500;
+	transition: .2s ease all;
+    right: 0;
+}
+
+.hora-plani{
+    color:  #D0FD3E;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.texto-plani{
+    color: #FFF;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+p.lead2 {
+    color: white;
+    font-size: 30px; 
+    word-wrap: break-word;
+}
+
+.texto-modificar {
+    background-color: #d0fd3eab;
+    font-size: 12px;
+    font-weight: 400;
+    color: white;
+    display: inline-block; /* Hacer que el fondo rojo se ajuste al texto */
+    border-radius: 10%;
+}
+
+.custom-card {
+    width: 500px;
 }
