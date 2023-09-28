@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
         
     <!-- Style propios -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link rel="icon" href="icono_motionx.svg" type="image/x-icon">
 </head>
 <body class="fondo-oscuro">
@@ -27,8 +27,8 @@
         </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <div class="d-flex flex-wrap justify-content-center">
-                    <button class="btn btn-outline-transparent mx-2" onclick="window.location.href='homeprofesores.html'"><i class="fa-solid fa-house fa-xs"></i> <b>Inicio</b></button>
-                    <button class="btn btn-outline-transparent mx-2" onclick="window.location.href='planificacionprofesores.html'"><i class="fa-solid fa-bars-staggered fa-rotate-270 fa-xs"></i> <b>Planificaciones</b></button>
+                    <button class="btn btn-outline-transparent mx-2" onclick="window.location.href='homealumnos.html'"><i class="fa-solid fa-house fa-xs"></i> <b>Inicio</b></button>
+                    <button class="btn btn-outline-transparent mx-2" onclick="window.location.href='planificacion.html'"><i class="fa-solid fa-bars-staggered fa-rotate-270 fa-xs"></i> <b>Planificaciones</b></button>
                     <button class="btn btn-outline-transparent mx-2" onclick="window.location.href='perfil.html'"><i class="fa-solid fa-user fa-xs"></i> <b>Perfil</b></button>
                 </div>
             </div>
@@ -38,7 +38,7 @@
 
     <div class="container mt-5 ">
         <div class="row">
-            <h1 class="welcome-text">Hola Profesor/a</h1>
+            <h1 class="welcome-text">Hola Usuario</h1>
         </div>
         <div class="row">
             <h2 class="welcome-text2">Buen día.</h2>
@@ -47,7 +47,8 @@
     <div id="cards" class="container">
       <div class="row">
         <div class="d-flex">
-          <div class="p-2 flex-grow-1 texto-home">Proxima clase</div>
+          <div class="p-2 flex-grow-1 texto-home">Plan de hoy</div>
+          <div class="p-2 fecha-home">Jue 24 Ago</div>
         </div>
       </div>
       <div class="row">
@@ -59,7 +60,35 @@
               <div class="card-img-overlay">
                 <div class="card-body">
                   <h3 class="card-titulo">Running</h3>
-                  <h6 class="card-texto">07:00-08:00</h6>
+                  <h6 class="card-texto">08:00-09:00</h6>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-auto">
+          <a href="planificaciones.html">
+            <div class="card">
+              <img src="css/plan-de-hoy-1.png
+              " class="card-img-top" alt="Plan1">
+              <div class="card-img-overlay">
+                <div class="card-body">
+                  <h3 class="card-titulo">Running</h3>
+                  <h6 class="card-texto">08:00-09:00</h6>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-auto">
+          <a href="planificaciones.html">
+            <div class="card">
+              <img src="css/plan-de-hoy-1.png
+              " class="card-img-top" alt="Plan1">
+              <div class="card-img-overlay">
+                <div class="card-body">
+                  <h3 class="card-titulo">Running</h3>
+                  <h6 class="card-texto">08:00-09:00</h6>
                 </div>
               </div>
             </div>
@@ -71,8 +100,7 @@
     <div id="cards" class="container">
       <div class="row">
         <div class="d-flex">
-          <div class="p-2 flex-grow-1 texto-home">Clases del día</div>
-          <div class="p-2 fecha-home">Jue 24 Ago</div>
+          <div class="p-2 flex-grow-1 texto-home">Clases disponibles</div>
         </div>
         <div class="col-auto">
           <a href="clases.html">
@@ -81,7 +109,7 @@
               <div class="card-img-overlay">
                 <div class="card-body">
                   <h3 class="card-titulo">Boxeo</h3>
-                  <h6 class="card-texto">08:00-09:00</h6>
+                  <h6 class="card-texto">Lunes 08:00-09:00</h6>
                 </div>
               </div>
             </div>
@@ -94,52 +122,72 @@
               <div class="card-img-overlay">
                 <div class="card-body">
                   <h3 class="card-titulo">Boxeo</h3>
-                  <h6 class="card-texto">08:00-09:00</h6>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-auto">
-          <a href="clases.html">
-            <div class="card">
-              <img src="css/clases-disponibles-1.png" class="card-img-top" alt="Clase1">
-              <div class="card-img-overlay">
-                <div class="card-body">
-                  <h3 class="card-titulo">Boxeo</h3>
-                  <h6 class="card-texto">08:00-09:00</h6>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-auto">
-          <a href="clases.html">
-            <div class="card">
-              <img src="css/clases-disponibles-1.png" class="card-img-top" alt="Clase1">
-              <div class="card-img-overlay">
-                <div class="card-body">
-                  <h3 class="card-titulo">Boxeo</h3>
-                  <h6 class="card-texto">08:00-09:00</h6>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-auto mb-5">
-          <a href="clases.html">
-            <div class="card">
-              <img src="css/clases-disponibles-1.png" class="card-img-top" alt="Clase1">
-              <div class="card-img-overlay">
-                <div class="card-body">
-                  <h3 class="card-titulo">Boxeo</h3>
-                  <h6 class="card-texto">08:00-09:00</h6>
+                  <h6 class="card-texto">Lunes 08:00-09:00</h6>
                 </div>
               </div>
             </div>
           </a>
         </div>
       </div>
+    </div>
+
+    <div id="cards" class="container mb-5">
+      <div class="row">
+        <div class="d-flex">
+          <div class="p-2 flex-grow-1 texto-home">Profesores</div>
+        </div>
+        <div class="col-auto">
+          <a href="profesores.html">
+            <div class="card">
+              <img src="css/profesores-1.png" class="card-img-top img-fluid" alt="Clase1">
+              <div class="card-img-overlay">  
+                <div class="card-body">
+                  <h3 class="card-titulo">Pablo Perez</h3>
+                  <h6 class="card-texto">Pesas</h6>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-auto">
+          <a href="profesores.html">
+            <div class="card">
+              <img src="css/profesores-1.png" class="card-img-top" alt="Clase1">
+              <div class="card-img-overlay">  
+                <div class="card-body">
+                  <h3 class="card-titulo">Pablo Perez</h3>
+                  <h6 class="card-texto">Pesas</h6>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-auto">
+          <a href="profesores.html">
+            <div class="card">
+              <img src="css/profesores-1.png" class="card-img-top" alt="Clase1">
+              <div class="card-img-overlay">  
+                <div class="card-body">
+                  <h3 class="card-titulo">Pablo Perez</h3>
+                  <h6 class="card-texto">Pesas</h6>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-auto mb-5">
+          <a href="profesores.html">
+            <div class="card">
+              <img src="css/profesores-1.png" class="card-img-top" alt="Clase1">
+              <div class="card-img-overlay">  
+                <div class="card-body">
+                  <h3 class="card-titulo">Pablo Perez</h3>
+                  <h6 class="card-texto">Pesas</h6>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
     </div>
 
     <footer class="footer py-3 bg-light fixed-bottom">
