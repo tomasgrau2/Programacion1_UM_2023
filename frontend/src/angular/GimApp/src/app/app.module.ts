@@ -27,6 +27,11 @@ import { CrearProfesorComponent } from './pages/crear-profesor/crear-profesor.co
 import { ListaProfesoresComponent } from './pages/lista-profesores/lista-profesores.component';
 import { PerfilVistaProfComponent } from './pages/perfil-vista-prof/perfil-vista-prof.component';
 import { ClasesComponent } from './pages/clases/clases.component';
+import { NavUserComponent } from './components/nav-user/nav-user.component';
+import { NavProfesorComponent } from './components/nav-profesor/nav-profesor.component';
+import { PerfilProfesorComponent } from './pages/perfil-profesor/perfil-profesor.component';
+import { NavAdminComponent } from './components/nav-admin/nav-admin.component';
+import { InfoAlumnoComponent } from './pages/info-alumno/info-alumno.component';
 
 
 @NgModule({
@@ -55,7 +60,12 @@ import { ClasesComponent } from './pages/clases/clases.component';
     CrearProfesorComponent,
     ListaProfesoresComponent,
     PerfilVistaProfComponent,
-    ClasesComponent
+    ClasesComponent,
+    NavUserComponent,
+    NavProfesorComponent,
+    PerfilProfesorComponent,
+    NavAdminComponent,
+    InfoAlumnoComponent
   ],
   imports: [
     BrowserModule,

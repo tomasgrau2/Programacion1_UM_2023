@@ -20,6 +20,10 @@ import { HomeprofesoresComponent } from './/pages/homeprofesores/homeprofesores.
 import { PerfilVistaProfComponent } from './pages/perfil-vista-prof/perfil-vista-prof.component';
 import { PlanificacionComponent } from './pages/planificacion/planificacion.component';
 import { PlanificacionesProfesoresComponent } from './pages/planificaciones-profesores/planificaciones-profesores.component';
+import { ClasesComponent } from './pages/clases/clases.component';
+import { PerfilProfesorComponent } from './pages/perfil-profesor/perfil-profesor.component';
+import { InfoAlumnoComponent } from './pages/info-alumno/info-alumno.component';
+
 
 const routes: Routes = [
   { path: '', component : StartComponent},
@@ -43,6 +47,9 @@ const routes: Routes = [
   { path: 'perfil_vista_prof', component: PerfilVistaProfComponent},
   { path: 'planificacion_profesores', component: PlanificacionesProfesoresComponent},
   { path: 'planificacion', component: PlanificacionComponent},
+  { path: 'clases', component: ClasesComponent},
+  { path: 'perfil_profesor', component: PerfilProfesorComponent},
+  { path: 'info_alumno', component: InfoAlumnoComponent},
   { path: '**', redirectTo: 'error_page'},
   
 ];
