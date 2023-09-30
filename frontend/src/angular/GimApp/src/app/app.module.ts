@@ -12,14 +12,22 @@ import { HomeprofesoresComponent } from './pages/homeprofesores/homeprofesores.c
 import { SettingsComponent } from './pages/settings/settings.component';
 import { UsersAdminComponent } from './pages/users-admin/users-admin.component';
 import { PlanificacionComponent } from './pages/planificacion/planificacion.component';
-import { ListUsersComponent } from './pages/list-users/list-users.component';
-import { EditUsersComponent } from './pages/edit-users/edit-users.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { PlanificacionesProfesoresComponent } from './pages/planificaciones-profesores/planificaciones-profesores.component';
 import { NavComponent } from './components/nav/nav.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { FondoComponent } from './components/fondo/fondo.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { EditProfeComponent } from './pages/edit-profe/edit-profe.component';
+import { EditAlumnoComponent } from './pages/edit-alumno/edit-alumno.component';
+import { EditPerfilComponent } from './pages/edit-perfil/edit-perfil.component';
+import { ListaAlumnosComponent } from './pages/lista-alumnos/lista-alumnos.component';
+import { CrearAlumnoComponent } from './pages/crear-alumno/crear-alumno.component';
+import { CrearProfesorComponent } from './pages/crear-profesor/crear-profesor.component';
+import { ListaProfesoresComponent } from './pages/lista-profesores/lista-profesores.component';
+import { PerfilVistaProfComponent } from './pages/perfil-vista-prof/perfil-vista-prof.component';
+import { ClasesComponent } from './pages/clases/clases.component';
+
 
 @NgModule({
   declarations: [
@@ -33,14 +41,21 @@ import { FooterComponent } from './components/footer/footer.component';
     SettingsComponent,
     UsersAdminComponent,
     PlanificacionComponent,
-    ListUsersComponent,
-    EditUsersComponent,
     PerfilComponent,
     PlanificacionesProfesoresComponent,
     NavComponent,
     ErrorPageComponent,
     FondoComponent,
-    FooterComponent
+    FooterComponent,
+    EditProfeComponent,
+    EditAlumnoComponent,
+    EditPerfilComponent,
+    ListaAlumnosComponent,
+    CrearAlumnoComponent,
+    CrearProfesorComponent,
+    ListaProfesoresComponent,
+    PerfilVistaProfComponent,
+    ClasesComponent
   ],
   imports: [
     BrowserModule,
