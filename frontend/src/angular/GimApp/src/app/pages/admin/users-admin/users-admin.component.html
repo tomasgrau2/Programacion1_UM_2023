@@ -1,21 +1,21 @@
 <app-fondo></app-fondo>
 <app-nav></app-nav>
 <div class="container text-center mt-5 position-relative">
-    <div class="row mt-3">
+    <div class="row mb-3">
         <button class="btn btn-secondary btn-volver" onclick="window.history.back()"><i class="fa-solid fa-chevron-left"></i></button>
     </div>
-    <img src="assets/user.png" alt="Foto de perfil" class="rounded-circle img-fluid" style="width: 100px; height: 100px; z-index: 2;">
+    <img src="assets/perfilad.png" alt="Foto de perfil" class="rounded-circle img-fluid" style="width: 75px; height: 75px; z-index: 2;">
 </div>
 <p class="lead text-center">
-    Ramona Perez
+    Admin
 </p>
 <div class="container">
     <div class="row mt-3">
         <div class="col-md-6 mx-auto">
             <div class="text-center">
-                <button class="btn btn-primary btn-suggest1 fondo-oscuro" routerLink="/edit_perfil" >
-                    <i class="fa-regular fa-user fa-xs"></i>
-                    Editar perfil
+                <button class="btn btn-primary btn-suggest1 fondo-oscuro" routerLink="/lista_alumnos">
+                    <i class="fa-solid fa-people-group fa-xs"></i>
+                    Alumnos
                     <i class="fas fa-chevron-right fa-xs ml-2"></i>
                 </button>
             </div>
@@ -26,9 +26,9 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="text-center">
-                <button class="btn btn-primary btn-suggest2 fondo-oscuro" routerLink="/settings">
-                    <i class="fa-solid fa-gears fa-xs"></i>
-                    Ajustes
+                <button class="btn btn-primary btn-suggest2 fondo-oscuro" routerLink='/lista_profesores'>
+                    <i class="fa-solid fa-person-running fa-xs"></i>
+                    Profesores
                     <i class="fas fa-chevron-right fa-xs ml-2"></i>
                 </button>
             </div>
@@ -36,12 +36,14 @@
     </div>
 </div>
 <div class="container">
-    <div class="row mt-3">
+    <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="text-center">
-                <p class="text-center fst-italic" style="color: rgb(96, 98, 99)">
-                    <a class="sign-out-link" href="#" (click)="cerrarSesion()">Sign Out</a>
-                </p>
+                <button class="btn btn-primary btn-suggest2 fondo-oscuro" routerLink='/lista_pendientes'>
+                    <i class="fa-solid fa-user-check fa-2xs"></i>
+                    Pendientes
+                    <i class="fas fa-chevron-right fa-xs ml-2"></i>
+                </button>
             </div>
         </div>
     </div>

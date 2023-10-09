@@ -1,0 +1,61 @@
+<app-fondo></app-fondo>
+<app-nav></app-nav>
+<div class="container text-center mt-4 position-relative"></div>
+        <div class="container">
+            <div class="row mb-3">
+                <button class="btn btn-secondary btn-volver" onclick="window.history.back()"><i class="fa-solid fa-chevron-left"></i></button>
+            </div>
+        </div>
+        <p class="lead text-center">
+            Pendientes
+        </p>
+        <div class="container mt-3">
+            <form class="mb-3 custom-search-bar">
+                <div class="input-group">
+                    <input type="text" class="form-control custom-search-input" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon">
+                    <button class="btn btn-primary custom-search-button" type="button" id="button-addon">
+                        <i class="fa-solid fa-magnifying-glass fa-xs"></i>
+                    </button>
+                </div>
+            </form>
+            <div class="container mt-4">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-custom-grey" type="button">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <img src="assets/perfilad.png" alt="Foto Alumno" class="img-fluid" style="margin-right: 10px;" width="40">
+                                <span class="ml-2">Manuel Lanzini</span>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </button>
+                    
+                    <button class="btn btn-custom-grey" type="button">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <img src="assets/perfilad.png" alt="Foto Alumno" class="img-fluid" style="margin-right: 10px;" width="40">
+                                <span class="ml-2">Salomon Rondon</span>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </button>
+                    
+                    <button class="btn btn-custom-grey" type="button">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <img src="assets/perfilad.png" alt="Foto Alumno" class="img-fluid" style="margin-right: 10px;" width="40">
+                                <span class="ml-2">Muñeco Gallardo</span>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </button>
+                    <div class="d-flex justify-content-center mt-4">
+                        <button class="btn btn-circle" type="button" routerLink="/crear_profesor">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+<app-footer></app-footer>

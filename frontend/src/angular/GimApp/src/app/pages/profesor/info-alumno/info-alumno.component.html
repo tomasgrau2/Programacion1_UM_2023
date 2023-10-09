@@ -1,0 +1,32 @@
+<app-fondo></app-fondo>
+<app-nav></app-nav>
+<div class="container text-center mt-5 position-relative">
+    <div class="row mb-3">
+        <button class="btn btn-secondary btn-volver" onclick="window.history.back()"><i class="fa-solid fa-chevron-left"></i></button>
+        <p class="p-perfil text-center">
+            Información alumno
+        </p>
+    </div>
+    
+    <img src="assets/user.png" alt="Foto de perfil" class="rounded-circle img-fluid" style="width: 100px; height: 100px; z-index: 2;">
+</div>
+
+<div class="container mt-5">
+    <div class="mb-3">
+        <label class="label" for="floatingInputValue2">Nombre</label>
+        <input type="text" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Nombre" value="Abril" readonly>
+    </div> 
+    <div class="mb-3">
+        <label class="label" for="floatingInputValue2">Apellido</label>
+        <input type="text" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Apellido" value="Freytes" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="label" for="floatingInputValue2">Email</label>
+        <input type="email" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Email" value="abrilfreytes@gmail.com" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="label" for="floatingInputValue2">Edad</label>
+        <input type="number" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Edad" value="28 años" readonly>
+    </div>
+</div>
+<app-footer></app-footer>

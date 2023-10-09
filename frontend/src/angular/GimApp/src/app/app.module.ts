@@ -3,17 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StartComponent } from './pages/start/start.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { HomeadminComponent } from './pages/homeadmin/homeadmin.component';
-import { HomealumnosComponent } from './pages/homealumnos/homealumnos.component';
-import { HomeprofesoresComponent } from './pages/homeprofesores/homeprofesores.component';
+import { StartComponent } from './pages/home/start/start.component';
+import { LoginComponent } from './pages/home/login/login.component';
+import { RegisterComponent } from './pages/home/register/register.component';
+import { HomeadminComponent } from './pages/admin/homeadmin/homeadmin.component';
+import { HomealumnosComponent } from './pages/alumno/homealumnos/homealumnos.component';
+import { HomeprofesoresComponent } from './pages/profesor/homeprofesores/homeprofesores.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { UsersAdminComponent } from './pages/users-admin/users-admin.component';
-import { PlanificacionComponent } from './pages/planificacion/planificacion.component';
+import { UsersAdminComponent } from './pages/admin/users-admin/users-admin.component';
+import { PlanificacionComponent } from './pages/alumno/planificacion/planificacion.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
-import { PlanificacionesProfesoresComponent } from './pages/planificaciones-profesores/planificaciones-profesores.component';
+import { PlanificacionesProfesoresComponent } from './pages/profesor/planificaciones-profesores/planificaciones-profesores.component';
 import { NavComponent } from './components/nav/nav.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { FondoComponent } from './components/fondo/fondo.component';
@@ -21,17 +21,16 @@ import { FooterComponent } from './components/footer/footer.component';
 import { EditProfeComponent } from './pages/edit-profe/edit-profe.component';
 import { EditAlumnoComponent } from './pages/edit-alumno/edit-alumno.component';
 import { EditPerfilComponent } from './pages/edit-perfil/edit-perfil.component';
-import { ListaAlumnosComponent } from './pages/lista-alumnos/lista-alumnos.component';
+import { ListaAlumnosComponent } from './pages/admin/lista-alumnos/lista-alumnos.component';
 import { CrearAlumnoComponent } from './pages/crear-alumno/crear-alumno.component';
 import { CrearProfesorComponent } from './pages/crear-profesor/crear-profesor.component';
-import { ListaProfesoresComponent } from './pages/lista-profesores/lista-profesores.component';
-import { PerfilVistaProfComponent } from './pages/perfil-vista-prof/perfil-vista-prof.component';
-import { ClasesComponent } from './pages/clases/clases.component';
-import { NavUserComponent } from './components/nav-user/nav-user.component';
-import { NavProfesorComponent } from './components/nav-profesor/nav-profesor.component';
-import { PerfilProfesorComponent } from './pages/perfil-profesor/perfil-profesor.component';
-import { NavAdminComponent } from './components/nav-admin/nav-admin.component';
-import { InfoAlumnoComponent } from './pages/info-alumno/info-alumno.component';
+import { ListaProfesoresComponent } from './pages/admin/lista-profesores/lista-profesores.component';
+import { PerfilVistaProfComponent } from './pages/profesor/perfil-vista-prof/perfil-vista-prof.component';
+import { ClasesComponent } from './pages/admin/clases/clases.component';
+import { InfoAlumnoComponent } from './pages/profesor/info-alumno/info-alumno.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ListaPendientesComponent } from './pages/admin/lista-pendientes/lista-pendientes.component'
 
 
 @NgModule({
@@ -61,15 +60,15 @@ import { InfoAlumnoComponent } from './pages/info-alumno/info-alumno.component';
     ListaProfesoresComponent,
     PerfilVistaProfComponent,
     ClasesComponent,
-    NavUserComponent,
-    NavProfesorComponent,
-    PerfilProfesorComponent,
-    NavAdminComponent,
-    InfoAlumnoComponent
+    InfoAlumnoComponent,
+    ListaPendientesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule, 
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
