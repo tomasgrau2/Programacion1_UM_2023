@@ -16,43 +16,61 @@
     </div>
         
     
-    <div class="row mt-5 justify-content-center">
+    <div class="row mt-2 justify-content-center">
         <div class="col-md-6">
-            <form>
+            <form [formGroup]="signupForm" (ngSubmit)="signUp()">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label text-white">Nombre</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Tu nombre">
+                        <input formControlName="nombre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Tu nombre">
                     </div>
-                  </div>
+                </div>
 
-                  <div class="mb-3">
+                <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label text-white">Apellido</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Tu apellido">
+                        <input formControlName="apellido" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Tu apellido">
                     </div>
-                  </div>
+                </div>
 
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label text-white">Email</label>
                   <div class="input-group">
                       <span class="input-group-text"><i class="far fa-envelope"></i></span>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Tu correo electrónico">
+                      <input formControlName="email" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Tu correo electrónico">
                   </div>
                 </div>
+
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label text-white">Contraseña</label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Tu contraseña">
+                    <input formControlName="contrasena" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Tu contraseña">
+                    </div>
                 </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label text-white">Edad</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fa-solid fa-arrow-down-1-9 fa-2xs"></i></span>
+                      <input formControlName="edad" type="int" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Tu edad">
+                    </div>
                 </div>
+                
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label text-white">DNI</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fa-regular fa-address-card fa-xs"></i></span>
+                      <input formControlName="dni" type="int" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Tu DNI">
+                    </div>
+                </div>
+                
                 <div class="d-grid d-flex justify-content-center p-3">
                     <button type="submit" class="btn text-white button-login p-2 w-50">Crear Cuenta <i class="fa-solid fa-arrow-right fa-xs"></i></button>
                 </div>
-              </form>
+            </form>
         </div>
     </div>
 </div>

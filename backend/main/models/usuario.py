@@ -40,6 +40,7 @@ class Usuario(db.Model):
             'edad': int(self.edad),
             'email':str(self.email),
             'contrasena': str(self.contrasena),
+            'rol': str(self.rol)
 
         }
         return usuario_json
