@@ -3,7 +3,6 @@ from . import UsuarioModel
 
 class Alumno(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nro_socio = db.Column(db.Integer, nullable=False)
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'))
     r_usuario = db.relationship("Usuario", back_populates="r_alumno")
 
@@ -17,7 +16,6 @@ class Alumno(db.Model):
         alumno_json = {
             'id': self.id,
             'id_usuario': int(self.id_usuario),
-            'nro_socio': int(self.nro_socio),
             'usuario' : self.usuario.to_json() #le paso el usuario pasado a JSON / tengo todos lo datos juntos
         }
         return alumno_json
@@ -25,7 +23,6 @@ class Alumno(db.Model):
     def to_json_short(self):
         alumno_json = {
             'id': self.id,
-            'nro_socio': str(self.nro_socio),
         }
         return alumno_json
 
@@ -33,8 +30,6 @@ class Alumno(db.Model):
     def from_json(alumno_json):
         id = alumno_json.get('id')
         id_usuario = alumno_json.get('id_usuario')
-        nro_socio = alumno_json.get('nro_socio')
         return Alumno(id=id,
                     id_usuario=id_usuario,
-                    nro_socio=nro_socio
                     )

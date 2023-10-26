@@ -19,9 +19,9 @@ class UsuariosAlumnos(Resource):
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
 
-        #Busqueda por nro_socio
-        if request.args.get('nro_socio'):
-            alumnos=alumnos.filter(AlumnoModel.nro_socio.like("%"+request.args.get('nro_socio')+"%"))
+        #Busqueda por id
+        if request.args.get('id'):
+            alumnos=alumnos.filter(AlumnoModel.id.like("%"+request.args.get('id')+"%"))
             
         #Busqueda por id_usuario
         if request.args.get('id_usuario'):
