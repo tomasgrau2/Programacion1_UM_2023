@@ -19,43 +19,29 @@
                 </div>
             </form>
             <div class="container mt-4">
-                <div class="d-grid gap-2">
-                    <button class="btn btn-custom-grey" type="button">
+                <div class="d-grid gap-2" *ngFor="let usuario of arrayUsuarios">
+                    <button class="btn btn-custom-grey mb-2" type="button">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
                                 <img src="assets/perfilad.png" alt="Foto Alumno" class="img-fluid" style="margin-right: 10px;" width="40">
-                                <span class="ml-2">Manuel Lanzini</span>
+                                <span class="ml-2">{{usuario.nombre}}</span>
                             </div>
-                            <i class="fas fa-chevron-right"></i>
+                            <div class="d-flex justify-content-between">
+                                <div class="text-center" style="margin-left: 15px; margin-right: 15px;">
+                                    <i class="fa-solid fa-people-group fa-xl" title="Alumno" (click)="asignarRol(usuario, 'alumno')"></i>
+                                    <span class= "d-none d-sm-block" style="font-size: 14px; margin-top: 5px;"> Alumno</span>
+                                </div>
+                                <div class="text-center" style="margin-left: 15px; margin-right: 15px;">
+                                    <i class="fa-solid fa-person-running fa-xl" title="Profesor" (click)="asignarRol(usuario, 'profesor')"></i>
+                                    <span class= "d-none d-sm-block" style="font-size: 14px; margin-top: 5px;"> Profesor</span>
+                                </div>
+                                <div class="text-center" style="margin-left: 15px; margin-right: 15px;" (click)="eliminarUsuario(usuario.id)">
+                                    <i class="fa-solid fa-xmark fa-xl" title="Eliminar" style="color: red"></i>
+                                </div>
+                            </div>
                         </div>
                     </button>
-                    
-                    <button class="btn btn-custom-grey" type="button">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="assets/perfilad.png" alt="Foto Alumno" class="img-fluid" style="margin-right: 10px;" width="40">
-                                <span class="ml-2">Salomon Rondon</span>
-                            </div>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </button>
-                    
-                    <button class="btn btn-custom-grey" type="button">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="assets/perfilad.png" alt="Foto Alumno" class="img-fluid" style="margin-right: 10px;" width="40">
-                                <span class="ml-2">Muñeco Gallardo</span>
-                            </div>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </button>
-                    <div class="d-flex justify-content-center mt-4">
-                        <button class="btn btn-circle" type="button" routerLink="/crear_profesor">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
                 </div>
             </div>
-            
         </div>
 <app-footer></app-footer>

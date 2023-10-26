@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, getModuleFactory } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -10,17 +10,44 @@ export class ListaPendientesComponent implements OnInit {
   usuarios: any[] = [];
   arrayUsuarios: any;
   usuariosConRolUsers: any[] = []; // Aquí almacenarás los usuarios con rol "users"
+  totalPaginas: number = 0;
 
   constructor(private usuariosService: UsuariosService) {}
 
   ngOnInit() {
-    this.usuariosService.getUsers().subscribe((data: any) => {
+    this.usuariosService.getPendientes().subscribe((data: any) => {
       this.arrayUsuarios = data.usuarios;
+      this.totalPaginas = data.pages;
       console.log('JSON data:', this.arrayUsuarios);
-
-      // Filtrar usuarios con rol "users" y mostrar en la consola
-      this.usuariosConRolUsers = this.arrayUsuarios.filter((usuario: { rol: string; }) => usuario.rol === 'users');
-      console.log('Usuarios con rol "users":', this.usuariosConRolUsers);
     });
+    
+  }
+
+  asignarRol(usuario: any, rol: string) {
+    this.usuariosService.putRol(usuario.id, rol).subscribe(
+      (response) => {
+        console.log(`Rol ${rol} asignado al usuario ${usuario.nombre}`);
+        // Actualizar lista
+        const index = this.arrayUsuarios.findIndex((u: { id: number; }) => u.id === usuario.id);
+        if (index !== -1) {
+        this.arrayUsuarios.splice(index, 1);
+        }
+      },
+      (error) => {
+        console.log('Error al asignar rol:', error);
+      }
+    );
+  }
+  eliminarUsuario(userId: number) {
+    this.usuariosService.deleteUser(userId).subscribe(
+      (response) => {
+        console.log('Usuario eliminado con éxito', userId);
+        // Actualizar lista
+        const index = this.arrayUsuarios.findIndex((usuario: { id: number; }) => usuario.id === userId);
+        if (index !== -1) {
+        this.arrayUsuarios.splice(index, 1);
+      }
+    }
+    );
   }
 }

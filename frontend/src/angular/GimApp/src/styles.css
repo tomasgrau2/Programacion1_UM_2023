@@ -472,6 +472,19 @@ p.lead {
     right: 0;
 }
 
+/* Paginacion */
+.page-link {
+    background-color: #2C2C2E;
+    color: #ffffff;
+    border: rgb(20, 20, 20);
+  }
+
+.page-item.active .page-link {
+    background-color: #f00;
+    border-color: #f00;
+    color: #fff;
+  }
+
 .hora-plani{
     color:  #D0FD3E;
     font-size: 20px;

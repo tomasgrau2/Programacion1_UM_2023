@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'home_admin' , component : HomeadminComponent, canActivate:[authsessionAdminGuard]},
   { path: 'settings', component: SettingsComponent},
   { path: 'users_admin', component: UsersAdminComponent, canActivate:[authsessionAdminGuard]},
-  { path: 'lista_alumnos', component: ListaAlumnosComponent, canActivate:[authsessionProfAdminGuard ]},
+  { path: 'lista_alumnos', component: ListaAlumnosComponent, canActivate:[authsessionProfAdminGuard]},
   { path: 'crear_alumno', component: CrearAlumnoComponent, canActivate:[authsessionAdminGuard]},
   { path: 'crear_profesor', component: CrearProfesorComponent, canActivate:[authsessionAdminGuard]},
   { path: 'edit_alumno', component: EditAlumnoComponent, canActivate:[authsessionAdminGuard]},

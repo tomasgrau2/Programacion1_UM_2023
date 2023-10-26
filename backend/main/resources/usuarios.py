@@ -62,6 +62,10 @@ class Usuarios(Resource):
         #Busqueda por DNI
         if request.args.get('dni'):
             usuarios=usuarios.filter(UsuarioModel.dni.like("%"+request.args.get('dni')+"%"))
+
+        #Busqueda por rol
+        if request.args.get('rol'):
+            usuarios=usuarios.filter(UsuarioModel.rol.like("%"+request.args.get('rol')+"%"))
             
         #Ordeno por edad de menor a mayor
         if request.args.get('sortby_edad'):

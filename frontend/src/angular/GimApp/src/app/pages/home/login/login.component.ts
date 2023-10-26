@@ -53,7 +53,9 @@ export class LoginComponent {
             this.router.navigate(['home_profesores']);
           } else {
             // Redirigir a alguna página predeterminada o mostrar un mensaje apropiado
-            this.router.navigate(['login']);
+            alert("NO PUEDES INGRESAR, necesitas confirmación de un admin")
+            this.router.navigate(['start']);
+            localStorage.removeItem('token');
           }
         } else {
           console.log('No se pudo obtener el rol del usuario');

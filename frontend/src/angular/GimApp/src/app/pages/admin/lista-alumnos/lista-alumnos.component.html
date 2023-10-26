@@ -11,7 +11,7 @@
         <p class="lead text-center">
             Alumnos
         </p>
-        <div class="container mt-3">
+        <div class="container mt-3 container overflow-auto mb-5">
             <form class="mb-3 custom-search-bar">
                 <div class="input-group">
                     <input type="text" class="form-control custom-search-input" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon">
@@ -20,38 +20,37 @@
                     </button>
                 </div>
             </form>
-            <div class="container mt-4">
+            <div class="container mt-4 mb-4">
                 <div class="d-grid gap-2">
-                    <button class="btn btn-custom-grey" routerLink="/perfil_vista_prof" type="button">
+                    <button class="btn btn-custom-grey"  type="button" *ngFor="let usuario of arrayAlumnos">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
                                 <img src="assets/harry.png" alt="Foto Alumno" class="img-fluid" style="margin-right: 10px;" width="40">
-                                <span class="ml-2">Harry Estilos</span>
+                                <span class="ml-2">{{usuario.nombre + ' ' + usuario.apellido}}</span>
                             </div>
-                            <i class="fas fa-chevron-right"></i>
+                            <button class="btn btn-outline-transparent" (click)="eliminarAlumno(usuario.id)" *ngIf="rol=='admin'">
+                                <i class="fa-regular fa-trash-can fa-lg" style="color: red"></i>
+                                <div class="text-white">ELIMINAR</div>
+                            </button>
+                            <button class="btn btn-outline-transparent" routerLink="/perfil_vista_prof" *ngIf="rol=='profesor'"><i class="fa-regular fa-trash-can fa-lg" style="color: #fa0000;"></i></button>
                         </div>
                     </button>
                     
-                    <button class="btn btn-custom-grey" routerLink="/perfil_vista_prof"  type="button">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="assets/anto.png" alt="Foto Alumno" class="img-fluid" style="margin-right: 10px;" width="40">
-                                <span class="ml-2">Antonella Rocuzzo</span>
-                            </div>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </button>
+                    <nav aria-label="Page navigation example " class="d-flex justify-content-center mt-4">
+                        <ul class="pagination">
+                        <li class="page-item " [class.disabled]="currentPage === 1">
+                            <a class="page-link " (click)="loadAlumnos(currentPage - 1)">Previous</a>
+                        </li>
+                        <li class="page-item" *ngFor="let page of pages">
+                            <a class="page-link" (click)="loadAlumnos(page)" [class.active]="page === currentPage">{{ page }}</a>
+                        </li>
+                        <li class="page-item" [class.disabled]="currentPage === totalPaginas">
+                            <a class="page-link" (click)="loadAlumnos(currentPage + 1)">Next</a>
+                        </li>
+                        </ul>
+                    </nav>
                     
-                    <button class="btn btn-custom-grey" routerLink="/perfil_vista_prof"  type="button">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="assets/tigre.png" alt="Foto Alumno" class="img-fluid" style="margin-right: 10px;" width="40">
-                                <span class="ml-2">Tigres Maderas</span>
-                            </div>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                    </button>
-                    <div class="d-flex justify-content-center mt-4">
+                    <div class="d-flex justify-content-center mt-3 mb-3">
                         <button class="btn btn-circle" type="button" routerLink="/crear_alumno">
                             <i class="fas fa-plus"></i>
                         </button>
@@ -59,4 +58,5 @@
                 </div>
             </div>
         </div>
+       
 <app-footer></app-footer>
