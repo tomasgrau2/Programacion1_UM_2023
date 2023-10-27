@@ -8,19 +8,15 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 })
 export class ListaPendientesComponent implements OnInit {
   usuarios: any[] = [];
-  arrayUsuarios: any;
-  usuariosConRolUsers: any[] = []; // Aquí almacenarás los usuarios con rol "users"
+  arrayPendientes: any;
+  currentPage:any = 1;
   totalPaginas: number = 0;
+  pages: number[] = [];
 
   constructor(private usuariosService: UsuariosService) {}
 
   ngOnInit() {
-    this.usuariosService.getPendientes().subscribe((data: any) => {
-      this.arrayUsuarios = data.usuarios;
-      this.totalPaginas = data.pages;
-      console.log('JSON data:', this.arrayUsuarios);
-    });
-    
+    this.loadPendientes(this.currentPage); 
   }
 
   asignarRol(usuario: any, rol: string) {
@@ -28,9 +24,9 @@ export class ListaPendientesComponent implements OnInit {
       (response) => {
         console.log(`Rol ${rol} asignado al usuario ${usuario.nombre}`);
         // Actualizar lista
-        const index = this.arrayUsuarios.findIndex((u: { id: number; }) => u.id === usuario.id);
+        const index = this.arrayPendientes.findIndex((u: { id: number; }) => u.id === usuario.id);
         if (index !== -1) {
-        this.arrayUsuarios.splice(index, 1);
+        this.arrayPendientes.splice(index, 1);
         }
       },
       (error) => {
@@ -38,16 +34,29 @@ export class ListaPendientesComponent implements OnInit {
       }
     );
   }
+  
   eliminarUsuario(userId: number) {
     this.usuariosService.deleteUser(userId).subscribe(
       (response) => {
         console.log('Usuario eliminado con éxito', userId);
         // Actualizar lista
-        const index = this.arrayUsuarios.findIndex((usuario: { id: number; }) => usuario.id === userId);
+        const index = this.arrayPendientes.findIndex((usuario: { id: number; }) => usuario.id === userId);
         if (index !== -1) {
-        this.arrayUsuarios.splice(index, 1);
+        this.arrayPendientes.splice(index, 1);
       }
     }
     );
+  }
+  loadPendientes(page: any) {
+    this.usuariosService.getPendientes(page).subscribe((data: any) => {
+      this.arrayPendientes = data.usuarios;
+      this.currentPage = data.page;
+      this.totalPaginas = data.pages;
+      console.log('Pagina actual:', this.currentPage);
+      console.log('JSON data:', this.arrayPendientes);
+      console.log('Total de paginas:', this.totalPaginas);
+
+      this.pages = Array.from({length: this.totalPaginas}, (_, i) => i + 1);
+    });
   }
 }

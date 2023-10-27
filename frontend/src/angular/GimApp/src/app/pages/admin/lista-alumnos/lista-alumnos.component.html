@@ -35,26 +35,27 @@
                             <button class="btn btn-outline-transparent" routerLink="/perfil_vista_prof" *ngIf="rol=='profesor'"><i class="fa-regular fa-trash-can fa-lg" style="color: #fa0000;"></i></button>
                         </div>
                     </button>
+
+                    <div class="d-flex justify-content-center mt-3 mb-3" *ngIf="rol=='admin'">
+                        <button class="btn btn-circle" type="button" routerLink="/crear_alumno">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
                     
                     <nav aria-label="Page navigation example " class="d-flex justify-content-center mt-4">
                         <ul class="pagination">
-                        <li class="page-item " [class.disabled]="currentPage === 1">
+                        <li class="page-item ">
                             <a class="page-link " (click)="loadAlumnos(currentPage - 1)">Previous</a>
                         </li>
                         <li class="page-item" *ngFor="let page of pages">
                             <a class="page-link" (click)="loadAlumnos(page)" [class.active]="page === currentPage">{{ page }}</a>
                         </li>
-                        <li class="page-item" [class.disabled]="currentPage === totalPaginas">
+                        <li class="page-item">
                             <a class="page-link" (click)="loadAlumnos(currentPage + 1)">Next</a>
                         </li>
                         </ul>
                     </nav>
                     
-                    <div class="d-flex justify-content-center mt-3 mb-3">
-                        <button class="btn btn-circle" type="button" routerLink="/crear_alumno">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>

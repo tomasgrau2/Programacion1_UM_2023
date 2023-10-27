@@ -9,7 +9,7 @@
         <p class="lead text-center">
             Pendientes
         </p>
-        <div class="container mt-3">
+        <div class="container mt-3 container overflow-auto mb-5">
             <form class="mb-3 custom-search-bar">
                 <div class="input-group">
                     <input type="text" class="form-control custom-search-input" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon">
@@ -19,7 +19,8 @@
                 </div>
             </form>
             <div class="container mt-4">
-                <div class="d-grid gap-2" *ngFor="let usuario of arrayUsuarios">
+                <div class="d-grid gap-2" *ngFor="let usuario of arrayPendientes">
+                    <!-- Listado de cada uno de los usuario -->
                     <button class="btn btn-custom-grey mb-2" type="button">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
@@ -42,6 +43,19 @@
                         </div>
                     </button>
                 </div>
+                <nav aria-label="Page navigation example " class="d-flex justify-content-center mt-4 mb-4">
+                    <ul class="pagination">
+                    <li class="page-item ">
+                        <a class="page-link " (click)="loadPendientes(currentPage - 1)">Previous</a>
+                    </li>
+                    <li class="page-item" *ngFor="let page of pages">
+                        <a class="page-link" (click)="loadPendientes(page)" [class.active]="page === currentPage">{{ page }}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" (click)="loadPendientes(currentPage + 1)">Next</a>
+                    </li>
+                    </ul>
+                </nav>
             </div>
         </div>
 <app-footer></app-footer>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-crear-alumno',
@@ -10,12 +11,14 @@ import { Router } from '@angular/router';
 })
 export class CrearAlumnoComponent {
   createForm!: FormGroup;
-  url = '/api'
+  // url = '/api'
+  user_data:any = ''
+
+
 
   constructor (
+    private usuariosService: UsuariosService,
     private formBuilder: FormBuilder,
-    private http : HttpClient,
-    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -27,20 +30,56 @@ export class CrearAlumnoComponent {
       edad: ['', Validators.required],
       dni: ['', Validators.required],
     })
+    
   }
 
   createUser(dataLogin:any = {}) {
-    // datacreate = {nombre: "Abril", apellido: "Freytes", email: "a.f@email.com", contrasena: "hola123"}
     console.log('Registrando nuevo usuario');
-    this.http.post(this.url + '/auth/register', this.createForm.value)
-    .subscribe(res=>{
-      alert("Solicitud de registro exitosa, recibirá una notificación a su mail al ser confirmada");
+    console.log(this.createForm.value)
+    this.usuariosService.postUsers(this.createForm.value)  
+    .subscribe(response => {
+      this.user_data = response // Guardo la informacion del nuevo usuario para asignarle el 
+      
+      
+      console.log(typeof this.user_data["id"])
+    
+      alert("Registro exitoso, creando alumno...");
+      this.asignarRol(this.user_data,"alumno")
+      this.crearAlumno(this.user_data.id)
+
       this.createForm.reset();
-      this.router.navigate(['login']);
-    },err=>{
+    },error=>{
       alert("Error de algun tipo");
-  })
+    });
+  }
+
+
+
+  asignarRol(usuario: any, rol: string) {
+    this.usuariosService.putRol(usuario.id, rol).subscribe(
+      (response) => {
+        console.log(`Rol ${rol} asignado al usuario ${usuario.nombre}`);
+      },
+      (error) => {
+        console.log('Error al asignar rol:', error);
+      }
+    );
+  }
+
+  crearAlumno(userID: number) {
+    this.usuariosService.postAlumnos(userID).subscribe(
+      (response) => {
+        console.log("Al crear alumno: ", response)
+        console.log(`Alumno creado`);
+      },
+      (error) => {
+        console.log('Error al crear alumno:', error);
+      }
+    );
+  }
+
+  
 }
-}
+
 
 

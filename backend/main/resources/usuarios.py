@@ -42,7 +42,7 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
 class Usuarios(Resource):
     #obtener lista de los usuarios
     @jwt_required()
-    @role_required(roles = ["admin"])
+    @role_required(roles = ["admin","profesor"])
     def get(self):    
         page = 1
         per_page = 10
@@ -58,6 +58,10 @@ class Usuarios(Resource):
         #Busqueda por apellido
         if request.args.get('apellido'):
             usuarios=usuarios.filter(UsuarioModel.apellido.like("%"+request.args.get('apellido')+"%"))
+        
+        #Busqueda por email
+        if request.args.get('email'):
+            usuarios=usuarios.filter(UsuarioModel.email.like("%"+request.args.get('email')+"%"))
             
         #Busqueda por DNI
         if request.args.get('dni'):

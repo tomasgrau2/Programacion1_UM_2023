@@ -21,13 +21,12 @@ export class LoginComponent {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['profesor.profesor@um.edu.ar', Validators.required],
-      contrasena: ['profesor123', Validators.required]
+      email: ['admin.admin@um.edu.ar', Validators.required],
+      contrasena: ['admin123', Validators.required]
     })
   }
 
   login(dataLogin:any = {}) {
-    // dataLogin = {email: "profesor.profesor@um.edu.ar", contrasena: "profesor123"}
     console.log('Comprobando credenciales');
     console.log('Email : ' )
     this.authService.login(dataLogin).subscribe({

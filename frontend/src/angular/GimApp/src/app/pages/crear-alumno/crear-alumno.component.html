@@ -12,11 +12,13 @@
 </div>
 
 <div class="container mt-5 overflow-auto mb-5">
+
+
     <form [formGroup]="createForm" (ngSubmit)="createUser()">
         <div class="mb-3">
             
                 <label class="label" for="floatingInputValue2">Nombre</label>
-                <input type="text" formControlName="nombre" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Tu Nombre" value="Abril">
+                <input type="text" formControlName="nombre" class="form-control form-control1  fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Tu Nombre" value="Abril">
           
         </div>
 
@@ -40,9 +42,16 @@
             <label class="label" for="floatingInputValue2">Contraseña</label>
             <input type="text" formControlName="contrasena" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Tu Contraseña" value="28 años">
         </div>
+        <div class="d-grid d-flex justify-content-center p-3 mt-5 mb-5">
+            <button type="submit" class="btn button-login p-2 w-50 btn-crear-alumno">Crear Alumno</button>
+        </div>
+    
     </form>
-    <div class="d-grid d-flex justify-content-center p-3 mt-5 mb-5">
-        <button type="submit" class="btn button-login p-2 w-50 btn-crear-alumno">Crear Alumno</button>
-    </div>
+
+
+
+    
+
+
 </div>
 <app-footer></app-footer>
