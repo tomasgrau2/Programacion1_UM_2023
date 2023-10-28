@@ -11,7 +11,6 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 })
 export class CrearAlumnoComponent {
   createForm!: FormGroup;
-  // url = '/api'
   user_data:any = ''
 
 
@@ -35,18 +34,12 @@ export class CrearAlumnoComponent {
 
   createUser(dataLogin:any = {}) {
     console.log('Registrando nuevo usuario');
-    console.log(this.createForm.value)
     this.usuariosService.postUsers(this.createForm.value)  
     .subscribe(response => {
-      this.user_data = response // Guardo la informacion del nuevo usuario para asignarle el 
-      
-      
-      console.log(typeof this.user_data["id"])
-    
+      this.user_data = response // Guardo la informacion del nuevo usuario para asignarle el rol y crear el alumno
       alert("Registro exitoso, creando alumno...");
-      this.asignarRol(this.user_data,"alumno")
-      this.crearAlumno(this.user_data.id)
-
+      this.asignarRol(this.user_data,"alumno") // Asigno rol alumno
+      this.crearAlumno(this.user_data.id) // Creo el alumno
       this.createForm.reset();
     },error=>{
       alert("Error de algun tipo");

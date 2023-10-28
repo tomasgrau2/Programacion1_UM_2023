@@ -23,11 +23,11 @@
             <div class="container mt-4">
                 <div class="d-grid gap-2">
                     <div id="cards" class="container">
-                        <div class="d-flex justify-content-center">
-                            <div class="card custom-card" *ngFor="let clase of arrayClases">
+                        <div class="d-flex justify-content-center"  *ngFor="let clase of arrayClases">
+                            <div class="card custom-card">
                                 <img src="assets/yoga-1.png" class="card-img-plani">
                                 <div class="card-img-overlay">
-                                    <h5 class="texto-plani" style="position: absolute; bottom: 0px">{{clase.nombre+ '' +clase.horario}}</h5>
+                                    <h5 class="texto-plani" style="position: absolute; bottom: 0px">{{clase.nombre+ ' ' +clase.horario}}</h5>
                                     <button class="btn texto-modificar me-3" data-bs-toggle="modal" data-bs-target="#editarClaseModal" style="position: absolute; bottom: 0; right: 0;">MODIFICAR</button>
                                 </div>
                             </div>
@@ -55,6 +55,12 @@
                                 <input type="text" class="form-control" id="nombre">
                             </div>
                         </form>
+                        <form>
+                            <div class="mb-3">
+                                <label for="horario" class="form-label">Horario</label>
+                                <input type="text" class="form-control" id="horario">
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -75,6 +81,12 @@
                             <div class="mb-3">  
                                 <label for="nombre" class="form-label">Nombre</label>
                                 <input type="text" class="form-control" id="nombre">
+                            </div>
+                        </form>
+                        <form>
+                            <div class="mb-3">
+                                <label for="horario" class="form-label">Horario</label>
+                                <input type="text" class="form-control" id="horario">
                             </div>
                         </form>
                     </div>

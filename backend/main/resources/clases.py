@@ -10,8 +10,26 @@ class Clases(Resource):
     @jwt_required()
     @role_required(roles = ['admin', 'profesor','alumno'])
     def get(self):
-        clases = db.session.query(ClaseModel).all()
-        return jsonify([clase.to_json() for clase in clases])
+        page = 1
+        per_page = 10
+        clases = db.session.query(ClaseModel)
+        
+        if request.args.get('page'):
+            page = int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page = int(request.args.get('per_page'))
+
+
+        #Obtener valor paginado
+        clases = clases.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
+
+
+        return jsonify({'clases': [clase.to_json() for clase in clases],
+                  'total': clases.total,
+                  'pages': clases.pages,
+                  'page': page
+                })
+        
     
     @jwt_required()
     @role_required(roles = ['admin', 'profesor'])

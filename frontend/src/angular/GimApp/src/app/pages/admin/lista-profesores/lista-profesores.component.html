@@ -28,11 +28,9 @@
                                         <img src="assets/harry.png" alt="Foto Alumno" class="img-fluid" style="margin-right: 10px;" width="40">
                                         <span class="ml-2">{{usuario.nombre + ' ' + usuario.apellido}}</span>
                                     </div>
-                                    <div class="text-center">
-                                        <button class="btn btn-outline-transparent" (click)="eliminarProfesor(usuario.id)" *ngIf="rol=='admin'">
-                                            <i class="fa-regular fa-trash-can fa-lg" style="color: #fa0000;"></i>
-                                            <div class="text-white">ELIMINAR</div>
-                                        </button>
+                                    <div class="text-center" style="margin-left: 15px; margin-right: 15px;" (click)="eliminarProfesor(usuario.id)">
+                                        <i class="fa-solid fa-xmark fa-xl" title="Eliminar" style="color: red"></i>
+                                        <span class= "d-none d-sm-block" style="font-size: 14px; margin-top: 5px;"> Eliminar</span>
                                     </div>
                                     
                                 </div>

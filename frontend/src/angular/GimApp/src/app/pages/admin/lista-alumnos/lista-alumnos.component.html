@@ -22,17 +22,24 @@
             </form>
             <div class="container mt-4 mb-4">
                 <div class="d-grid gap-2">
-                    <button class="btn btn-custom-grey"  type="button" *ngFor="let usuario of arrayAlumnos">
+                    <button class="btn btn-custom-grey" type="button" *ngFor="let usuario of arrayAlumnos">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
                                 <img src="assets/harry.png" alt="Foto Alumno" class="img-fluid" style="margin-right: 10px;" width="40">
                                 <span class="ml-2">{{usuario.nombre + ' ' + usuario.apellido}}</span>
                             </div>
-                            <button class="btn btn-outline-transparent" (click)="eliminarAlumno(usuario.id)" *ngIf="rol=='admin'">
-                                <i class="fa-regular fa-trash-can fa-lg" style="color: red"></i>
-                                <div class="text-white">ELIMINAR</div>
-                            </button>
-                            <button class="btn btn-outline-transparent" routerLink="/perfil_vista_prof" *ngIf="rol=='profesor'"><i class="fa-regular fa-trash-can fa-lg" style="color: #fa0000;"></i></button>
+                            <div class="d-flex justify-content-between">
+
+                                <div class="text-center" *ngIf="rol=='profesor'" style="margin-left: 15px; margin-right: 15px;"  >
+                                    <i class="fa-regular fa-eye" style="color: #ffffff;"></i>
+                                    <span class= "d-none d-sm-block" style="font-size: 14px; margin-top: 5px;"> Ver Perfil</span>
+                                </div>
+                                <div class="text-center" style="margin-left: 15px; margin-right: 15px;" (click)="eliminarAlumno(usuario.id)">
+                                    <i class="fa-solid fa-xmark fa-xl" title="Eliminar" style="color: red"></i>
+                                    <span class= "d-none d-sm-block" style="font-size: 14px; margin-top: 5px;"> Eliminar</span>
+                                </div>
+                            <!-- <button class="btn btn-outline-transparent" routerLink="/perfil_vista_prof" *ngIf="rol=='profesor'"><i class="fa-regular fa-trash-can fa-lg" style="color: #fa0000;"></i></button> -->
+                            </div>
                         </div>
                     </button>
 

@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -9,6 +7,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   templateUrl: './crear-profesor.component.html',
   styleUrls: ['./crear-profesor.component.css']
 })
+
 export class CrearProfesorComponent {
   createForm!: FormGroup;
   user_data:any = ''
@@ -16,8 +15,6 @@ export class CrearProfesorComponent {
   constructor (
     private usuariosService: UsuariosService,
     private formBuilder: FormBuilder,
-    private http : HttpClient,
-    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -30,33 +27,46 @@ export class CrearProfesorComponent {
       dni: ['', Validators.required],
     })
   }
+
+
   createUser(dataLogin:any = {}) {
     console.log('Registrando nuevo usuario');
-    console.log(this.createForm.value)
     this.usuariosService.postUsers(this.createForm.value)  
     .subscribe(response => {
-      this.user_data = response // Guardo la informacion del nuevo usuario para asignarle el 
-      
-      console.log(this.user_data.id)
-      this.asignarRol(this.user_data.id,"profesor")
-    
+      this.user_data = response // Guardo la informacion del nuevo usuario para asignarle el rol y crear el profesor
       alert("Registro exitoso, creando profesor...");
-
-
-      const email = this.createForm['controls']['email'].value;  // Devolver el email para crear el profesor
-      console.log(email)
+      this.asignarRol(this.user_data,"profesor") // Asigno rol profesor
+      // this.crearProfesor(this.user_data.id) // Creo el profesor
       this.createForm.reset();
     },error=>{
       alert("Error de algun tipo");
-    })
+    });
   }
+
+
+
   asignarRol(usuario: any, rol: string) {
-    this.usuariosService.putRol(usuario, rol).subscribe(
+    this.usuariosService.putRol(usuario.id, rol).subscribe(
       (response) => {
         console.log(`Rol ${rol} asignado al usuario ${usuario.nombre}`);
       },
       (error) => {
         console.log('Error al asignar rol:', error);
+      }
+    );
+  }
+
+
+
+
+  crearProfesor(userID: number) {
+    this.usuariosService.postProfesores(userID).subscribe(
+      (response) => {
+        console.log("Al crear profesor: ", response)
+        console.log(`Profesor creado`);
+      },
+      (error) => {
+        console.log('Error al crear profesor:', error);
       }
     );
   }

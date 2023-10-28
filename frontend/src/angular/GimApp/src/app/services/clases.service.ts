@@ -20,4 +20,7 @@ export class ClasesService {
 
     return this.httpClient.get(this.url + `/clases?page=${page}`, {headers: headers});
   }
+
+
+
 }

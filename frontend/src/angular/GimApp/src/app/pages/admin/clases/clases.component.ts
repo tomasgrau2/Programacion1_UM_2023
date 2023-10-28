@@ -19,9 +19,6 @@ export class ClasesComponent {
     this.loadClases(this.currentPage);
   }
 
-  get rol() {
-    return localStorage.getItem('rol');
-  }
 
   loadClases(page: any) {
     this.clasesService.getClases(page).subscribe((data: any) => {

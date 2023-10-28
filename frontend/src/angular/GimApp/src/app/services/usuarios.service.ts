@@ -117,6 +117,19 @@ export class UsuariosService {
 
     return this.httpClient.get(this.url + `/usuarios?rol=profesor&page=${page}`, {headers: headers});
   }
+
+  postProfesores(userID: number) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    const body = { id_usuario: userID };
+
+    return this.httpClient.post(this.url + `/profesores `, body,  {headers: headers});
+  }
 // --------------------------------------------------------------------------------------------------
 
 
