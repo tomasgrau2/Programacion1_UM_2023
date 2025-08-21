@@ -4,3 +4,4 @@ flask-restful
 flask_sqlalchemy
 flask_jwt_extended
 flask_mail
+PyJWT==2.9.0
