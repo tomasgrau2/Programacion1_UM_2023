@@ -12,6 +12,9 @@ export class ListaPendientesComponent implements OnInit {
   currentPage:any = 1;
   totalPaginas: number = 0;
   pages: number[] = [];
+  searchTerm: string = '';
+  isSearching: boolean = false;
+  allPendientes: any[] = []; // Para almacenar todos los usuarios pendientes para búsqueda
 
   constructor(private usuariosService: UsuariosService) {}
 
@@ -57,6 +60,55 @@ export class ListaPendientesComponent implements OnInit {
       console.log('Total de paginas:', this.totalPaginas);
 
       this.pages = Array.from({length: this.totalPaginas}, (_, i) => i + 1);
+      
+      // Cargar todos los usuarios pendientes para búsqueda (solo en la primera carga)
+      if (page === 1 && this.allPendientes.length === 0) {
+        this.loadAllPendientes();
+      }
     });
+  }
+
+  loadAllPendientes() {
+    // Cargar todas las páginas de usuarios pendientes para búsqueda
+    this.usuariosService.getPendientes(1).subscribe((data: any) => {
+      this.allPendientes = data.usuarios;
+      
+      // Si hay más páginas, cargar las siguientes
+      if (data.pages > 1) {
+        for (let i = 2; i <= data.pages; i++) {
+          this.usuariosService.getPendientes(i).subscribe((pageData: any) => {
+            this.allPendientes = this.allPendientes.concat(pageData.usuarios);
+          });
+        }
+      }
+    });
+  }
+
+  searchPendientes() {
+    if (this.searchTerm.trim() === '') {
+      this.isSearching = false;
+      this.loadPendientes(1);
+      return;
+    }
+
+    this.isSearching = true;
+    
+    // Filtrar por nombre y apellido
+    this.arrayPendientes = this.allPendientes.filter((usuario: any) => {
+      const nombreCompleto = `${usuario.nombre} ${usuario.apellido}`.toLowerCase();
+      const searchLower = this.searchTerm.toLowerCase();
+      
+      return nombreCompleto.includes(searchLower);
+    });
+    
+    this.currentPage = 1;
+    this.totalPaginas = 1;
+    this.pages = [1];
+  }
+
+  clearSearch() {
+    this.searchTerm = '';
+    this.isSearching = false;
+    this.loadPendientes(1);
   }
 }

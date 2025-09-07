@@ -194,34 +194,50 @@ font-size: 18px;
 }
 .btn-suggest1 {
     font-size: 18px;
-    padding: 10px 20px; /* Adjust the padding to make it wider */
-    border-radius: 0px; 
-    width: 100%; /* Permite que el ancho se ajuste al contenido */
+    font-weight: 500;
+    padding: 18px 25px;
+    border-radius: 12px; 
+    width: 100%;
     color: white; 
-    border-top: 1px solid #252525;
-    border-bottom: 1px solid #252525;
-    border-left: none;
-    border-right: none;
+    border: 2px solid #474747;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-suggest2 {
     font-size: 18px;
-    padding: 10px 20px; /* Adjust the padding to make it wider */
-    border-radius: 0px; 
-    width: 100%; /* Permite que el ancho se ajuste al contenido */
+    font-weight: 500;
+    padding: 18px 25px;
+    border-radius: 12px; 
+    width: 100%;
     color: white; 
-    border-top: none;
-    border-bottom: 1px solid #252525;
-    border-left: none;
-    border-right: none;
+    border: 2px solid #474747;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Cambia el color de fondo al pasar el cursor sobre el botón */
 .btn-suggest1:hover {
-    background-color: #d4ff46;
+    background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+    color: #fff;
+    border-color: #4a7c59;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(45, 90, 39, 0.3);
 }
 .btn-suggest2:hover {
-    background-color: #d4ff46;
+    background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+    color: #fff;
+    border-color: #4a7c59;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(45, 90, 39, 0.3);
 }
 
 
@@ -332,6 +348,44 @@ p.lead {
     border-radius: 50%;
 }
 
+/* Estilos mejorados para el botón de regreso */
+.btn-volver-improved {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border: 2px solid #495057;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-volver-improved:hover {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+  border-color: #4a7c59;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 90, 39, 0.3);
+}
+
+.btn-volver-improved i {
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Responsive para el botón mejorado */
+@media (max-width: 768px) {
+  .btn-volver-improved {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .btn-volver-improved i {
+    font-size: 14px;
+  }
+}
+
 .btn-eliminar-alumno{
     color: #ffffff;
     border-radius: 24px;
@@ -375,17 +429,6 @@ p.lead {
     color:#000
 }
 
-.btn-volver{
-    display: flex; /* Utiliza flexbox para centrar el contenido /
-    justify-content: center; / Centra horizontalmente el contenido /
-    align-items: center; / Centra verticalmente el contenido */
-    background-color: rgb(122, 122, 122);
-    border: none;
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-    border-radius: 50%;
-}
 .p-perfil{
     color: #FFF;
     font-weight: 300;

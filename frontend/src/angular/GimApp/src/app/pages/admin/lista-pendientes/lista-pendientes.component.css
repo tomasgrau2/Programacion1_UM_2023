@@ -1,0 +1,395 @@
+/* Contenedor principal con padding inferior para evitar que el footer tape el contenido */
+.main-content {
+  padding-bottom: 120px; /* Espacio suficiente para el footer */
+  min-height: calc(100vh - 200px); /* Altura mínima menos espacio para nav y footer */
+}
+
+/* Estilos mejorados para el botón de regreso */
+.btn-volver-improved {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border: 2px solid #495057;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-volver-improved:hover {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+  border-color: #4a7c59;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 90, 39, 0.3);
+}
+
+.btn-volver-improved i {
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Indicador de resultados de búsqueda */
+.search-results {
+  margin-top: 10px;
+}
+
+.search-results .badge {
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+
+/* Barra de búsqueda mejorada */
+.custom-search-bar {
+  max-width: 500px;
+  margin: 0 auto;
+  border: none !important;
+  padding: 0 !important;
+  background: none !important;
+}
+
+.custom-search-bar .input-group {
+  max-width: 100%;
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: none !important;
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: 100%;
+  background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%);
+}
+
+.custom-search-bar .input-group * {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Sobrescribir estilos específicos de Bootstrap */
+.custom-search-bar .form-control {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%) !important;
+  color: #fff !important;
+  padding: 12px 15px !important;
+  font-size: 16px !important;
+  transition: all 0.3s ease !important;
+  outline: none !important;
+  flex: 1 1 auto;
+  width: 1% !important;
+  min-width: 0;
+}
+
+.custom-search-bar .form-control:focus {
+  border: none !important;
+  box-shadow: none !important;
+  background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%) !important;
+  color: #fff !important;
+}
+
+.custom-search-bar .form-control::placeholder {
+  color: #999 !important;
+}
+
+.custom-search-bar .btn {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%) !important;
+  color: #fff !important;
+  padding: 12px 15px !important;
+  transition: all 0.3s ease !important;
+}
+
+.custom-search-bar .btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1e3d1a 0%, #2d5a27 100%) !important;
+  transform: translateY(-1px);
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.custom-search-bar .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%) !important;
+}
+
+.custom-search-bar .btn-outline-secondary {
+  border: none !important;
+  border-radius: 0 !important;
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%) !important;
+  color: #fff !important;
+  padding: 12px 15px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: none !important;
+}
+
+.custom-search-bar .btn-outline-secondary:hover {
+  background: linear-gradient(135deg, #5a6268 0%, #6c757d 100%) !important;
+  transform: translateY(-1px);
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Eliminar cualquier borde o separación de Bootstrap */
+.custom-search-bar .input-group > .form-control:not(:last-child),
+.custom-search-bar .input-group > .form-control:not(:first-child),
+.custom-search-bar .input-group > .btn:not(:last-child):not(.dropdown-toggle),
+.custom-search-bar .input-group > .btn:not(:first-child) {
+  border: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+}
+
+/* Asegurar que no haya separaciones entre elementos */
+.custom-search-bar .input-group .form-control + .btn,
+.custom-search-bar .input-group .btn + .form-control {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Eliminar cualquier pseudo-elemento que pueda crear líneas */
+.custom-search-bar .input-group::before,
+.custom-search-bar .input-group::after,
+.custom-search-bar .form-control::before,
+.custom-search-bar .form-control::after,
+.custom-search-bar .btn::before,
+.custom-search-bar .btn::after {
+  display: none !important;
+}
+
+/* Estilos para los botones de usuarios pendientes */
+.btn-pendiente-card {
+  padding: 15px 20px;
+  border-radius: 12px;
+  border: 2px solid #474747;
+  background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.btn-pendiente-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(45, 90, 39, 0.3);
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+  border-color: #4a7c59;
+}
+
+.btn-pendiente-card h6 {
+  color: #fff;
+  font-weight: 600;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.btn-pendiente-card:hover h6 {
+  color: #fff;
+}
+
+/* Icono del usuario pendiente */
+.pendiente-icon {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.pendiente-icon i {
+  color: #ffc107;
+  transition: all 0.3s ease;
+}
+
+.btn-pendiente-card:hover .pendiente-icon {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-pendiente-card:hover .pendiente-icon i {
+  color: #fff;
+}
+
+/* Botones de acción */
+.action-btn {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  background: rgba(40, 167, 69, 0.2);
+  border-color: #28a745;
+  transform: scale(1.05);
+}
+
+.action-btn i {
+  color: #28a745;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover i {
+  color: #20c997;
+}
+
+/* Botón de eliminar estético */
+.eliminar-btn {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.eliminar-btn:hover {
+  background: rgba(255, 71, 87, 0.2);
+  border-color: #ff4757;
+  transform: scale(1.05);
+}
+
+.eliminar-btn i {
+  color: #ff4757;
+  transition: all 0.3s ease;
+}
+
+.eliminar-btn:hover i {
+  color: #ff3742;
+}
+
+/* Paginación personalizada */
+.pagination-custom .page-link {
+  color: #fff;
+  background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%);
+  border: 2px solid #474747;
+  border-radius: 8px;
+  margin: 0 3px;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.pagination-custom .page-link:hover {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+  border-color: #4a7c59;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(45, 90, 39, 0.3);
+}
+
+.pagination-custom .page-item.active .page-link {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%) !important;
+  border-color: #4a7c59 !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(45, 90, 39, 0.3) !important;
+  z-index: 10;
+  position: relative;
+}
+
+/* Asegurar que la página activa mantenga su estilo incluso en hover */
+.pagination-custom .page-item.active .page-link:hover {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%) !important;
+  border-color: #4a7c59 !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(45, 90, 39, 0.3) !important;
+}
+
+.pagination-custom .page-item.disabled .page-link {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border-color: #6c757d;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.pagination-custom .page-item.disabled .page-link:hover {
+  transform: none;
+  box-shadow: none;
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border-color: #6c757d;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  .main-content {
+    padding-bottom: 100px; /* Menos padding en móviles */
+  }
+  
+  .pendiente-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .pendiente-icon i {
+    font-size: 1rem !important;
+  }
+  
+  .action-btn,
+  .eliminar-btn {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .action-btn i,
+  .eliminar-btn i {
+    font-size: 12px;
+  }
+  
+  .pagination-custom .page-link {
+    padding: 8px 12px;
+    font-size: 14px;
+    margin: 0 2px;
+  }
+  
+  .custom-search-bar .input-group {
+    max-width: 100%;
+  }
+  
+  .custom-search-input {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+  
+  .custom-search-button,
+  .btn-outline-secondary {
+    padding: 10px 12px;
+  }
+  
+  .search-results .badge {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+  
+  .btn-volver-improved {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .btn-volver-improved i {
+    font-size: 14px;
+  }
+}

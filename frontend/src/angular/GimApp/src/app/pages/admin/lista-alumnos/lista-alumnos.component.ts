@@ -13,6 +13,9 @@ export class ListaAlumnosComponent implements OnInit{
   currentPage:any = 1;
   totalPaginas: number = 0;
   pages: number[] = [];
+  searchTerm: string = '';
+  isSearching: boolean = false;
+  allAlumnos: any[] = []; // Para almacenar todos los alumnos para búsqueda
 
   constructor(private usuariosService: UsuariosService) {}
 
@@ -34,7 +37,56 @@ export class ListaAlumnosComponent implements OnInit{
       console.log('Total de paginas:', this.totalPaginas);
 
       this.pages = Array.from({length: this.totalPaginas}, (_, i) => i + 1);
+      
+      // Cargar todos los alumnos para búsqueda (solo en la primera carga)
+      if (page === 1 && this.allAlumnos.length === 0) {
+        this.loadAllAlumnos();
+      }
     });
+  }
+
+  loadAllAlumnos() {
+    // Cargar todas las páginas de alumnos para búsqueda
+    this.usuariosService.getAlumnos(1).subscribe((data: any) => {
+      this.allAlumnos = data.usuarios;
+      
+      // Si hay más páginas, cargar las siguientes
+      if (data.pages > 1) {
+        for (let i = 2; i <= data.pages; i++) {
+          this.usuariosService.getAlumnos(i).subscribe((pageData: any) => {
+            this.allAlumnos = this.allAlumnos.concat(pageData.usuarios);
+          });
+        }
+      }
+    });
+  }
+
+  searchAlumnos() {
+    if (this.searchTerm.trim() === '') {
+      this.isSearching = false;
+      this.loadAlumnos(1);
+      return;
+    }
+
+    this.isSearching = true;
+    
+    // Filtrar por nombre y apellido
+    this.arrayAlumnos = this.allAlumnos.filter((alumno: any) => {
+      const nombreCompleto = `${alumno.nombre} ${alumno.apellido}`.toLowerCase();
+      const searchLower = this.searchTerm.toLowerCase();
+      
+      return nombreCompleto.includes(searchLower);
+    });
+    
+    this.currentPage = 1;
+    this.totalPaginas = 1;
+    this.pages = [1];
+  }
+
+  clearSearch() {
+    this.searchTerm = '';
+    this.isSearching = false;
+    this.loadAlumnos(1);
   }
 
 

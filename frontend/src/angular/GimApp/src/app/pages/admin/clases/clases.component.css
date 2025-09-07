@@ -1,0 +1,47 @@
+/* Contenedor principal con padding inferior para evitar que el footer tape el contenido */
+.main-content {
+  padding-bottom: 120px; /* Espacio suficiente para el footer */
+  min-height: calc(100vh - 200px); /* Altura mínima menos espacio para nav y footer */
+}
+
+/* Estilos mejorados para el botón de regreso */
+.btn-volver-improved {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border: 2px solid #495057;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-volver-improved:hover {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+  border-color: #4a7c59;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 90, 39, 0.3);
+}
+
+.btn-volver-improved i {
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  .main-content {
+    padding-bottom: 100px; /* Menos padding en móviles */
+  }
+  
+  .btn-volver-improved {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .btn-volver-improved i {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,20 @@
+/* Estilos específicos para los botones de home_admin */
+.btn-home-admin {
+  padding: 15px 25px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 2px solid #474747;
+  background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 50%; /* Mantiene el ancho original */
+}
+
+.btn-home-admin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(45, 90, 39, 0.3);
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%) !important;
+  color: #fff !important;
+  border-color: #4a7c59 !important;
+}
