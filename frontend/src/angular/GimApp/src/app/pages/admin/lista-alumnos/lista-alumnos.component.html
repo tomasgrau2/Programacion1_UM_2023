@@ -47,7 +47,7 @@
             </form>
             <div class="container mt-4 mb-4">
                 <div class="d-grid gap-3">
-                    <button class="btn btn-alumno-card" type="button" *ngFor="let usuario of arrayAlumnos">
+                    <div class="btn btn-alumno-card" type="button" *ngFor="let usuario of arrayAlumnos">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
                                 <div class="alumno-icon me-3">
@@ -62,12 +62,15 @@
                                     <i class="fa-regular fa-eye fa-lg" style="color: #D0FD3E;"></i>
                                     <span class="d-none d-sm-block" style="font-size: 12px; margin-top: 2px; color: #ccc;">Ver</span>
                                 </div>
-                                <div class="eliminar-btn" (click)="eliminarAlumno(usuario.id)">
-                                    <i class="fa-solid fa-trash fa-sm" title="Eliminar"></i>
+                                <div class="editar-btn me-2" (click)="openEditModal(usuario, $event)" title="Editar">
+                                    <i class="fa-solid fa-edit fa-sm"></i>
+                                </div>
+                                <div class="eliminar-btn" (click)="eliminarAlumno(usuario.id, $event)" title="Eliminar">
+                                    <i class="fa-solid fa-trash fa-sm"></i>
                                 </div>
                             </div>
                         </div>
-                    </button>
+                    </div>
 
                     <div class="d-flex justify-content-center mt-3 mb-3" *ngIf="rol=='admin'">
                         <button class="btn btn-agregar-alumno" type="button" routerLink="/crear_alumno">
@@ -105,5 +108,73 @@
             </div>
         </div>
 </div> <!-- Cierre del main-content -->
+
+<!-- Modal para editar alumno -->
+<div class="modal fade" id="editAlumnoModal" tabindex="-1" aria-labelledby="editAlumnoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAlumnoModalLabel">Editar Alumno</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="editForm" (ngSubmit)="saveAlumno()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editNombre" class="form-label">Nombre</label>
+                                <input type="text" 
+                                       class="form-control bg-dark text-white border-secondary" 
+                                       id="editNombre" 
+                                       formControlName="nombre">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editApellido" class="form-label">Apellido</label>
+                                <input type="text" 
+                                       class="form-control bg-dark text-white border-secondary" 
+                                       id="editApellido" 
+                                       formControlName="apellido">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editEmail" class="form-label">Email</label>
+                                <input type="email" 
+                                       class="form-control bg-dark text-white border-secondary" 
+                                       id="editEmail" 
+                                       formControlName="email">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="editEdad" class="form-label">Edad</label>
+                                <input type="number" 
+                                       class="form-control bg-dark text-white border-secondary" 
+                                       id="editEdad" 
+                                       formControlName="edad"
+                                       min="1" max="120">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDni" class="form-label">DNI</label>
+                        <input type="number" 
+                               class="form-control bg-dark text-white border-secondary" 
+                               id="editDni" 
+                               formControlName="dni">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="saveAlumno()" [disabled]="!isFormValid()">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
        
 <app-footer></app-footer>

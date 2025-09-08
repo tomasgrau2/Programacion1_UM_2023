@@ -60,17 +60,14 @@ def create_app():
 
     api.add_resource(resources.UsuariosProfesoresResource, '/profesores')
 
-    api.add_resource(resources.ClasesResource, '/clases')
-
-    api.add_resource(resources.ClaseResource, '/clases/<id>')
 
     api.add_resource(resources.LoginResource, '/login')
-    
-    api.add_resource(resources.PagoResource, '/pagos/<id>')
 
     api.add_resource(resources.PlanificacionesResource, '/planificaciones')
     
     api.add_resource(resources.PlanificacionResource, '/planificaciones/<id>')
+    
+    api.add_resource(resources.PlanificacionesAlumnoResource, '/planificaciones-alumno/<dni>')
 
     #Cargar la aplicacion en la API de Flask Restful
     #es para que la aplicacion de flask funcione como API

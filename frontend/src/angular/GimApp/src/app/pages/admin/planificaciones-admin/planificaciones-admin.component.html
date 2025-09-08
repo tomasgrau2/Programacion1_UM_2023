@@ -1,0 +1,219 @@
+<app-fondo></app-fondo>
+<app-nav></app-nav>
+
+<div class="main-content">
+  <div class="container-fluid">
+    <!-- Botón de regreso -->
+    <div class="row mb-3">
+      <div class="col-12">
+        <button class="btn btn-volver-improved" onclick="window.history.back()">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h1 class="page-title">Gestión de Planificaciones</h1>
+            <p class="page-subtitle">Administra todas las planificaciones del gimnasio</p>
+          </div>
+          <button class="btn btn-agregar-planificacion" (click)="openEditModal()">
+            <i class="fas fa-plus"></i>
+            Nueva Planificación
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Planificaciones List -->
+    <div class="row">
+      <div class="col-12">
+        <div class="planificaciones-container">
+          <div *ngIf="planificaciones.length === 0" class="no-planificaciones">
+            <div class="text-center py-5">
+              <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+              <h4 class="text-muted">No hay planificaciones</h4>
+              <p class="text-muted">Crea la primera planificación para comenzar</p>
+            </div>
+          </div>
+
+          <div *ngFor="let planificacion of planificaciones" 
+               class="planificacion-card" 
+               [class.expanded]="planificacion.expanded"
+               [class.mobile-collapsed]="!planificacion.expanded && isMobile()">
+            <div class="planificacion-header" 
+                 (click)="toggleCard(planificacion, $event)"
+                 [class.clickable]="isMobile()">
+              <div class="planificacion-info">
+                <h5 class="planificacion-title">
+                  <i class="fas fa-calendar-week text-primary"></i>
+                  Planificación #{{ planificacion.id }}
+                </h5>
+                <div class="planificacion-meta">
+                  <span class="meta-item">
+                    <i class="fas fa-user-tie text-info"></i>
+                    <strong>Profesor:</strong> {{ getProfesorName(planificacion.id_profesor) }}
+                  </span>
+                  <span class="meta-item">
+                    <i class="fas fa-user-graduate text-success"></i>
+                    <strong>Alumno:</strong> {{ getAlumnoName(planificacion.id_alumno) }}
+                  </span>
+                  <span class="meta-item">
+                    <i class="fas fa-clock text-warning"></i>
+                    <strong>Creada:</strong> {{ formatDate(planificacion.fecha_creacion) }}
+                  </span>
+                </div>
+              </div>
+              <div class="planificacion-actions">
+                <button class="btn btn-editar" (click)="openEditModal(planificacion, $event)" title="Editar">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-eliminar" (click)="deletePlanificacion(planificacion, $event)" title="Eliminar">
+                  <i class="fas fa-trash"></i>
+                </button>
+                <button class="btn btn-expand" 
+                        *ngIf="isMobile()" 
+                        (click)="toggleCard(planificacion, $event)" 
+                        title="Expandir/Contraer">
+                  <i class="fas" [class.fa-chevron-down]="!planificacion.expanded" [class.fa-chevron-up]="planificacion.expanded"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="planificacion-days" 
+                 [class.mobile-hidden]="!planificacion.expanded && isMobile()">
+              <div class="day-item" *ngFor="let day of ['lunes', 'martes', 'miercoles', 'jueves', 'viernes']">
+                <div class="day-header">
+                  <span class="day-name">{{ getDayName(day) }}</span>
+                </div>
+                <div class="day-content">
+                  <span class="day-exercise" [class.empty]="!planificacion[day]">
+                    {{ planificacion[day] || 'Libre' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="row mt-4" *ngIf="totalPaginas > 1">
+      <div class="col-12">
+        <nav aria-label="Paginación de planificaciones">
+          <ul class="pagination pagination-custom justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" (click)="goToPage(currentPage - 1)" href="javascript:void(0)">
+                <i class="fas fa-chevron-left"></i>
+              </a>
+            </li>
+            <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+              <a class="page-link" (click)="goToPage(page)" href="javascript:void(0)">{{ page }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPaginas">
+              <a class="page-link" (click)="goToPage(currentPage + 1)" href="javascript:void(0)">
+                <i class="fas fa-chevron-right"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Panel lateral para crear/editar planificación -->
+<div class="planificacion-panel" [class.show]="isModalOpen">
+  <div class="panel-content">
+    <div class="panel-header">
+      <h5 class="panel-title">
+        <i class="fas fa-calendar-week"></i>
+        {{ isCreateMode ? 'Nueva Planificación' : 'Editar Planificación' }}
+      </h5>
+      <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="panel-body">
+      <form [formGroup]="editForm">
+        <div class="row">
+          <!-- Selección de Profesor y Alumno -->
+          <div class="col-md-6 mb-3">
+            <label for="id_profesor" class="form-label">
+              <i class="fas fa-user-tie"></i> Profesor
+            </label>
+            <select class="form-control" id="id_profesor" formControlName="id_profesor">
+              <option value="">Seleccionar profesor</option>
+              <option *ngFor="let profesor of profesores" [value]="profesor.r_profesor?.[0]?.id">
+                {{ profesor.nombre }} {{ profesor.apellido }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="id_alumno" class="form-label">
+              <i class="fas fa-user-graduate"></i> Alumno
+            </label>
+            <select class="form-control" id="id_alumno" formControlName="id_alumno">
+              <option value="">Seleccionar alumno</option>
+              <option *ngFor="let alumno of alumnos" [value]="alumno.r_alumno?.[0]?.id">
+                {{ alumno.nombre }} {{ alumno.apellido }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Días de la semana -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="lunes" class="form-label">
+              <i class="fas fa-calendar-day"></i> Lunes
+            </label>
+            <input type="text" class="form-control" id="lunes" formControlName="lunes" placeholder="Ejercicios para el lunes">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="martes" class="form-label">
+              <i class="fas fa-calendar-day"></i> Martes
+            </label>
+            <input type="text" class="form-control" id="martes" formControlName="martes" placeholder="Ejercicios para el martes">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="miercoles" class="form-label">
+              <i class="fas fa-calendar-day"></i> Miércoles
+            </label>
+            <input type="text" class="form-control" id="miercoles" formControlName="miercoles" placeholder="Ejercicios para el miércoles">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="jueves" class="form-label">
+              <i class="fas fa-calendar-day"></i> Jueves
+            </label>
+            <input type="text" class="form-control" id="jueves" formControlName="jueves" placeholder="Ejercicios para el jueves">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="viernes" class="form-label">
+              <i class="fas fa-calendar-day"></i> Viernes
+            </label>
+            <input type="text" class="form-control" id="viernes" formControlName="viernes" placeholder="Ejercicios para el viernes">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="panel-footer">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">
+        <i class="fas fa-times"></i> Cancelar
+      </button>
+      <button type="button" class="btn btn-primary" (click)="savePlanificacion()" [disabled]="!isFormValid()">
+        <i class="fas fa-save"></i> {{ isCreateMode ? 'Crear' : 'Guardar Cambios' }}
+      </button>
+    </div>
+  </div>
+</div>

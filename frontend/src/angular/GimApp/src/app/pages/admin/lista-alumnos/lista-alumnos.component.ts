@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -16,8 +17,32 @@ export class ListaAlumnosComponent implements OnInit{
   searchTerm: string = '';
   isSearching: boolean = false;
   allAlumnos: any[] = []; // Para almacenar todos los alumnos para búsqueda
+  
+  // Variables para el modal de edición
+  editForm: FormGroup;
+  selectedAlumno: any = null;
+  isModalOpen: boolean = false;
 
-  constructor(private usuariosService: UsuariosService) {}
+  constructor(
+    private usuariosService: UsuariosService,
+    private formBuilder: FormBuilder
+  ) {
+    this.editForm = this.formBuilder.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      edad: ['', [Validators.required]],
+      dni: ['', [Validators.required]]
+    });
+
+    // Debug: Suscribirse a los cambios del formulario
+    this.editForm.statusChanges.subscribe(status => {
+      console.log('Form status:', status);
+      console.log('Form valid:', this.editForm.valid);
+      console.log('Form errors:', this.editForm.errors);
+      console.log('Form value:', this.editForm.value);
+    });
+  }
 
   ngOnInit() {
     this.loadAlumnos(this.currentPage);
@@ -90,17 +115,132 @@ export class ListaAlumnosComponent implements OnInit{
   }
 
 
-  eliminarAlumno(userId: number) {
-    this.usuariosService.deleteUser(userId).subscribe(
-      (response) => {
-        console.log('Usuario eliminado con éxito', userId);
-        // Actualizar lista
-        const index = this.arrayAlumnos.findIndex((usuario: { id: number; }) => usuario.id === userId);
-        if (index !== -1) {
-        this.arrayAlumnos.splice(index, 1);
+  eliminarAlumno(userId: number, event?: Event) {
+    if (event) {
+      event.stopPropagation(); // Evitar que se abra el modal
+    }
+    
+    if (confirm('¿Estás seguro de que quieres eliminar este alumno?')) {
+      this.usuariosService.deleteUser(userId).subscribe(
+        (response) => {
+          console.log('Usuario eliminado con éxito', userId);
+          // Actualizar lista
+          const index = this.arrayAlumnos.findIndex((usuario: { id: number; }) => usuario.id === userId);
+          if (index !== -1) {
+            this.arrayAlumnos.splice(index, 1);
+          }
+        }
+      );
+    }
+  }
+
+  // Método para abrir el modal de edición
+  openEditModal(alumno: any, event?: Event) {
+    if (event) {
+      event.stopPropagation(); // Evitar cualquier propagación de eventos
+    }
+    
+    this.selectedAlumno = alumno;
+    
+    // Establecer los valores del formulario
+    this.editForm.patchValue({
+      nombre: alumno.nombre || '',
+      apellido: alumno.apellido || '',
+      email: alumno.email || '',
+      edad: alumno.edad || '',
+      dni: alumno.dni || ''
+    });
+    
+    // Marcar todos los campos como tocados para mostrar validaciones
+    this.editForm.markAllAsTouched();
+    
+    console.log('Alumno seleccionado:', alumno);
+    console.log('Formulario después de patchValue:', this.editForm.value);
+    console.log('Formulario válido:', this.editForm.valid);
+    
+    // Mostrar el modal usando Bootstrap
+    const modalElement = document.getElementById('editAlumnoModal');
+    if (modalElement) {
+      const modal = new (window as any).bootstrap.Modal(modalElement);
+      modal.show();
+      this.isModalOpen = true;
+    }
+  }
+
+  // Método para guardar los cambios del alumno
+  saveAlumno() {
+    if (this.isFormValid() && this.selectedAlumno) {
+      const formData = this.editForm.value;
+      
+      // Actualizar el usuario asociado al alumno
+      this.usuariosService.updateUser(this.selectedAlumno.id, formData).subscribe(
+        (response) => {
+          console.log('Usuario actualizado con éxito', response);
+          
+          // Actualizar la lista local
+          const index = this.arrayAlumnos.findIndex((alumno: any) => alumno.id === this.selectedAlumno.id);
+          if (index !== -1) {
+            this.arrayAlumnos[index] = { ...this.arrayAlumnos[index], ...formData };
+          }
+          
+          // Cerrar el modal
+          this.closeModal();
+          
+          // Mostrar mensaje de éxito
+          alert('Alumno actualizado correctamente');
+        },
+        (error) => {
+          console.error('Error al actualizar el alumno:', error);
+          alert('Error al actualizar el alumno');
+        }
+      );
+    }
+  }
+
+
+  // Método para validar el formulario manualmente
+  isFormValid(): boolean {
+    if (!this.editForm) return false;
+    
+    const formValue = this.editForm.value;
+    const isValid = formValue.nombre && 
+                   formValue.apellido && 
+                   formValue.email && 
+                   formValue.edad && 
+                   formValue.dni &&
+                   this.isValidEmail(formValue.email);
+    
+    console.log('Validación manual:', {
+      nombre: formValue.nombre,
+      apellido: formValue.apellido,
+      email: formValue.email,
+      edad: formValue.edad,
+      dni: formValue.dni,
+      emailValid: this.isValidEmail(formValue.email),
+      isValid: isValid
+    });
+    
+    return isValid;
+  }
+
+  // Método para validar email
+  private isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  // Método para cerrar el modal
+  closeModal() {
+    const modalElement = document.getElementById('editAlumnoModal');
+    if (modalElement) {
+      const modal = (window as any).bootstrap.Modal.getInstance(modalElement);
+      if (modal) {
+        modal.hide();
       }
     }
-    );
+    this.isModalOpen = false;
+    this.selectedAlumno = null;
+    this.editForm.reset();
   }
 }
 

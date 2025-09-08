@@ -31,6 +31,7 @@ import { InfoAlumnoComponent } from './pages/profesor/info-alumno/info-alumno.co
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListaPendientesComponent } from './pages/admin/lista-pendientes/lista-pendientes.component';
+import { PlanificacionesAdminComponent } from './pages/admin/planificaciones-admin/planificaciones-admin.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ListaPendientesComponent } from './pages/admin/lista-pendientes/lista-p
     ClasesComponent,
     InfoAlumnoComponent,
     ListaPendientesComponent,
+    PlanificacionesAdminComponent,
   ],
   imports: [
     BrowserModule,

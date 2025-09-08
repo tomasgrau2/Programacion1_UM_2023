@@ -1,8 +1,8 @@
-# Planificaion, PlanificacionAlumno, PlanificacionesProfesores, 
+# Planificaciones por alumno y profesor
 from flask_restful import Resource
 from flask import request,jsonify
 from .. import db
-from main.models import PlanificacionModel, ClaseModel
+from main.models import PlanificacionModel, AlumnoModel, ProfesorModel, UsuarioModel
 from main.auth.decorators import role_required
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -19,7 +19,25 @@ class Planificaciones(Resource):
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
 
-        #Busqueda por dia
+        # Filtrar por profesor (si es profesor, solo ver sus planificaciones)
+        current_user_id = get_jwt_identity()
+        current_user = db.session.query(UsuarioModel).get(current_user_id)
+        
+        if current_user and current_user.rol == 'profesor':
+            # Buscar el profesor asociado al usuario
+            profesor = db.session.query(ProfesorModel).filter_by(id_usuario=current_user_id).first()
+            if profesor:
+                planificaciones = planificaciones.filter(PlanificacionModel.id_profesor == profesor.id)
+
+        # Filtrar por alumno específico
+        if request.args.get('id_alumno'):
+            planificaciones = planificaciones.filter(PlanificacionModel.id_alumno == request.args.get('id_alumno'))
+
+        # Filtrar por profesor específico (solo admin puede hacer esto)
+        if request.args.get('id_profesor') and current_user.rol == 'admin':
+            planificaciones = planificaciones.filter(PlanificacionModel.id_profesor == request.args.get('id_profesor'))
+
+        # Busqueda por día
         if request.args.get('lunes'):
             planificaciones=planificaciones.filter(PlanificacionModel.lunes.like("%"+request.args.get('lunes')+"%"))
 
@@ -35,8 +53,8 @@ class Planificaciones(Resource):
         if request.args.get('viernes'):
             planificaciones=planificaciones.filter(PlanificacionModel.viernes.like("%"+request.args.get('viernes')+"%"))
         
-        
-        
+        # Ordenar por fecha de creación (más recientes primero)
+        planificaciones = planificaciones.order_by(PlanificacionModel.fecha_creacion.desc())
         
         planificaciones = planificaciones.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
 
@@ -60,16 +78,69 @@ class Planificaciones(Resource):
     @jwt_required()
     @role_required(roles = ['admin', 'profesor'])
     def post(self):
-        clases_ids = request.get_json().get('clases')
-        planificacion = PlanificacionModel.from_json(request.get_json())
+        data = request.get_json()
         
-        if clases_ids:
-            clases = ClaseModel.query.filter(ClaseModel.id.in_(clases_ids)).all()
-            planificacion.clases.extend(clases)
+        # Obtener el profesor actual
+        current_user_id = get_jwt_identity()
+        current_user = db.session.query(UsuarioModel).get(current_user_id)
+        
+        if current_user.rol == 'profesor':
+            # Buscar el profesor asociado al usuario
+            profesor = db.session.query(ProfesorModel).filter_by(id_usuario=current_user_id).first()
+            if not profesor:
+                return {'error': 'Profesor no encontrado'}, 404
+            data['id_profesor'] = profesor.id
+        elif current_user.rol == 'admin':
+            # Admin puede especificar el profesor
+            if not data.get('id_profesor'):
+                return {'error': 'id_profesor es requerido'}, 400
+        
+        # Validar que el alumno existe
+        if not data.get('id_alumno'):
+            return {'error': 'id_alumno es requerido'}, 400
             
+        alumno = db.session.query(AlumnoModel).get(data['id_alumno'])
+        if not alumno:
+            return {'error': 'Alumno no encontrado'}, 404
+        
+        planificacion = PlanificacionModel.from_json(data)
         db.session.add(planificacion)
         db.session.commit()
         return planificacion.to_json(), 201
+
+
+class PlanificacionesAlumno(Resource):
+    """Recurso para que los alumnos vean sus planificaciones por DNI"""
+    
+    def get(self, dni):
+        # Buscar el alumno por DNI
+        usuario = db.session.query(UsuarioModel).filter_by(dni=dni).first()
+        if not usuario:
+            return {'error': 'Alumno no encontrado'}, 404
+        
+        # Verificar si el usuario es alumno
+        alumno = db.session.query(AlumnoModel).filter_by(id_usuario=usuario.id).first()
+        if not alumno:
+            return {'error': 'Usuario no es un alumno'}, 400
+        
+        # Verificar si el usuario está suspendido
+        if usuario.suspendido:
+            return {'error': 'Alumno suspendido'}, 403
+        
+        # Obtener planificaciones del alumno ordenadas por fecha (más recientes primero)
+        planificaciones = db.session.query(PlanificacionModel)\
+            .filter_by(id_alumno=alumno.id)\
+            .order_by(PlanificacionModel.fecha_creacion.desc())\
+            .all()
+        
+        return jsonify({
+            'alumno': {
+                'nombre': usuario.nombre,
+                'apellido': usuario.apellido,
+                'dni': usuario.dni
+            },
+            'planificaciones': [planificacion.to_json() for planificacion in planificaciones]
+        })
     
 class Planificacion(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)
     #obtener recurso

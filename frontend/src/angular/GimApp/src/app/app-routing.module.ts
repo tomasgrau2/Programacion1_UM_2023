@@ -23,6 +23,7 @@ import { PlanificacionesProfesoresComponent } from './pages/profesor/planificaci
 import { ClasesComponent } from './pages/admin/clases/clases.component';
 import { InfoAlumnoComponent } from './pages/profesor/info-alumno/info-alumno.component';
 import { ListaPendientesComponent } from './pages/admin/lista-pendientes/lista-pendientes.component';
+import { PlanificacionesAdminComponent } from './pages/admin/planificaciones-admin/planificaciones-admin.component';
 import { authsessionAlumnoGuard } from './guards/authsession-alumno.guard';
 import { authsessionProfesorGuard } from './guards/authsession-profesor.guard';
 import { authsessionAdminGuard } from './guards/authsession-admin.guard';
@@ -54,6 +55,7 @@ const routes: Routes = [
   { path: 'clases', component: ClasesComponent, canActivate:[authsessionAdminGuard]},
   { path: 'info_alumno', component: InfoAlumnoComponent, canActivate:[authsessionProfesorGuard]},
   { path: 'lista_pendientes', component: ListaPendientesComponent, canActivate:[authsessionAdminGuard]},
+  { path: 'planificaciones_admin', component: PlanificacionesAdminComponent, canActivate:[authsessionAdminGuard]},
   { path: '**', redirectTo: 'error_page'},
   
 ];

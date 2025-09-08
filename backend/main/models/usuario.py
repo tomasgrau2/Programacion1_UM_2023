@@ -10,6 +10,7 @@ class Usuario(db.Model):
     email = db.Column(db.String(64), unique=True, index=True, nullable=False)
     contrasena = db.Column(db.String(128), nullable=False)
     rol = db.Column(db.String(10), nullable=False, server_default='users')
+    suspendido = db.Column(db.Boolean, default=False, nullable=False)
     r_alumno = db.relationship('Alumno', back_populates='r_usuario',cascade='all, delete-orphan')
     r_profesor = db.relationship('Profesor', back_populates='r_usuario',cascade='all, delete-orphan')
 
@@ -40,8 +41,8 @@ class Usuario(db.Model):
             'edad': int(self.edad),
             'email':str(self.email),
             'contrasena': str(self.contrasena),
-            'rol': str(self.rol)
-
+            'rol': str(self.rol),
+            'suspendido': bool(self.suspendido)
         }
         return usuario_json
 
@@ -79,6 +80,7 @@ class Usuario(db.Model):
         email = usuario_json.get('email')
         contrasena = usuario_json.get('contrasena')
         rol = usuario_json.get('rol')
+        suspendido = usuario_json.get('suspendido', False)
         return Usuario(id=id,
                     nombre=nombre,
                     apellido=apellido,
@@ -86,5 +88,6 @@ class Usuario(db.Model):
                     edad=edad,
                     email=email,
                     plain_password=contrasena,
-                    rol=rol
+                    rol=rol,
+                    suspendido=suspendido
                     )

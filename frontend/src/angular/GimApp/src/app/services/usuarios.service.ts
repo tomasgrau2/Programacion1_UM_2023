@@ -47,6 +47,18 @@ export class UsuariosService {
     return this.httpClient.delete(this.url + `/usuario/${userId}`, {headers: headers});
   }
 
+  // Método para actualizar un usuario
+  updateUser(userId: number, data: any) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.put(this.url + `/usuario/${userId}`, data, {headers: headers});
+  }
+
 
   getPendientes(page: number) {
     let auth_token = localStorage.getItem('token');
@@ -101,6 +113,42 @@ export class UsuariosService {
 
     return this.httpClient.post(this.url + `/alumnos `, body,  {headers: headers});
   }
+
+  // Método para obtener un alumno específico
+  getAlumno(alumnoId: number) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.get(this.url + `/alumno/${alumnoId}`, {headers: headers});
+  }
+
+  // Método para actualizar un alumno
+  updateAlumno(alumnoId: number, data: any) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.put(this.url + `/alumno/${alumnoId}`, data, {headers: headers});
+  }
+
+  // Método para eliminar un alumno
+  deleteAlumno(alumnoId: number) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.delete(this.url + `/alumno/${alumnoId}`, {headers: headers});
+  }
   
 // ---------------------------------------------------------------------------------------------------
 
@@ -118,7 +166,7 @@ export class UsuariosService {
     return this.httpClient.get(this.url + `/usuarios?rol=profesor&page=${page}`, {headers: headers});
   }
 
-  postProfesores(userID: number) {
+  postProfesores(userID: number, especialidad: string) {
     let auth_token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
@@ -126,9 +174,24 @@ export class UsuariosService {
       'Authorization': `Bearer ${auth_token}`
     });
 
-    const body = { id_usuario: userID };
+    const body = { 
+      id_usuario: userID,
+      especialidad: especialidad
+    };
 
-    return this.httpClient.post(this.url + `/profesores `, body,  {headers: headers});
+    return this.httpClient.post(this.url + `/profesores`, body,  {headers: headers});
+  }
+
+  // Actualizar profesor
+  updateProfesor(profesorId: number, data: any) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.put(this.url + `/profesor/${profesorId}`, data, {headers: headers});
   }
 // --------------------------------------------------------------------------------------------------
 

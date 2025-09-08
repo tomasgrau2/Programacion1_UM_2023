@@ -25,6 +25,7 @@ export class CrearProfesorComponent {
       contrasena: ['', Validators.required],
       edad: ['', Validators.required],
       dni: ['', Validators.required],
+      especialidad: ['', Validators.required],
     })
   }
 
@@ -36,7 +37,7 @@ export class CrearProfesorComponent {
       this.user_data = response // Guardo la informacion del nuevo usuario para asignarle el rol y crear el profesor
       alert("Registro exitoso, creando profesor...");
       this.asignarRol(this.user_data,"profesor") // Asigno rol profesor
-      // this.crearProfesor(this.user_data.id) // Creo el profesor
+      this.crearProfesor(this.user_data.id, this.createForm.value.especialidad) // Creo el profesor con especialidad
       this.createForm.reset();
     },error=>{
       alert("Error de algun tipo");
@@ -59,14 +60,16 @@ export class CrearProfesorComponent {
 
 
 
-  crearProfesor(userID: number) {
-    this.usuariosService.postProfesores(userID).subscribe(
+  crearProfesor(userID: number, especialidad: string) {
+    this.usuariosService.postProfesores(userID, especialidad).subscribe(
       (response) => {
         console.log("Al crear profesor: ", response)
-        console.log(`Profesor creado`);
+        console.log(`Profesor creado con especialidad: ${especialidad}`);
+        alert("Profesor creado exitosamente!");
       },
       (error) => {
         console.log('Error al crear profesor:', error);
+        alert("Error al crear el profesor");
       }
     );
   }

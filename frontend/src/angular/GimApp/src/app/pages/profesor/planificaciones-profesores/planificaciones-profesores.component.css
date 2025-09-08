@@ -1,0 +1,388 @@
+/* Contenedor principal con padding inferior para evitar que el footer tape el contenido */
+.main-content {
+  padding-bottom: 120px; /* Espacio suficiente para el footer */
+  min-height: calc(100vh - 200px); /* Altura mínima menos espacio para nav y footer */
+}
+
+/* Estilos mejorados para el botón de regreso */
+.btn-volver-improved {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border: 2px solid #495057;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-volver-improved:hover {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+  border-color: #4a7c59;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 90, 39, 0.3);
+}
+
+.btn-volver-improved i {
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Botón para agregar planificación */
+.btn-agregar-planificacion {
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 10px;
+  border: 2px solid #28a745;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-agregar-planificacion:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+  background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+  border-color: #1e7e34;
+  color: #fff;
+}
+
+.btn-agregar-planificacion i {
+  transition: all 0.3s ease;
+}
+
+.btn-agregar-planificacion:hover i {
+  transform: scale(1.1);
+}
+
+/* Estilos para las tarjetas de planificaciones */
+.planificacion-card {
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid #474747;
+  background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.planificacion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(45, 90, 39, 0.3);
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+  border-color: #4a7c59;
+}
+
+.planificacion-card h6 {
+  color: #fff;
+  font-weight: 600;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.planificacion-card:hover h6 {
+  color: #fff;
+}
+
+/* Icono de la planificación */
+.planificacion-icon {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(45, 90, 39, 0.1);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.planificacion-icon i {
+  color: #2d5a27;
+  transition: all 0.3s ease;
+}
+
+.planificacion-card:hover .planificacion-icon {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.planificacion-card:hover .planificacion-icon i {
+  color: #fff;
+}
+
+/* Badges para los días */
+.planificacion-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.day-badge {
+  background: rgba(45, 90, 39, 0.2);
+  color: #2d5a27;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid rgba(45, 90, 39, 0.3);
+  transition: all 0.3s ease;
+}
+
+.planificacion-card:hover .day-badge {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Botón de editar estético */
+.editar-btn {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(45, 90, 39, 0.1);
+  border: 1px solid rgba(45, 90, 39, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.editar-btn:hover {
+  background: rgba(45, 90, 39, 0.2);
+  border-color: #2d5a27;
+  transform: scale(1.05);
+}
+
+.editar-btn i {
+  color: #2d5a27;
+  transition: all 0.3s ease;
+}
+
+.editar-btn:hover i {
+  color: #1e3d1a;
+}
+
+/* Botón de eliminar estético */
+.eliminar-btn {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.eliminar-btn:hover {
+  background: rgba(255, 71, 87, 0.2);
+  border-color: #ff4757;
+  transform: scale(1.05);
+}
+
+.eliminar-btn i {
+  color: #ff4757;
+  transition: all 0.3s ease;
+}
+
+.eliminar-btn:hover i {
+  color: #ff3742;
+}
+
+/* Paginación personalizada */
+.pagination-custom .page-link {
+  color: #fff;
+  background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%);
+  border: 2px solid #474747;
+  border-radius: 8px;
+  margin: 0 3px;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.pagination-custom .page-link:hover {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+  border-color: #4a7c59;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(45, 90, 39, 0.3);
+}
+
+.pagination-custom .page-item.active .page-link {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%) !important;
+  border-color: #4a7c59 !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(45, 90, 39, 0.3) !important;
+  z-index: 10;
+  position: relative;
+}
+
+.pagination-custom .page-item.active .page-link:hover {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%) !important;
+  border-color: #4a7c59 !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(45, 90, 39, 0.3) !important;
+}
+
+.pagination-custom .page-item.disabled .page-link {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border-color: #6c757d;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.pagination-custom .page-item.disabled .page-link:hover {
+  transform: none;
+  box-shadow: none;
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border-color: #6c757d;
+}
+
+/* Estilos para el modal de edición */
+.modal-content {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  border-bottom: 1px solid #474747;
+  border-radius: 15px 15px 0 0;
+}
+
+.modal-footer {
+  border-top: 1px solid #474747;
+  border-radius: 0 0 15px 15px;
+}
+
+.modal-body .form-control {
+  background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%);
+  border: 2px solid #474747;
+  border-radius: 8px;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.modal-body .form-control:focus {
+  background: linear-gradient(135deg, #2C2C2E 0%, #1a1a1c 100%);
+  border-color: #4a7c59;
+  box-shadow: 0 0 0 0.2rem rgba(74, 124, 89, 0.25);
+  color: #fff;
+}
+
+.modal-body .form-control::placeholder {
+  color: #999;
+}
+
+.modal-body .form-label {
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.modal-footer .btn {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.modal-footer .btn-primary {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+  border: 2px solid #4a7c59;
+}
+
+.modal-footer .btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1e3d1a 0%, #2d5a27 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(45, 90, 39, 0.3);
+}
+
+.modal-footer .btn-secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border: 2px solid #6c757d;
+}
+
+.modal-footer .btn-secondary:hover {
+  background: linear-gradient(135deg, #5a6268 0%, #6c757d 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.modal-footer .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  .main-content {
+    padding-bottom: 100px; /* Menos padding en móviles */
+  }
+  
+  .planificacion-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .planificacion-icon i {
+    font-size: 1rem !important;
+  }
+  
+  .btn-agregar-planificacion {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .pagination-custom .page-link {
+    padding: 8px 12px;
+    font-size: 14px;
+    margin: 0 2px;
+  }
+  
+  .btn-volver-improved {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .btn-volver-improved i {
+    font-size: 14px;
+  }
+  
+  .editar-btn,
+  .eliminar-btn {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .editar-btn i,
+  .eliminar-btn i {
+    font-size: 12px;
+  }
+  
+  .planificacion-days {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .day-badge {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+}

@@ -79,11 +79,19 @@ class Usuarios(Resource):
         
         usuarios = usuarios.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
 
-        return jsonify({'usuarios': [usuario.to_json() for usuario in usuarios],
-                  'total': usuarios.total,
-                  'pages': usuarios.pages,
-                  'page': page
-                })
+        # Si se está filtrando por rol profesor o alumno, usar to_json_complete para incluir información completa
+        if request.args.get('rol') in ['profesor', 'alumno']:
+            return jsonify({'usuarios': [usuario.to_json_complete() for usuario in usuarios],
+                      'total': usuarios.total,
+                      'pages': usuarios.pages,
+                      'page': page
+                    })
+        else:
+            return jsonify({'usuarios': [usuario.to_json() for usuario in usuarios],
+                      'total': usuarios.total,
+                      'pages': usuarios.pages,
+                      'page': page
+                    })
 
     def post(self):
         usuario = UsuarioModel.from_json(request.get_json())
