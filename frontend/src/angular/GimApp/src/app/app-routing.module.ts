@@ -18,7 +18,6 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 import { ListaProfesoresComponent } from './pages/admin/lista-profesores/lista-profesores.component';
 import { HomeprofesoresComponent } from './pages/profesor/homeprofesores/homeprofesores.component';
 import { PerfilVistaProfComponent } from './pages/profesor/perfil-vista-prof/perfil-vista-prof.component';
-import { PlanificacionComponent } from './pages/alumno/planificacion/planificacion.component';
 import { PlanificacionesProfesoresComponent } from './pages/profesor/planificaciones-profesores/planificaciones-profesores.component';
 import { ClasesComponent } from './pages/admin/clases/clases.component';
 import { InfoAlumnoComponent } from './pages/profesor/info-alumno/info-alumno.component';
@@ -51,7 +50,6 @@ const routes: Routes = [
   { path: 'home_profesores' , component : HomeprofesoresComponent, canActivate:[authsessionProfesorGuard]},
   { path: 'perfil_vista_prof', component: PerfilVistaProfComponent, canActivate:[authsessionProfesorGuard]},
   { path: 'planificacion_profesores', component: PlanificacionesProfesoresComponent, canActivate:[authsessionProfesorGuard]},
-  { path: 'planificacion', component: PlanificacionComponent, canActivate:[authsessionAlumnoGuard]},
   { path: 'clases', component: ClasesComponent, canActivate:[authsessionAdminGuard]},
   { path: 'info_alumno', component: InfoAlumnoComponent, canActivate:[authsessionProfesorGuard]},
   { path: 'lista_pendientes', component: ListaPendientesComponent, canActivate:[authsessionAdminGuard]},

@@ -47,14 +47,14 @@
             </form>
             <div class="container mt-4 mb-4">
                 <div class="d-grid gap-3">
-                    <div class="btn btn-alumno-card" type="button" *ngFor="let usuario of arrayAlumnos">
+                    <div class="btn btn-alumno-card" type="button" *ngFor="let alumno of arrayAlumnos">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
                                 <div class="alumno-icon me-3">
                                     <i class="fa-solid fa-user fa-lg"></i>
                                 </div>
                                 <div class="text-start">
-                                    <h6 class="mb-0">{{usuario.nombre + ' ' + usuario.apellido}}</h6>
+                                    <h6 class="mb-0">{{alumno.usuario?.nombre + ' ' + alumno.usuario?.apellido}}</h6>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center">
@@ -62,10 +62,10 @@
                                     <i class="fa-regular fa-eye fa-lg" style="color: #D0FD3E;"></i>
                                     <span class="d-none d-sm-block" style="font-size: 12px; margin-top: 2px; color: #ccc;">Ver</span>
                                 </div>
-                                <div class="editar-btn me-2" (click)="openEditModal(usuario, $event)" title="Editar">
+                                <div class="editar-btn me-2" (click)="openEditModal(alumno.usuario, $event)" title="Editar">
                                     <i class="fa-solid fa-edit fa-sm"></i>
                                 </div>
-                                <div class="eliminar-btn" (click)="eliminarAlumno(usuario.id, $event)" title="Eliminar">
+                                <div class="eliminar-btn" (click)="eliminarAlumno(alumno.usuario?.id, $event)" title="Eliminar">
                                     <i class="fa-solid fa-trash fa-sm"></i>
                                 </div>
                             </div>

@@ -9,8 +9,8 @@ class Planificacion(db.Model):
     miercoles = db.Column(db.String, nullable=False)
     jueves = db.Column(db.String, nullable=False)
     viernes = db.Column(db.String, nullable=False)
-    fecha_creacion = db.Column(db.DateTime, default=datetime.utcnow)
-    fecha_modificacion = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    fecha_creacion = db.Column(db.DateTime, default=datetime.now)
+    fecha_modificacion = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
     
     # Relación con alumno específico (muchas planificaciones por alumno)
     id_alumno = db.Column(db.Integer, db.ForeignKey('alumno.id'), nullable=False)

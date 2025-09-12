@@ -3,35 +3,61 @@
 <div class="container text-center mt-5 position-relative">
     <div class="row mb-3">
         <button class="btn btn-secondary btn-volver" onclick="window.history.back()"><i class="fa-solid fa-chevron-left"></i></button>
-        <p class="p-perfil text-center">
-            Editar perfil
-        </p>
+        <h1 class="welcome-text">Editar Perfil</h1>
     </div>
-    
-    <img src="assets/user.png" alt="Foto de perfil" class="rounded-circle img-fluid" style="width: 100px; height: 100px; z-index: 2;">
 </div>
 
-<div class="container mt-5">
-    <form>
-        <div class="mb-3">
-            <label class="label" for="floatingInputValue2">Nombre</label>
-            <input type="text" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Tu Nombre" value="Abril">
+<!-- Separador visual -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="separator-line"></div>
         </div>
-        <div class="mb-3">
-            <label class="label" for="floatingInputValue2">Apellido</label>
-            <input type="text" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Tu Apellido" value="Freytes">
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Loading state -->
+            <div *ngIf="loading" class="edit-profile-card">
+                <div class="text-center">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                    <p class="mt-3 text-white">Cargando datos del usuario...</p>
+                </div>
+            </div>
+            
+            <!-- Form -->
+            <div *ngIf="!loading" class="edit-profile-card">
+                <form (ngSubmit)="guardarCambios()">
+                    <div class="form-group">
+                        <label class="form-label" for="nombre">Nombre</label>
+                        <input type="text" class="form-input" id="nombre" placeholder="Tu Nombre" 
+                               [(ngModel)]="usuario.nombre" name="nombre">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="apellido">Apellido</label>
+                        <input type="text" class="form-input" id="apellido" placeholder="Tu Apellido" 
+                               [(ngModel)]="usuario.apellido" name="apellido">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" class="form-input" id="email" placeholder="Tu Email" 
+                               [(ngModel)]="usuario.email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="edad">Edad</label>
+                        <input type="number" class="form-input" id="edad" placeholder="Tu Edad" 
+                               [(ngModel)]="usuario.edad" name="edad">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-save">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="label" for="floatingInputValue2">Email</label>
-            <input type="email" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Tu Email" value="abrilfreytes@gmail.com">
-        </div>
-        <div class="mb-3">
-            <label class="label" for="floatingInputValue2">Edad</label>
-            <input type="number" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Tu Edad" value="28 años">
-        </div>
-    </form>
-    <div class="d-grid d-flex justify-content-center p-3 mt-5">
-        <button type="submit" class="btn button-login p-2 w-50 btn-editar-perfil">Guardar Cambios</button>
     </div>
 </div>
 <app-footer></app-footer>

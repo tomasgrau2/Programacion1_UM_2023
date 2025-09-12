@@ -83,3 +83,16 @@ class UsuarioProfesor(Resource): #A la clase UsuarioProfesor le indico que va a 
         db.session.add(profesor)
         db.session.commit()
         return profesor.to_json() , 201
+
+class ProfesorByUsuario(Resource):
+    """Recurso para que los profesores obtengan su información por id_usuario"""
+    @jwt_required()
+    @role_required(roles = ['profesor'])
+    def get(self, id_usuario):
+        # Buscar el profesor por id_usuario
+        profesor = db.session.query(ProfesorModel).filter_by(id_usuario=id_usuario).first()
+        
+        if not profesor:
+            return {'error': 'Profesor no encontrado'}, 404
+            
+        return profesor.to_json()

@@ -26,6 +26,31 @@ export class ListaPendientesComponent implements OnInit {
     this.usuariosService.putRol(usuario.id, rol).subscribe(
       (response) => {
         console.log(`Rol ${rol} asignado al usuario ${usuario.nombre}`);
+        
+        // Si el rol es 'alumno', crear también el registro en la tabla de alumnos
+        if (rol === 'alumno') {
+          this.usuariosService.postAlumnos(usuario.id).subscribe(
+            (alumnoResponse) => {
+              console.log(`Alumno creado en la tabla de alumnos:`, alumnoResponse);
+            },
+            (alumnoError) => {
+              console.log('Error al crear alumno:', alumnoError);
+            }
+          );
+        }
+        
+        // Si el rol es 'profesor', crear también el registro en la tabla de profesores
+        if (rol === 'profesor') {
+          this.usuariosService.postProfesores(usuario.id, 'General').subscribe(
+            (profesorResponse) => {
+              console.log(`Profesor creado en la tabla de profesores:`, profesorResponse);
+            },
+            (profesorError) => {
+              console.log('Error al crear profesor:', profesorError);
+            }
+          );
+        }
+        
         // Actualizar lista
         const index = this.arrayPendientes.findIndex((u: { id: number; }) => u.id === usuario.id);
         if (index !== -1) {

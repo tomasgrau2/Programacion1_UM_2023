@@ -63,12 +63,13 @@ export class PlanificacionesAdminComponent implements OnInit {
     this.planificacionesService.getPlanificaciones(page).subscribe({
       next: (response: any) => {
         this.planificaciones = response.planificaciones || [];
-        // Inicializar estado de expansión
-        this.planificaciones.forEach(planificacion => {
-          if (!planificacion.hasOwnProperty('expanded')) {
-            planificacion.expanded = !this.isMobile(); // Expandido en desktop, contraído en móvil
-          }
+        
+        // Inicializar estado de expansión - SIEMPRE expandido en desktop
+        this.planificaciones.forEach((planificacion) => {
+          const isMobile = this.isMobile();
+          planificacion.expanded = !isMobile; // Expandido en desktop, contraído en móvil
         });
+        
         this.currentPage = response.page || 1;
         this.totalPaginas = response.pages || 1;
         this.generatePages();
@@ -87,19 +88,7 @@ export class PlanificacionesAdminComponent implements OnInit {
   loadProfesores(): void {
     this.usuariosService.getProfesores(1).subscribe({
       next: (response: any) => {
-        console.log('Respuesta profesores:', response);
         this.profesores = response.usuarios || [];
-        console.log('Profesores cargados:', this.profesores);
-        // Log de la estructura de cada profesor
-        this.profesores.forEach((profesor, index) => {
-          console.log(`Profesor ${index}:`, {
-            id: profesor.id,
-            nombre: profesor.nombre,
-            apellido: profesor.apellido,
-            r_profesor: profesor.r_profesor,
-            profesor_id: profesor.r_profesor?.[0]?.id
-          });
-        });
       },
       error: (error) => {
         console.error('Error al cargar profesores:', error);
@@ -110,19 +99,7 @@ export class PlanificacionesAdminComponent implements OnInit {
   loadAlumnos(): void {
     this.usuariosService.getAlumnos(1).subscribe({
       next: (response: any) => {
-        console.log('Respuesta alumnos:', response);
         this.alumnos = response.usuarios || [];
-        console.log('Alumnos cargados:', this.alumnos);
-        // Log de la estructura de cada alumno
-        this.alumnos.forEach((alumno, index) => {
-          console.log(`Alumno ${index}:`, {
-            id: alumno.id,
-            nombre: alumno.nombre,
-            apellido: alumno.apellido,
-            r_alumno: alumno.r_alumno,
-            alumno_id: alumno.r_alumno?.[0]?.id
-          });
-        });
       },
       error: (error) => {
         console.error('Error al cargar alumnos:', error);
@@ -183,24 +160,12 @@ export class PlanificacionesAdminComponent implements OnInit {
     }
 
     const formData = this.editForm.value;
-    console.log('Datos del formulario:', formData);
-    console.log('Valores específicos:', {
-      id_alumno: formData.id_alumno,
-      id_profesor: formData.id_profesor,
-      tipo_id_alumno: typeof formData.id_alumno,
-      tipo_id_profesor: typeof formData.id_profesor
-    });
 
     // Convertir los IDs a números y validar
     const idAlumno = parseInt(formData.id_alumno);
     const idProfesor = parseInt(formData.id_profesor);
     
     if (isNaN(idAlumno) || isNaN(idProfesor)) {
-      console.error('IDs inválidos:', { idAlumno, idProfesor });
-      console.error('Valores originales:', { 
-        id_alumno_original: formData.id_alumno, 
-        id_profesor_original: formData.id_profesor 
-      });
       alert('Error: IDs de alumno o profesor inválidos. Por favor selecciona un alumno y un profesor.');
       return;
     }
@@ -210,15 +175,12 @@ export class PlanificacionesAdminComponent implements OnInit {
       id_alumno: idAlumno,
       id_profesor: idProfesor
     };
-    console.log('Datos enviados al backend:', dataToSend);
 
     if (this.isCreateMode) {
       this.planificacionesService.createPlanificacion(dataToSend).subscribe({
         next: (response) => {
-          console.log('Planificación creada:', response);
           this.closeModal();
           this.loadPlanificaciones(this.currentPage);
-          this.ensureCardsExpanded();
         },
         error: (error) => {
           console.error('Error al crear planificación:', error);
@@ -227,10 +189,8 @@ export class PlanificacionesAdminComponent implements OnInit {
     } else {
       this.planificacionesService.updatePlanificacion(this.selectedPlanificacion.id, dataToSend).subscribe({
         next: (response) => {
-          console.log('Planificación actualizada:', response);
           this.closeModal();
           this.loadPlanificaciones(this.currentPage);
-          this.ensureCardsExpanded();
         },
         error: (error) => {
           console.error('Error al actualizar planificación:', error);
@@ -247,7 +207,6 @@ export class PlanificacionesAdminComponent implements OnInit {
     if (confirm(`¿Estás seguro de que quieres eliminar esta planificación?`)) {
       this.planificacionesService.deletePlanificacion(planificacion.id).subscribe({
         next: (response) => {
-          console.log('Planificación eliminada:', response);
           this.loadPlanificaciones(this.currentPage);
         },
         error: (error) => {
@@ -259,13 +218,14 @@ export class PlanificacionesAdminComponent implements OnInit {
 
   isFormValid(): boolean {
     const form = this.editForm.value;
-    return form.lunes.trim() !== '' && 
-           form.martes.trim() !== '' && 
-           form.miercoles.trim() !== '' && 
-           form.jueves.trim() !== '' && 
-           form.viernes.trim() !== '' &&
-           form.id_alumno !== '' &&
-           form.id_profesor !== '';
+    // Verificar que todos los campos existan y no sean null/undefined antes de usar trim()
+    return form.lunes && form.lunes.trim() !== '' && 
+           form.martes && form.martes.trim() !== '' && 
+           form.miercoles && form.miercoles.trim() !== '' && 
+           form.jueves && form.jueves.trim() !== '' && 
+           form.viernes && form.viernes.trim() !== '' &&
+           form.id_alumno && form.id_alumno !== '' &&
+           form.id_profesor && form.id_profesor !== '';
   }
 
   closeModal(): void {
@@ -284,21 +244,25 @@ export class PlanificacionesAdminComponent implements OnInit {
     document.body.classList.remove('modal-open');
     document.body.style.overflow = '';
     document.body.style.paddingRight = '';
-    
-    // Asegurar que todas las tarjetas estén expandidas
-    this.ensureCardsExpanded();
   }
 
   ensureCardsExpanded(): void {
-    // Forzar que todas las tarjetas mantengan la clase expanded
-    setTimeout(() => {
-      const cards = document.querySelectorAll('.planificacion-card');
-      cards.forEach(card => {
-        if (!card.classList.contains('expanded')) {
+    // Solo aplicar en desktop
+    if (!this.isMobile()) {
+      setTimeout(() => {
+        // Actualizar el estado de las planificaciones en el modelo
+        this.planificaciones.forEach((planificacion) => {
+          planificacion.expanded = true;
+        });
+        
+        // También forzar las clases CSS
+        const cards = document.querySelectorAll('.planificacion-card');
+        cards.forEach((card) => {
           card.classList.add('expanded');
-        }
-      });
-    }, 100);
+          card.classList.remove('mobile-collapsed');
+        });
+      }, 100);
+    }
   }
 
   onModalBackdropClick(event: Event): void {

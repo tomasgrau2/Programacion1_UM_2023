@@ -1,0 +1,762 @@
+.main-content {
+  min-height: 100vh;
+  background-color: #191919;
+  padding: 2rem 0;
+  margin-bottom: 4rem;
+  color: #ffffff;
+}
+
+/* Estilos para el botón de regreso */
+.btn-volver-improved {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border: 2px solid #495057;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-volver-improved:hover {
+  background: linear-gradient(135deg, #2d5a27 0%, #1e3d1a 100%);
+  border-color: #4a7c59;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 90, 39, 0.3);
+}
+
+.btn-volver-improved i {
+  font-size: 16px;
+  color: #fff;
+}
+
+.page-title {
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+}
+
+.page-subtitle {
+  color: #b8c5d6;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.btn-agregar-planificacion {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.btn-agregar-planificacion:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+  background: linear-gradient(135deg, #218838, #1ea085);
+}
+
+.planificaciones-container {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
+.planificacion-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: visible;
+  min-height: auto;
+}
+
+/* Barra verde eliminada para un diseño más limpio */
+
+.planificacion-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.planificacion-card.expanded {
+  transform: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.planificacion-card.expanded:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Asegurar que las tarjetas expandidas siempre muestren todo el contenido */
+.planificacion-card.expanded .planificacion-days {
+  display: grid !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  max-height: none !important;
+  overflow: visible !important;
+  transition: none !important;
+}
+
+.planificacion-card.expanded .day-item {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.planificacion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.planificacion-title {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.planificacion-date {
+  color: #b8c5d6;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.planificacion-date i {
+  width: 16px;
+  text-align: center;
+}
+
+.planificacion-alumno {
+  color: #28a745;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0 0;
+  font-weight: 500;
+}
+
+.planificacion-alumno i {
+  color: #28a745;
+  font-size: 0.9rem;
+  width: 16px;
+  text-align: center;
+}
+
+.planificacion-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-edit, .btn-delete {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+}
+
+.btn-edit:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+}
+
+.btn-delete:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+}
+
+.expand-icon {
+  color: #b8c5d6;
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+}
+
+.planificacion-content {
+  margin-top: 1rem;
+}
+
+.planificacion-days {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  opacity: 1;
+  visibility: visible;
+  max-height: none;
+  overflow: visible;
+}
+
+.day-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.day-title {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.day-content {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-exercise {
+  color: #b8c5d6;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+  margin: 0;
+  font-weight: 500;
+}
+
+.day-exercise.empty {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.no-planificaciones {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.no-planificaciones .text-muted {
+  color: #ffffff !important;
+}
+
+.no-planificaciones h4 {
+  color: #ffffff !important;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.no-planificaciones p {
+  color: #ffffff !important;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.no-planificaciones .fa-calendar-alt {
+  color: #ffffff !important;
+  opacity: 0.7;
+}
+
+/* Modal Styles */
+.modal-content {
+  background-color: #191919;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  color: #ffffff;
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.5rem;
+}
+
+.modal-title {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.form-label {
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  color: #ffffff;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.form-control option {
+  background: #191919;
+  color: #ffffff;
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0056b3, #004085);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.btn-primary:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+}
+
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Estilos para cards expandibles en móviles */
+.planificacion-header.clickable {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.planificacion-header.clickable:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.planificacion-days.mobile-hidden {
+  display: none !important;
+}
+
+.planificacion-card.mobile-collapsed {
+  min-height: auto;
+}
+
+.planificacion-card.mobile-collapsed .planificacion-days {
+  display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem 0;
+    margin-bottom: 3rem;
+  }
+  
+  .planificaciones-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .planificacion-card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .planificacion-card.mobile-collapsed {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .planificacion-header {
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .planificacion-actions {
+    align-self: flex-end;
+    gap: 0.5rem;
+  }
+  
+  .planificacion-days {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .day-section {
+    padding: 0.75rem;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .page-subtitle {
+    font-size: 1rem;
+  }
+  
+  .btn-agregar-planificacion {
+    padding: 10px 20px;
+    font-size: 14px;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .modal-body {
+    padding: 1rem;
+  }
+  
+  .modal-header {
+    padding: 1rem;
+  }
+  
+  .modal-footer {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .modal-footer .btn {
+    min-width: auto;
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+  
+  /* Mejorar espaciado en móvil */
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  .col-12 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    padding: 0.5rem 0;
+    margin-bottom: 2.5rem;
+  }
+  
+  .container-fluid {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .planificacion-card {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .planificacion-card.mobile-collapsed {
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .planificacion-header {
+    margin-bottom: 0.75rem;
+  }
+  
+  .planificacion-title {
+    font-size: 1.1rem;
+  }
+  
+  .planificacion-date {
+    font-size: 0.8rem;
+  }
+  
+  .planificacion-alumno {
+    font-size: 0.85rem;
+  }
+  
+  .day-section {
+    padding: 0.5rem;
+  }
+  
+  .day-title {
+    font-size: 0.8rem;
+  }
+  
+  .day-exercise {
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+  }
+  
+  .page-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .btn-agregar-planificacion {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  
+  .btn-edit, .btn-delete {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .btn-edit i, .btn-delete i {
+    font-size: 12px;
+  }
+  
+  .modal-body {
+    padding: 0.75rem;
+  }
+  
+  .modal-header {
+    padding: 0.75rem;
+  }
+  
+  .modal-footer {
+    padding: 0.75rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .modal-footer .btn {
+    min-width: auto;
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    font-size: 14px;
+  }
+  
+  .form-control {
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+  }
+  
+  .form-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Para pantallas muy pequeñas (menos de 400px) */
+@media (max-width: 400px) {
+  .main-content {
+    padding: 0.25rem 0;
+    margin-bottom: 2rem;
+  }
+  
+  .container-fluid {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+  
+  .planificacion-card {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .planificacion-card.mobile-collapsed {
+    padding: 0.4rem 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .planificacion-header {
+    margin-bottom: 0.5rem;
+  }
+  
+  .planificacion-title {
+    font-size: 1rem;
+  }
+  
+  .planificacion-date {
+    font-size: 0.75rem;
+  }
+  
+  .day-section {
+    padding: 0.4rem;
+  }
+  
+  .day-title {
+    font-size: 0.75rem;
+  }
+  
+  .day-exercise {
+    font-size: 0.85rem;
+  }
+  
+  .page-title {
+    font-size: 1.3rem;
+  }
+  
+  .page-subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .btn-agregar-planificacion {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .btn-edit, .btn-delete {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .btn-edit i, .btn-delete i {
+    font-size: 10px;
+  }
+  
+  .modal-body {
+    padding: 0.5rem;
+  }
+  
+  .modal-header {
+    padding: 0.5rem;
+  }
+  
+  .modal-footer {
+    padding: 0.5rem;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  
+  .modal-footer .btn {
+    min-width: auto;
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    font-size: 13px;
+  }
+  
+  .form-control {
+    padding: 0.4rem 0.6rem;
+    font-size: 13px;
+  }
+  
+  .form-label {
+    font-size: 0.85rem;
+  }
+}
+
+/* Estilos específicos para el selector de alumnos */
+.form-label i {
+  color: #28a745;
+  margin-right: 0.5rem;
+}
+
+select.form-control {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+select.form-control:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  color: #ffffff;
+}
+
+select.form-control option {
+  background: #191919;
+  color: #ffffff;
+  padding: 0.5rem;
+}
+
+select.form-control option:disabled {
+  display: none;
+}

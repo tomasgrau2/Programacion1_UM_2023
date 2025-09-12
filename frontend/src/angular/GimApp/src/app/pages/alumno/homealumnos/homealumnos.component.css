@@ -1,0 +1,532 @@
+/* Estilos para las planificaciones del alumno */
+.planificaciones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.planificacion-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.planificacion-date-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(40, 167, 69, 0.15);
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.planificacion-date-header.clickable {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.planificacion-date-header.clickable:hover {
+  background: rgba(40, 167, 69, 0.2);
+  border-color: rgba(40, 167, 69, 0.4);
+}
+
+.planificacion-date-title {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.planificacion-date-title i {
+  color: #28a745;
+  font-size: 1.1rem;
+}
+
+.planificacion-profesor {
+  display: flex;
+  align-items: center;
+}
+
+.planificacion-profesor small {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 1rem;
+  color: #e9ecef;
+  font-weight: 500;
+}
+
+.planificacion-profesor i {
+  color: #28a745;
+  margin-right: 0.5rem;
+}
+
+.expand-button {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #28a745;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.expand-button i {
+  color: #28a745;
+}
+
+.mobile-hidden {
+  display: none !important;
+}
+
+.planificacion-card {
+  background: rgba(40, 167, 69, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(40, 167, 69, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(40, 167, 69, 0.1);
+}
+
+.planificacion-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #28a745;
+  border-radius: 12px 12px 0 0;
+}
+
+.planificacion-card:hover {
+  border-color: rgba(40, 167, 69, 0.4);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.2);
+}
+
+
+.planificacion-days {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.day-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.day-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+}
+
+.day-item.today {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.day-item.today::before {
+  background: #28a745;
+}
+
+.day-item.has-content {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.day-item.has-content::before {
+  background: #28a745;
+}
+
+.day-item:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.day-header {
+  margin-bottom: 0.75rem;
+}
+
+.day-name {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.day-name i {
+  font-size: 0.6rem;
+  opacity: 0.7;
+  color: #28a745;
+}
+
+.day-item.has-content .day-name i.fa-dumbbell {
+  color: #28a745;
+}
+
+.day-content {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-exercise {
+  color: #b8c5d6;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+  font-weight: 500;
+}
+
+.day-exercise.empty {
+  color: #6c757d;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Estados especiales para días con contenido */
+.day-item.has-content .day-exercise {
+  color: #e9ecef;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.day-item.today .day-exercise {
+  color: #e9ecef;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+/* Loading state sobrio */
+.spinner-border {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-width: 0.25rem;
+  color: #28a745;
+}
+
+/* No planificaciones state sobrio */
+.alert-info {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  text-align: center;
+}
+
+.alert-info i {
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+.alert-info h5 {
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.alert-info p {
+  color: #b8c5d6;
+  margin-bottom: 0;
+}
+
+/* Separador visual */
+.separator-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(40, 167, 69, 0.5) 50%, transparent 100%);
+  margin: 2rem 0;
+  border-radius: 1px;
+}
+
+/* Título de sección sobrio */
+.texto-home {
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .planificaciones-list {
+    gap: 1.5rem;
+  }
+  
+  .planificacion-item {
+    gap: 1rem;
+  }
+  
+  .planificacion-date-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem;
+    padding-right: 3rem;
+  }
+  
+  .expand-button {
+    right: 0.75rem;
+    font-size: 1.1rem;
+  }
+  
+  .planificacion-date-title {
+    font-size: 1.1rem;
+    text-align: left;
+  }
+  
+  .planificacion-profesor {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .planificacion-card {
+    padding: 1.25rem;
+  }
+  
+  .planificacion-days {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .day-item {
+    padding: 1rem 0.75rem;
+  }
+  
+  .day-name {
+    font-size: 0.9rem;
+  }
+  
+  .day-exercise {
+    font-size: 0.95rem;
+  }
+  
+  .day-item.has-content .day-exercise {
+    font-size: 1.05rem;
+  }
+  
+  .day-item.today .day-exercise {
+    font-size: 1.05rem;
+  }
+  
+  .texto-home {
+    font-size: 1.5rem;
+  }
+  
+  .separator-line {
+    margin: 1.5rem 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .planificaciones-list {
+    gap: 1rem;
+  }
+  
+  .planificacion-item {
+    gap: 0.75rem;
+  }
+  
+  .planificacion-date-header {
+    padding: 0.75rem;
+    padding-right: 2.5rem;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  
+  .expand-button {
+    right: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .planificacion-date-title {
+    font-size: 1rem;
+    text-align: left;
+  }
+  
+  .planificacion-profesor {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .planificacion-profesor small {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .planificacion-card {
+    padding: 0.75rem;
+  }
+  
+  .planificacion-days {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .day-item {
+    padding: 1rem 0.75rem;
+    border-radius: 10px;
+  }
+  
+  .day-header {
+    margin-bottom: 0.5rem;
+  }
+  
+  .day-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  
+  .day-content {
+    min-height: 60px;
+  }
+  
+  .day-exercise {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+  
+  .day-item.has-content .day-exercise {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .day-item.today .day-exercise {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .texto-home {
+    font-size: 1.3rem;
+  }
+  
+  .separator-line {
+    margin: 1rem 0;
+  }
+  
+  .alert-info {
+    padding: 1.5rem 1rem;
+  }
+  
+  .alert-info h5 {
+    font-size: 1.1rem;
+  }
+  
+  .alert-info p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 400px) {
+  .planificacion-date-header {
+    padding: 0.5rem;
+    padding-right: 2rem;
+  }
+  
+  .expand-button {
+    right: 0.4rem;
+    font-size: 0.9rem;
+  }
+  
+  .planificacion-date-title {
+    font-size: 0.9rem;
+  }
+  
+  .planificacion-profesor small {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .planificacion-card {
+    padding: 0.5rem;
+  }
+  
+  .day-item {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .day-name {
+    font-size: 0.8rem;
+  }
+  
+  .day-exercise {
+    font-size: 0.9rem;
+  }
+  
+  .day-item.has-content .day-exercise {
+    font-size: 1rem;
+  }
+  
+  .day-item.today .day-exercise {
+    font-size: 1rem;
+  }
+  
+  .texto-home {
+    font-size: 1.2rem;
+  }
+  
+  .alert-info {
+    padding: 1rem 0.75rem;
+  }
+  
+  .alert-info h5 {
+    font-size: 1rem;
+  }
+  
+  .alert-info p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Espaciado para evitar que el footer tape el contenido */
+#cards {
+  margin-bottom: 6rem; /* Espacio suficiente para el footer fijo */
+}
+
+/* Responsive para el espaciado del footer */
+@media (max-width: 768px) {
+  #cards {
+    margin-bottom: 5rem; /* Menos espacio en móviles */
+  }
+}
+
+@media (max-width: 576px) {
+  #cards {
+    margin-bottom: 4.5rem; /* Ajuste para pantallas pequeñas */
+  }
+}
+
+@media (max-width: 400px) {
+  #cards {
+    margin-bottom: 4rem; /* Ajuste para pantallas muy pequeñas */
+  }
+}

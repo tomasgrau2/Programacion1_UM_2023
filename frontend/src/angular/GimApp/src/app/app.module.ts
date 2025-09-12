@@ -11,7 +11,6 @@ import { HomealumnosComponent } from './pages/alumno/homealumnos/homealumnos.com
 import { HomeprofesoresComponent } from './pages/profesor/homeprofesores/homeprofesores.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { UsersAdminComponent } from './pages/admin/users-admin/users-admin.component';
-import { PlanificacionComponent } from './pages/alumno/planificacion/planificacion.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { PlanificacionesProfesoresComponent } from './pages/profesor/planificaciones-profesores/planificaciones-profesores.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -44,7 +43,6 @@ import { PlanificacionesAdminComponent } from './pages/admin/planificaciones-adm
     HomeprofesoresComponent,
     SettingsComponent,
     UsersAdminComponent,
-    PlanificacionComponent,
     PerfilComponent,
     PlanificacionesProfesoresComponent,
     NavComponent,

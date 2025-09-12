@@ -98,7 +98,7 @@ export class UsuariosService {
       'Authorization': `Bearer ${auth_token}`
     });
 
-    return this.httpClient.get(this.url + `/usuarios?rol=alumno&page=${page}`, {headers: headers});
+    return this.httpClient.get(this.url + `/alumnos?page=${page}`, {headers: headers});
   }
 
   postAlumnos(userID: number) {
@@ -192,6 +192,42 @@ export class UsuariosService {
     });
 
     return this.httpClient.put(this.url + `/profesor/${profesorId}`, data, {headers: headers});
+  }
+
+  // Obtener datos del usuario actual
+  getUsuarioActual() {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.get(this.url + `/usuario/actual`, {headers: headers});
+  }
+
+  // Actualizar datos del usuario actual
+  updateUsuarioActual(data: any) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.put(this.url + `/usuario/actual`, data, {headers: headers});
+  }
+
+  // Obtener profesor por user_id
+  getProfesorByUserId(userId: number) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.get(this.url + `/profesor/usuario/${userId}`, {headers: headers});
   }
 // --------------------------------------------------------------------------------------------------
 

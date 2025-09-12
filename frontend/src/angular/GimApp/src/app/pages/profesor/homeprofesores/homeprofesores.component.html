@@ -1,107 +1,150 @@
 <app-fondo></app-fondo>
 <app-nav></app-nav>
-<div class="container mt-5 ">
+
+<div class="main-content">
+  <div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h1 class="page-title">Mis Planificaciones</h1>
+            <p class="page-subtitle">Gestiona tus planificaciones de entrenamiento</p>
+          </div>
+          <button class="btn btn-agregar-planificacion" (click)="openEditModal()">
+            <i class="fas fa-plus"></i>
+            Nueva Planificación
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Planificaciones List -->
     <div class="row">
-        <h1 class="welcome-text">Hola Profesor/a</h1>
-    </div>
-    <div class="row">
-        <h2 class="welcome-text2">Buen día.</h2>
-    </div>
-</div>
-<div id="cards" class="container">
-  <div class="row">
-    <div class="d-flex">
-      <div class="p-2 flex-grow-1 texto-home">Proxima clase</div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-auto">
-      <a routerLink="/planificacion_profesores">
-        <div class="card">
-          <img src="assets/plan-de-hoy-1.png" class="card-img-top" alt="Plan1">
-          <div class="card-img-overlay">
-            <div class="card-body">
-              <h3 class="card-titulo">Running</h3>
-              <h6 class="card-texto">07:00-08:00</h6>
+      <div class="col-12">
+        <div class="planificaciones-container">
+          <div *ngIf="planificaciones.length === 0" class="no-planificaciones">
+            <div class="text-center py-5">
+              <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+              <h4 class="text-muted">No hay planificaciones</h4>
+              <p class="text-muted">Crea tu primera planificación para comenzar</p>
+            </div>
+          </div>
+
+          <div *ngFor="let planificacion of planificaciones" 
+               class="planificacion-card" 
+               [class.expanded]="planificacion.expanded"
+               [class.mobile-collapsed]="!planificacion.expanded && isMobile()">
+            <div class="planificacion-header" 
+                 (click)="toggleCard(planificacion, $event)"
+                 [class.clickable]="isMobile()">
+              <div class="planificacion-info">
+                <h3 class="planificacion-title">Planificación #{{ planificacion.id }}</h3>
+                <p class="planificacion-date">
+                  <i class="fas fa-calendar"></i>
+                  {{ planificacion.fecha_creacion | date:'dd/MM/yyyy' }}
+                </p>
+                <p class="planificacion-alumno" *ngIf="planificacion.alumno">
+                  <i class="fas fa-user-graduate"></i>
+                  {{ planificacion.alumno.usuario?.nombre }} {{ planificacion.alumno.usuario?.apellido }}
+                </p>
+              </div>
+              <div class="planificacion-actions">
+                <button class="btn btn-edit" (click)="editPlanificacion(planificacion, $event)">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-delete" (click)="deletePlanificacion(planificacion.id, $event)">
+                  <i class="fas fa-trash"></i>
+                </button>
+                <div class="expand-icon" *ngIf="isMobile()">
+                  <i class="fas" [class.fa-chevron-down]="!planificacion.expanded" [class.fa-chevron-up]="planificacion.expanded"></i>
+                </div>
+              </div>
+            </div>
+            
+            <div class="planificacion-content" *ngIf="planificacion.expanded || !isMobile()">
+              <div class="planificacion-days">
+                <div class="day-section" *ngFor="let day of ['lunes', 'martes', 'miercoles', 'jueves', 'viernes']">
+                  <h4 class="day-title">{{ getDayName(day) }}</h4>
+                  <div class="day-content">
+                    <p class="day-exercise" [class.empty]="!planificacion[day] || planificacion[day].trim() === ''">
+                      {{ planificacion[day] && planificacion[day].trim() !== '' ? planificacion[day] : 'Sin ejercicios' }}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 </div>
 
-<div id="cards" class="container">
-  <div class="row">
-    <div class="d-flex">
-      <div class="p-2 flex-grow-1 texto-home">Clases del día</div>
-      <div class="p-2 fecha-home">Jue 24 Ago</div>
-    </div>
-    <div class="col-auto">
-      <a routerLink="/clases">
-        <div class="card">
-          <img src="assets/plan-de-hoy-1.png" class="card-img-top" alt="Clase1">
-          <div class="card-img-overlay">
-            <div class="card-body">
-              <h3 class="card-titulo">Boxeo</h3>
-              <h6 class="card-texto">08:00-09:00</h6>
+<!-- Modal para crear/editar planificación -->
+<div class="modal fade" id="planificacionModal" tabindex="-1" aria-labelledby="planificacionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="planificacionModalLabel">
+          {{ editingPlanificacion ? 'Editar Planificación' : 'Nueva Planificación' }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="planificacionForm" (ngSubmit)="savePlanificacion()">
+          <!-- Selector de alumno solo para crear nueva planificación -->
+          <div class="row" *ngIf="!editingPlanificacion">
+            <div class="col-12 mb-3">
+              <label for="alumno" class="form-label">
+                <i class="fas fa-user-graduate"></i>
+                Seleccionar Alumno
+              </label>
+              <select class="form-control" id="alumno" formControlName="id_alumno" required>
+                <option value="" disabled selected>Seleccionar alumno</option>
+                <option *ngFor="let alumno of alumnos" [value]="alumno.id">
+                  {{ alumno.usuario?.nombre }} {{ alumno.usuario?.apellido }}
+                </option>
+              </select>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-auto">
-      <a routerLink="/clases">
-        <div class="card">
-          <img src="assets/plan-de-hoy-1.png" class="card-img-top" alt="Clase1">
-          <div class="card-img-overlay">
-            <div class="card-body">
-              <h3 class="card-titulo">Boxeo</h3>
-              <h6 class="card-texto">08:00-09:00</h6>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="lunes" class="form-label">Lunes</label>
+              <textarea class="form-control" id="lunes" formControlName="lunes" rows="3" placeholder="Ejercicios para el lunes"></textarea>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="martes" class="form-label">Martes</label>
+              <textarea class="form-control" id="martes" formControlName="martes" rows="3" placeholder="Ejercicios para el martes"></textarea>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-auto">
-      <a routerLink="/clases">
-        <div class="card">
-          <img src="assets/plan-de-hoy-1.png" class="card-img-top" alt="Clase1">
-          <div class="card-img-overlay">
-            <div class="card-body">
-              <h3 class="card-titulo">Boxeo</h3>
-              <h6 class="card-texto">08:00-09:00</h6>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="miercoles" class="form-label">Miércoles</label>
+              <textarea class="form-control" id="miercoles" formControlName="miercoles" rows="3" placeholder="Ejercicios para el miércoles"></textarea>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="jueves" class="form-label">Jueves</label>
+              <textarea class="form-control" id="jueves" formControlName="jueves" rows="3" placeholder="Ejercicios para el jueves"></textarea>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-auto">
-      <a routerLink="/clases">
-        <div class="card">
-          <img src="assets/plan-de-hoy-1.png" class="card-img-top" alt="Clase1">
-          <div class="card-img-overlay">
-            <div class="card-body">
-              <h3 class="card-titulo">Boxeo</h3>
-              <h6 class="card-texto">08:00-09:00</h6>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="viernes" class="form-label">Viernes</label>
+              <textarea class="form-control" id="viernes" formControlName="viernes" rows="3" placeholder="Ejercicios para el viernes"></textarea>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-auto mb-5">
-      <a routerLink="/clases">
-        <div class="card">
-          <img src="assets/plan-de-hoy-1.png" class="card-img-top" alt="Clase1">
-          <div class="card-img-overlay">
-            <div class="card-body">
-              <h3 class="card-titulo">Boxeo</h3>
-              <h6 class="card-texto">08:00-09:00</h6>
-            </div>
-          </div>
-        </div>
-      </a>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="savePlanificacion()" [disabled]="!isFormValid()">
+          {{ editingPlanificacion ? 'Actualizar' : 'Crear' }}
+        </button>
+      </div>
     </div>
   </div>
 </div>
+
 <app-footer></app-footer>

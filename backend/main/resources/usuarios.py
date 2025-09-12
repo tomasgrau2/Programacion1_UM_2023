@@ -99,6 +99,33 @@ class Usuarios(Resource):
         db.session.commit()
         return usuario.to_json(), 201
 
+# Recurso para que los usuarios obtengan sus propios datos
+class UsuarioActual(Resource):
+    @jwt_required()
+    def get(self):
+        current_identity = get_jwt_identity()
+        if current_identity:
+            usuario = db.session.query(UsuarioModel).get_or_404(current_identity)
+            return usuario.to_json()
+        else:
+            return {'message': 'Usuario no autenticado'}, 401
+    
+    @jwt_required()
+    def put(self):
+        current_identity = get_jwt_identity()
+        if current_identity:
+            usuario = db.session.query(UsuarioModel).get_or_404(current_identity)
+            data = request.get_json().items()
+            for key, value in data:
+                # Solo permitir actualizar ciertos campos
+                if key in ['nombre', 'apellido', 'email', 'edad']:
+                    setattr(usuario, key, value)
+            db.session.add(usuario)
+            db.session.commit()
+            return usuario.to_json(), 201
+        else:
+            return {'message': 'Usuario no autenticado'}, 401
+
 
 
 

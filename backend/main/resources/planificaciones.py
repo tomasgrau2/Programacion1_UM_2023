@@ -109,6 +109,39 @@ class Planificaciones(Resource):
         return planificacion.to_json(), 201
 
 
+class PlanificacionesByAlumno(Resource):
+    """Recurso para que los alumnos vean sus planificaciones por id_alumno"""
+    @jwt_required()
+    @role_required(roles = ['alumno'])
+    def get(self, id_alumno):
+        page = 1
+        per_page = 10
+        
+        if request.args.get('page'):
+            page = int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page = int(request.args.get('per_page'))
+
+        # Verificar que el alumno existe
+        alumno = db.session.query(AlumnoModel).get(id_alumno)
+        if not alumno:
+            return {'error': 'Alumno no encontrado'}, 404
+
+        # Obtener las planificaciones del alumno
+        planificaciones = db.session.query(PlanificacionModel).filter_by(id_alumno=id_alumno)
+        
+        # Ordenar por fecha de creación (más recientes primero)
+        planificaciones = planificaciones.order_by(PlanificacionModel.fecha_creacion.desc())
+        
+        planificaciones = planificaciones.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
+
+        return jsonify({'planificaciones': [planificacion.to_json() for planificacion in planificaciones],
+                  'total': planificaciones.total,
+                  'pages': planificaciones.pages,
+                  'page': page
+                })
+
+
 class PlanificacionesAlumno(Resource):
     """Recurso para que los alumnos vean sus planificaciones por DNI"""
     

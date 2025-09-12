@@ -37,10 +37,6 @@ export class ListaAlumnosComponent implements OnInit{
 
     // Debug: Suscribirse a los cambios del formulario
     this.editForm.statusChanges.subscribe(status => {
-      console.log('Form status:', status);
-      console.log('Form valid:', this.editForm.valid);
-      console.log('Form errors:', this.editForm.errors);
-      console.log('Form value:', this.editForm.value);
     });
   }
 
@@ -54,12 +50,9 @@ export class ListaAlumnosComponent implements OnInit{
 
   loadAlumnos(page: any) {
     this.usuariosService.getAlumnos(page).subscribe((data: any) => {
-      this.arrayAlumnos = data.usuarios;
+      this.arrayAlumnos = data.alumnos;
       this.currentPage = data.page;
       this.totalPaginas = data.pages;
-      console.log('Pagina actual:', this.currentPage);
-      console.log('JSON data:', this.arrayAlumnos);
-      console.log('Total de paginas:', this.totalPaginas);
 
       this.pages = Array.from({length: this.totalPaginas}, (_, i) => i + 1);
       
@@ -73,13 +66,13 @@ export class ListaAlumnosComponent implements OnInit{
   loadAllAlumnos() {
     // Cargar todas las páginas de alumnos para búsqueda
     this.usuariosService.getAlumnos(1).subscribe((data: any) => {
-      this.allAlumnos = data.usuarios;
+      this.allAlumnos = data.alumnos;
       
       // Si hay más páginas, cargar las siguientes
       if (data.pages > 1) {
         for (let i = 2; i <= data.pages; i++) {
           this.usuariosService.getAlumnos(i).subscribe((pageData: any) => {
-            this.allAlumnos = this.allAlumnos.concat(pageData.usuarios);
+            this.allAlumnos = this.allAlumnos.concat(pageData.alumnos);
           });
         }
       }
@@ -97,7 +90,7 @@ export class ListaAlumnosComponent implements OnInit{
     
     // Filtrar por nombre y apellido
     this.arrayAlumnos = this.allAlumnos.filter((alumno: any) => {
-      const nombreCompleto = `${alumno.nombre} ${alumno.apellido}`.toLowerCase();
+      const nombreCompleto = `${alumno.usuario?.nombre} ${alumno.usuario?.apellido}`.toLowerCase();
       const searchLower = this.searchTerm.toLowerCase();
       
       return nombreCompleto.includes(searchLower);
@@ -123,7 +116,6 @@ export class ListaAlumnosComponent implements OnInit{
     if (confirm('¿Estás seguro de que quieres eliminar este alumno?')) {
       this.usuariosService.deleteUser(userId).subscribe(
         (response) => {
-          console.log('Usuario eliminado con éxito', userId);
           // Actualizar lista
           const index = this.arrayAlumnos.findIndex((usuario: { id: number; }) => usuario.id === userId);
           if (index !== -1) {
@@ -154,9 +146,6 @@ export class ListaAlumnosComponent implements OnInit{
     // Marcar todos los campos como tocados para mostrar validaciones
     this.editForm.markAllAsTouched();
     
-    console.log('Alumno seleccionado:', alumno);
-    console.log('Formulario después de patchValue:', this.editForm.value);
-    console.log('Formulario válido:', this.editForm.valid);
     
     // Mostrar el modal usando Bootstrap
     const modalElement = document.getElementById('editAlumnoModal');
@@ -175,7 +164,6 @@ export class ListaAlumnosComponent implements OnInit{
       // Actualizar el usuario asociado al alumno
       this.usuariosService.updateUser(this.selectedAlumno.id, formData).subscribe(
         (response) => {
-          console.log('Usuario actualizado con éxito', response);
           
           // Actualizar la lista local
           const index = this.arrayAlumnos.findIndex((alumno: any) => alumno.id === this.selectedAlumno.id);
@@ -210,15 +198,6 @@ export class ListaAlumnosComponent implements OnInit{
                    formValue.dni &&
                    this.isValidEmail(formValue.email);
     
-    console.log('Validación manual:', {
-      nombre: formValue.nombre,
-      apellido: formValue.apellido,
-      email: formValue.email,
-      edad: formValue.edad,
-      dni: formValue.dni,
-      emailValid: this.isValidEmail(formValue.email),
-      isValid: isValid
-    });
     
     return isValid;
   }

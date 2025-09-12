@@ -82,4 +82,40 @@ export class PlanificacionesService {
 
     return this.httpClient.get(this.url + `/planificaciones?${day}=${encodeURIComponent(day)}&page=${page}`, {headers: headers});
   }
+
+  // Obtener planificaciones de un alumno específico
+  getPlanificacionesByAlumno(alumnoId: number, page: number = 1) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.get(this.url + `/planificaciones/alumno/${alumnoId}?page=${page}`, {headers: headers});
+  }
+
+  // Obtener alumno por id_usuario
+  getAlumnoByUserId(userId: number) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.get(this.url + `/alumno/usuario/${userId}`, {headers: headers});
+  }
+
+  // Obtener planificaciones de un profesor específico
+  getPlanificacionesByProfesor(profesorId: number, page: number = 1) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    return this.httpClient.get(this.url + `/planificaciones?id_profesor=${profesorId}&page=${page}`, {headers: headers});
+  }
 }

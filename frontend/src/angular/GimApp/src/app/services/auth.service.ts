@@ -24,8 +24,36 @@ export class AuthService {
     localStorage.removeItem('rol');
     this.router.navigate(['/','start'])
   }
+  
   get isToken() {
     return localStorage.getItem('token');
+  }
+
+  // Limpiar tokens expirados al iniciar la aplicación
+  clearExpiredTokens() {
+    const token = localStorage.getItem('token');
+    const rol = localStorage.getItem('rol');
+
+    if (!token || !rol) {
+      return;
+    }
+
+    try {
+      const decodedToken: any = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      
+      // Si el token ha expirado, limpiarlo
+      if (decodedToken.exp < currentTime) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('rol');
+        console.log('Token expirado eliminado del localStorage');
+      }
+    } catch (error) {
+      // Si hay error al decodificar el token, limpiarlo
+      localStorage.removeItem('token');
+      localStorage.removeItem('rol');
+      console.log('Token inválido eliminado del localStorage');
+    }
   }
 
   // getToken(): string | null {
