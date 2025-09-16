@@ -8,8 +8,6 @@ from .profesores import ProfesorByUsuario as ProfesorByUsuarioResource
 from .alumnos import UsuarioAlumno as UsuarioAlumnoResource
 from .alumnos import UsuariosAlumnos as UsuariosAlumnosResource
 from .alumnos import AlumnoByUsuario as AlumnoByUsuarioResource
-from .login import Login as LoginResource
 from .planificaciones import Planificaciones as PlanificacionesResource
 from .planificaciones import Planificacion as PlanificacionResource
-from .planificaciones import PlanificacionesAlumno as PlanificacionesAlumnoResource
 from .planificaciones import PlanificacionesByAlumno as PlanificacionesByAlumnoResource

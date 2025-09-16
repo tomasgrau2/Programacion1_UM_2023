@@ -9,7 +9,7 @@ from main.auth.decorators import role_required
 #Defino el recurso usuario
 class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)
     #obtener recurso
-    @jwt_required(optional=True)
+    @jwt_required()
     @role_required(roles = ["admin"])
     def get(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)

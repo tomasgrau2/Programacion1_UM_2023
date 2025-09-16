@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
-from main.models import ProfesorModel, ClaseModel, UsuarioModel
+from main.models import ProfesorModel, UsuarioModel
 from sqlalchemy import func, desc
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from main.auth.decorators import role_required
@@ -44,19 +44,6 @@ class UsuariosProfesores(Resource):
                   'pages': profesores.pages,
                   'page': page
                 })
-    
-    @role_required(roles = ['admin'])
-    def post(self):
-        clases_ids = request.get_json().get('clases')
-        profesor = ProfesorModel.from_json(request.get_json())
-        
-        if clases_ids:
-            clases = ClaseModel.query.filter(ClaseModel.id.in_(clases_ids)).all()
-            profesor.clases.extend(clases)
-            
-        db.session.add(profesor)
-        db.session.commit()
-        return profesor.to_json(), 201
 
 class UsuarioProfesor(Resource): #A la clase UsuarioProfesor le indico que va a ser del tipo recurso(Resource)
     @jwt_required()

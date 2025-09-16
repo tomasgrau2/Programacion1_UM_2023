@@ -116,11 +116,28 @@ export class ListaAlumnosComponent implements OnInit{
     if (confirm('¿Estás seguro de que quieres eliminar este alumno?')) {
       this.usuariosService.deleteUser(userId).subscribe(
         (response) => {
-          // Actualizar lista
+          // Actualizar lista local
           const index = this.arrayAlumnos.findIndex((usuario: { id: number; }) => usuario.id === userId);
           if (index !== -1) {
             this.arrayAlumnos.splice(index, 1);
           }
+          
+          // También actualizar allAlumnos si está en modo búsqueda
+          if (this.isSearching) {
+            const allIndex = this.allAlumnos.findIndex((usuario: { id: number; }) => usuario.id === userId);
+            if (allIndex !== -1) {
+              this.allAlumnos.splice(allIndex, 1);
+            }
+          }
+          
+          // Si no estamos en modo búsqueda, recargar la página actual
+          if (!this.isSearching) {
+            this.loadAlumnos(this.currentPage);
+          }
+        },
+        (error) => {
+          console.error('Error al eliminar el alumno:', error);
+          alert('Error al eliminar el alumno');
         }
       );
     }

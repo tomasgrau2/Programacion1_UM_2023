@@ -25,7 +25,6 @@ import { CrearAlumnoComponent } from './pages/crear-alumno/crear-alumno.componen
 import { CrearProfesorComponent } from './pages/crear-profesor/crear-profesor.component';
 import { ListaProfesoresComponent } from './pages/admin/lista-profesores/lista-profesores.component';
 import { PerfilVistaProfComponent } from './pages/profesor/perfil-vista-prof/perfil-vista-prof.component';
-import { ClasesComponent } from './pages/admin/clases/clases.component';
 import { InfoAlumnoComponent } from './pages/profesor/info-alumno/info-alumno.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -57,7 +56,6 @@ import { PlanificacionesAdminComponent } from './pages/admin/planificaciones-adm
     CrearProfesorComponent,
     ListaProfesoresComponent,
     PerfilVistaProfComponent,
-    ClasesComponent,
     InfoAlumnoComponent,
     ListaPendientesComponent,
     PlanificacionesAdminComponent,

@@ -142,38 +142,7 @@ class PlanificacionesByAlumno(Resource):
                 })
 
 
-class PlanificacionesAlumno(Resource):
-    """Recurso para que los alumnos vean sus planificaciones por DNI"""
-    
-    def get(self, dni):
-        # Buscar el alumno por DNI
-        usuario = db.session.query(UsuarioModel).filter_by(dni=dni).first()
-        if not usuario:
-            return {'error': 'Alumno no encontrado'}, 404
-        
-        # Verificar si el usuario es alumno
-        alumno = db.session.query(AlumnoModel).filter_by(id_usuario=usuario.id).first()
-        if not alumno:
-            return {'error': 'Usuario no es un alumno'}, 400
-        
-        # Verificar si el usuario está suspendido
-        if usuario.suspendido:
-            return {'error': 'Alumno suspendido'}, 403
-        
-        # Obtener planificaciones del alumno ordenadas por fecha (más recientes primero)
-        planificaciones = db.session.query(PlanificacionModel)\
-            .filter_by(id_alumno=alumno.id)\
-            .order_by(PlanificacionModel.fecha_creacion.desc())\
-            .all()
-        
-        return jsonify({
-            'alumno': {
-                'nombre': usuario.nombre,
-                'apellido': usuario.apellido,
-                'dni': usuario.dni
-            },
-            'planificaciones': [planificacion.to_json() for planificacion in planificaciones]
-        })
+
     
 class Planificacion(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)
     #obtener recurso

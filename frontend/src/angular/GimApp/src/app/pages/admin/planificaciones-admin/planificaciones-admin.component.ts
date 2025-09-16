@@ -99,7 +99,7 @@ export class PlanificacionesAdminComponent implements OnInit {
   loadAlumnos(): void {
     this.usuariosService.getAlumnos(1).subscribe({
       next: (response: any) => {
-        this.alumnos = response.usuarios || [];
+        this.alumnos = response.alumnos || [];
       },
       error: (error) => {
         console.error('Error al cargar alumnos:', error);
@@ -292,9 +292,9 @@ export class PlanificacionesAdminComponent implements OnInit {
   }
 
   getAlumnoName(alumnoId: number): string {
-    const alumno = this.alumnos.find(a => a.r_alumno && a.r_alumno[0] && a.r_alumno[0].id === alumnoId);
-    if (alumno) {
-      return `${alumno.nombre} ${alumno.apellido}`;
+    const alumno = this.alumnos.find(a => a.id === alumnoId);
+    if (alumno && alumno.usuario) {
+      return `${alumno.usuario.nombre} ${alumno.usuario.apellido}`;
     }
     return 'Alumno no encontrado';
   }

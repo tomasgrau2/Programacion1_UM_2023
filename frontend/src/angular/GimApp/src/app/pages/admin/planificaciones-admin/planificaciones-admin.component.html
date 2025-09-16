@@ -159,8 +159,8 @@
             </label>
             <select class="form-control" id="id_alumno" formControlName="id_alumno">
               <option value="" disabled selected>Seleccionar alumno</option>
-              <option *ngFor="let alumno of alumnos" [value]="alumno.r_alumno?.[0]?.id">
-                {{ alumno.nombre }} {{ alumno.apellido }}
+              <option *ngFor="let alumno of alumnos" [value]="alumno.id">
+                {{ alumno.usuario.nombre }} {{ alumno.usuario.apellido }}
               </option>
             </select>
           </div>

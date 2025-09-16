@@ -63,16 +63,12 @@ def create_app():
     api.add_resource(resources.UsuarioProfesorResource, '/profesor/<id>')
 
     api.add_resource(resources.UsuariosProfesoresResource, '/profesores')
+
     api.add_resource(resources.ProfesorByUsuarioResource, '/profesor/usuario/<id_usuario>')
-
-
-    api.add_resource(resources.LoginResource, '/login')
 
     api.add_resource(resources.PlanificacionesResource, '/planificaciones')
     
     api.add_resource(resources.PlanificacionResource, '/planificaciones/<id>')
-    
-    api.add_resource(resources.PlanificacionesAlumnoResource, '/planificaciones-alumno/<dni>')
     
     api.add_resource(resources.PlanificacionesByAlumnoResource, '/planificaciones/alumno/<id_alumno>')
 
