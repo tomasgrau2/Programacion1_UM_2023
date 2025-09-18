@@ -37,6 +37,20 @@ class Profesor(db.Model):
         }
         return profesor_json
 
+    def to_json_publico(self):
+        """Método para mostrar solo información pública del profesor (sin datos sensibles)"""
+        self.usuario = db.session.query(UsuarioModel).get_or_404(self.id_usuario)
+        profesor_json = {
+            'id': self.id,
+            'id_usuario': self.id_usuario,
+            'especialidad': self.especialidad,
+            'usuario': {
+                'nombre': self.usuario.nombre,
+                'apellido': self.usuario.apellido
+            }
+        }
+        return profesor_json
+
     @staticmethod
     def from_json(profesor_json):
         id = profesor_json.get('id')

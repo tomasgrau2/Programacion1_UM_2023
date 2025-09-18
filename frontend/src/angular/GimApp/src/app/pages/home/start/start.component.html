@@ -7,6 +7,7 @@
                     <p class="lead2 text-white">La mejor experiencia de entrenamiento acorde a tus objetivos.</p>
                 </div>
             </div>
+            <!-- Sección de características del gimnasio -->
             <div class="row mt-5">
                 <div class="col-md-4">
                     <div class="card">
@@ -35,6 +36,59 @@
                         </div>
                     </div>
                 </div> 
+            </div>
+
+            <!-- Sección de Profesores por Especialidad - Más compacta -->
+            <div class="row mt-5" *ngIf="!loading && !error">
+                <div class="col-12">
+                    <h3 class="text-white text-center mb-4">Nuestros Profesionales</h3>
+                    <p class="text-white text-center mb-4">Conoce a nuestro equipo de entrenadores especializados</p>
+                </div>
+            </div>
+
+            <!-- Loading -->
+            <div class="row mt-3" *ngIf="loading">
+                <div class="col-12 text-center">
+                    <div class="spinner-border text-light" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                    <p class="text-white mt-2">Cargando profesores...</p>
+                </div>
+            </div>
+
+            <!-- Error o Sin Profesores -->
+            <div class="row mt-3" *ngIf="error">
+                <div class="col-12 text-center">
+                    <div class="alert alert-info" role="alert">
+                        <i class="fas fa-info-circle me-2"></i>{{ error }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profesores agrupados por especialidad - Diseño compacto -->
+            <div class="row mt-3" *ngIf="!loading && !error">
+                <div class="col-12" *ngFor="let especialidad of especialidades">
+                    <div class="card mb-3 bg-dark border-success especialidad-compacta">
+                        <div class="card-header especialidad-header-compacta">
+                            <h5 class="card-title text-white mb-0">
+                                <i class="fas fa-dumbbell me-2"></i>{{ especialidad }}
+                            </h5>
+                        </div>
+                        <div class="card-body py-2">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4 mb-2" *ngFor="let profesor of getProfesoresPorEspecialidad(especialidad)">
+                                    <div class="profesor-compacto">
+                                        <div class="d-flex align-items-center">
+                                            <div class="profesor-info">
+                                                <h6 class="profesor-nombre-compacto mb-0">{{ profesor.usuario.nombre }} {{ profesor.usuario.apellido }}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

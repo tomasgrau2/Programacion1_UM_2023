@@ -166,7 +166,16 @@ export class UsuariosService {
       'Authorization': `Bearer ${auth_token}`
     });
 
-    return this.httpClient.get(this.url + `/usuarios?rol=profesor&page=${page}`, {headers: headers});
+    return this.httpClient.get(this.url + `/profesores?page=${page}`, {headers: headers});
+  }
+
+  // Método público para obtener profesores sin autenticación (para página de inicio)
+  getProfesoresPublicos(page: number) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.httpClient.get(this.url + `/profesores-publicos?page=${page}`, {headers: headers});
   }
 
   postProfesores(userID: number, especialidad: string) {

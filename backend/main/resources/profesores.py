@@ -81,6 +81,7 @@ class UsuarioProfesor(Resource): #A la clase UsuarioProfesor le indico que va a 
         db.session.delete(profesor)
         db.session.commit()
         return '', 204
+    
     @jwt_required()
     @role_required(roles = ['admin'])
     #Modificar el recurso usuario
@@ -105,3 +106,39 @@ class ProfesorByUsuario(Resource):
             return {'error': 'Profesor no encontrado'}, 404
             
         return profesor.to_json()
+
+class ProfesoresPublicos(Resource):
+    """Endpoint público para obtener profesores sin autenticación (para página de inicio)"""
+    def get(self):
+        page = 1
+        per_page = 10
+        profesores = db.session.query(ProfesorModel)
+        
+        if request.args.get('page'):
+            page = int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page = int(request.args.get('per_page'))
+
+        ### FILTROS ###
+        
+        #Busqueda por especialidad
+        if request.args.get('especialidad'):
+            profesores=profesores.filter(ProfesorModel.especialidad.like("%"+request.args.get('especialidad')+"%"))
+        
+        #Ordeno por especialidad
+        if request.args.get('sortby_especialidad'):
+            profesores=profesores.order_by(desc(ProfesorModel.especialidad))
+            
+        #Ordeno por id de usuario
+        if request.args.get('sortby_nrUsuario'):
+            profesores=profesores.outerjoin(ProfesorModel.id_usuario).group_by(ProfesorModel.id).order_by(func.count(UsuarioModel.id).desc())
+        
+        ### FIN FILTROS ####
+        
+        profesores = profesores.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
+
+        return jsonify({'profesores': [profesor.to_json_publico() for profesor in profesores],
+                  'total': profesores.total,
+                  'pages': profesores.pages,
+                  'page': page
+                })

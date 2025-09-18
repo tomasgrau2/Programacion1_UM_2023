@@ -5,6 +5,7 @@ from .usuarios import UsuarioActual as UsuarioActualResource
 from .profesores import UsuariosProfesores as UsuariosProfesoresResource
 from .profesores import UsuarioProfesor as UsuarioProfesorResource
 from .profesores import ProfesorByUsuario as ProfesorByUsuarioResource
+from .profesores import ProfesoresPublicos as ProfesoresPublicosResource
 from .alumnos import UsuarioAlumno as UsuarioAlumnoResource
 from .alumnos import UsuariosAlumnos as UsuariosAlumnosResource
 from .alumnos import AlumnoByUsuario as AlumnoByUsuarioResource
