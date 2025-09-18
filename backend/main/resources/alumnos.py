@@ -26,10 +26,18 @@ class UsuariosAlumnos(Resource):
         #Busqueda por id_usuario
         if request.args.get('id_usuario'):
             alumnos=alumnos.filter(AlumnoModel.id_usuario.like("%"+request.args.get('id_usuario')+"%"))
+        
+        #Busqueda por nro_socio
+        if request.args.get('nro_socio'):
+            alumnos=alumnos.filter(AlumnoModel.nro_socio.like("%"+request.args.get('nro_socio')+"%"))
             
         #Orden por id_usuario
         if request.args.get('sortby_usuarios'):
             alumnos=alumnos.order_by(desc(AlumnoModel.id_usuario))
+        
+        #Orden por nro_socio
+        if request.args.get('sortby_nro_socio'):
+            alumnos=alumnos.order_by(asc(AlumnoModel.nro_socio))
 
         #Obtener valor paginado
         alumnos = alumnos.paginate(page=page, per_page=per_page, error_out=True, max_per_page=30)
@@ -44,16 +52,23 @@ class UsuariosAlumnos(Resource):
     @jwt_required()
     @role_required(roles = ['admin', 'profesor'])
     def post(self):
-        planificaciones_ids = request.get_json().get('planificaciones')
-        alumno = AlumnoModel.from_json(request.get_json())
-        
-        if planificaciones_ids:
-            planificaciones = PlanificacionModel.query.filter(PlanificacionModel.id.in_(planificaciones_ids)).all()
-            alumno.planificaciones.extend(planificaciones)
+        try:
+            planificaciones_ids = request.get_json().get('planificaciones')
+            alumno = AlumnoModel.from_json(request.get_json())
             
-        db.session.add(alumno)
-        db.session.commit()
-        return alumno.to_json(), 201
+            if planificaciones_ids:
+                planificaciones = PlanificacionModel.query.filter(PlanificacionModel.id.in_(planificaciones_ids)).all()
+                alumno.planificaciones.extend(planificaciones)
+                
+            db.session.add(alumno)
+            db.session.commit()
+            return alumno.to_json(), 201
+        except Exception as e:
+            db.session.rollback()
+            if 'UNIQUE constraint failed: alumno.nro_socio' in str(e):
+                return {'error': 'Número de socio duplicado', 'message': 'Ya existe un alumno con este número de socio'}, 409
+            else:
+                return {'error': 'Error al crear alumno', 'message': str(e)}, 400
 
 class UsuarioAlumno(Resource): #A la clase usuarioalumno le indico que va a ser del tipo recurso(Resource)
     #obtener recurso

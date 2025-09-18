@@ -58,14 +58,34 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center">
-                                <div class="text-center me-3" *ngIf="rol=='profesor'">
+                                <!-- Indicador de estado de suspensión -->
+                                <div class="me-3" *ngIf="alumno.usuario?.suspendido">
+                                    <span class="badge bg-danger">
+                                        <i class="fa-solid fa-ban me-1"></i>
+                                        Suspendido
+                                    </span>
+                                </div>
+                                
+                                <div class="text-center me-3" *ngIf="rol=='profesor'" title="Ver alumno">
                                     <i class="fa-regular fa-eye fa-lg" style="color: #D0FD3E;"></i>
                                     <span class="d-none d-sm-block" style="font-size: 12px; margin-top: 2px; color: #ccc;">Ver</span>
                                 </div>
-                                <div class="editar-btn me-2" (click)="openEditModal(alumno.usuario, $event)" title="Editar">
+                                
+                                <!-- Botón de suspensión/activación (solo para admin) -->
+                                <div class="suspender-btn me-2" 
+                                     (click)="toggleSuspension(alumno, $event)" 
+                                     [title]="alumno.usuario?.suspendido ? 'Activar alumno' : 'Suspender alumno'"
+                                     *ngIf="rol=='admin'">
+                                    <i class="fa-solid" 
+                                       [class.fa-user-check]="alumno.usuario?.suspendido" 
+                                       [class.fa-user-slash]="!alumno.usuario?.suspendido"
+                                       [style.color]="alumno.usuario?.suspendido ? '#28a745' : '#dc3545'"></i>
+                                </div>
+                                
+                                <div class="editar-btn me-2" (click)="openEditModal(alumno.usuario, $event)" title="Editar alumno">
                                     <i class="fa-solid fa-edit fa-sm"></i>
                                 </div>
-                                <div class="eliminar-btn" (click)="eliminarAlumno(alumno.usuario?.id, $event)" title="Eliminar">
+                                <div class="eliminar-btn" (click)="eliminarAlumno(alumno.usuario?.id, $event)" title="Eliminar alumno">
                                     <i class="fa-solid fa-trash fa-sm"></i>
                                 </div>
                             </div>

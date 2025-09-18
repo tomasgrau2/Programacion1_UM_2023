@@ -1,0 +1,31 @@
+<div class="suspension-container">
+  <div class="suspension-card">
+    <div class="suspension-icon">
+      <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    
+    <h2 class="suspension-title">Cuenta Suspendida</h2>
+    
+    <p class="suspension-message">
+      {{ suspensionMessage }}
+    </p>
+    
+    <div class="suspension-actions">
+      <button class="btn btn-primary" (click)="contactGym()">
+        <i class="fas fa-phone"></i>
+        Contactar Gimnasio
+      </button>
+      
+      <button class="btn btn-secondary" (click)="goToLogin()">
+        <i class="fas fa-sign-out-alt"></i>
+        Volver al Inicio
+      </button>
+    </div>
+    
+    <div class="suspension-footer">
+      <p class="help-text">
+        Si cree que esto es un error, por favor contacte con el administrador del sistema.
+      </p>
+    </div>
+  </div>
+</div>

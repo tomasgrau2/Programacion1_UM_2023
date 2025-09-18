@@ -1,0 +1,30 @@
+/* Estilos para placeholder - más visible */
+.form-control1::placeholder {
+  color: rgb(255, 255, 255) !important;
+  opacity: 0.8 !important;
+}
+
+/* Estilos para text-muted */
+.text-muted {
+  color: rgb(255, 255, 255) !important;
+  opacity: 0.8 !important;
+}
+
+/* Estilos específicos para el input-group */
+.input-group .form-control1::placeholder {
+  color: rgb(255, 255, 255) !important;
+  opacity: 0.8 !important;
+}
+
+/* Estilos para el botón del input-group */
+.btn-outline-secondary {
+  background-color: #191919 !important;
+  border-color: #252525 !important;
+  color: #ffffff !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #252525 !important;
+  border-color: #252525 !important;
+  color: #ffffff !important;
+}

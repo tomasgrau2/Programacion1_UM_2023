@@ -44,6 +44,28 @@ class UsuariosProfesores(Resource):
                   'pages': profesores.pages,
                   'page': page
                 })
+    
+    @jwt_required()
+    @role_required(roles = ['admin'])
+    def post(self):
+        try:
+            planificaciones_ids = request.get_json().get('planificaciones')
+            profesor = ProfesorModel.from_json(request.get_json())
+            
+            if planificaciones_ids:
+                from main.models import PlanificacionModel
+                planificaciones = PlanificacionModel.query.filter(PlanificacionModel.id.in_(planificaciones_ids)).all()
+                profesor.planificaciones.extend(planificaciones)
+                
+            db.session.add(profesor)
+            db.session.commit()
+            return profesor.to_json(), 201
+        except Exception as e:
+            db.session.rollback()
+            if 'UNIQUE constraint failed: profesor.especialidad' in str(e):
+                return {'error': 'Especialidad duplicada', 'message': 'Ya existe un profesor con esta especialidad'}, 409
+            else:
+                return {'error': 'Error al crear profesor', 'message': str(e)}, 400
 
 class UsuarioProfesor(Resource): #A la clase UsuarioProfesor le indico que va a ser del tipo recurso(Resource)
     @jwt_required()

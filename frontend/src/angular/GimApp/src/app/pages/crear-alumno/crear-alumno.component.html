@@ -39,6 +39,19 @@
             <input type="number" formControlName="dni" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Tu Dni" value="28 años">
         </div>
         <div class="mb-3">
+            <label class="label" for="floatingInputValue2">Número de Socio</label>
+            <div class="input-group">
+                <input type="text" formControlName="nro_socio" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue24" placeholder="Ej: SOC-0001" value="">
+                <button type="button" class="btn btn-outline-secondary" (click)="generateNroSocio()" title="Generar número automáticamente">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+            <div *ngIf="nroSocioError" class="text-danger mt-1">
+                {{ nroSocioError }}
+            </div>
+            <small class="text-muted">Formato: SOC-XXXX (ej: SOC-0001)</small>
+        </div>
+        <div class="mb-3">
             <label class="label" for="floatingInputValue2">Contraseña</label>
             <input type="text" formControlName="contrasena" class="form-control form-control1 fondo-oscuro text-white borde-editar2" id="floatingInputValue23" placeholder="Tu Contraseña" value="28 años">
         </div>

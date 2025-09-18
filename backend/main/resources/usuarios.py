@@ -94,10 +94,17 @@ class Usuarios(Resource):
                     })
 
     def post(self):
-        usuario = UsuarioModel.from_json(request.get_json())
-        db.session.add(usuario)
-        db.session.commit()
-        return usuario.to_json(), 201
+        try:
+            usuario = UsuarioModel.from_json(request.get_json())
+            db.session.add(usuario)
+            db.session.commit()
+            return usuario.to_json(), 201
+        except Exception as e:
+            db.session.rollback()
+            if 'UNIQUE constraint failed: usuario.email' in str(e):
+                return {'error': 'El email ya está registrado', 'message': 'Ya existe un usuario con este email'}, 409
+            else:
+                return {'error': 'Error al crear usuario', 'message': str(e)}, 400
 
 # Recurso para que los usuarios obtengan sus propios datos
 class UsuarioActual(Resource):

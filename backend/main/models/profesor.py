@@ -37,5 +37,15 @@ class Profesor(db.Model):
         }
         return profesor_json
 
+    @staticmethod
+    def from_json(profesor_json):
+        id = profesor_json.get('id')
+        id_usuario = profesor_json.get('id_usuario')
+        especialidad = profesor_json.get('especialidad')
+        return Profesor(id=id,
+                        id_usuario=id_usuario,
+                        especialidad=especialidad,
+                        )
+
 
 

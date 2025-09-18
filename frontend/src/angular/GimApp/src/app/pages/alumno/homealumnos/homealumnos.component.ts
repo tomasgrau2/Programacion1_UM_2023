@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlanificacionesService } from '../../../services/planificaciones.service';
+import { SuspensionService } from '../../../services/suspension.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homealumnos',
@@ -13,10 +15,30 @@ export class HomealumnosComponent implements OnInit {
   nombreUsuario: string = '';
   expandedPlanificaciones: { [key: number]: boolean } = {};
 
-  constructor(private planificacionesService: PlanificacionesService) {}
+  constructor(
+    private planificacionesService: PlanificacionesService,
+    private suspensionService: SuspensionService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.loadAlumnoId();
+    this.checkSuspensionStatus();
+  }
+
+  checkSuspensionStatus(): void {
+    this.suspensionService.checkSuspensionStatus().subscribe({
+      next: (response: any) => {
+        if (response.suspendido) {
+          this.router.navigate(['/suspension']);
+        } else {
+          this.loadAlumnoId();
+        }
+      },
+      error: (error: any) => {
+        console.error('Error al verificar estado de suspensión:', error);
+        this.loadAlumnoId();
+      }
+    });
   }
 
   loadAlumnoId(): void {

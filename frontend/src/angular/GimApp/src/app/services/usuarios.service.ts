@@ -101,7 +101,7 @@ export class UsuariosService {
     return this.httpClient.get(this.url + `/alumnos?page=${page}`, {headers: headers});
   }
 
-  postAlumnos(userID: number) {
+  postAlumnos(userID: number, nroSocio?: string) {
     let auth_token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
@@ -109,9 +109,12 @@ export class UsuariosService {
       'Authorization': `Bearer ${auth_token}`
     });
 
-    const body = { id_usuario: userID };
+    const body = { 
+      id_usuario: userID,
+      nro_socio: nroSocio || null
+    };
 
-    return this.httpClient.post(this.url + `/alumnos `, body,  {headers: headers});
+    return this.httpClient.post(this.url + `/alumnos`, body,  {headers: headers});
   }
 
   // Método para obtener un alumno específico
@@ -228,6 +231,20 @@ export class UsuariosService {
     });
 
     return this.httpClient.get(this.url + `/profesor/usuario/${userId}`, {headers: headers});
+  }
+
+  // Suspender/Activar usuario
+  toggleSuspension(userId: number, suspendido: boolean) {
+    let auth_token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+
+    const body = { suspendido: suspendido };
+
+    return this.httpClient.put(this.url + `/usuario/${userId}`, body, {headers: headers});
   }
 // --------------------------------------------------------------------------------------------------
 

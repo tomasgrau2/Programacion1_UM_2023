@@ -1,10 +1,12 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
+import { SuspensionService } from '../services/suspension.service';
 
-export const authsessionAlumnoGuard : CanActivateFn = (route, state) => {
+export const authsessionAlumnoGuard : CanActivateFn = async (route, state) => {
 
   const router: Router = inject(Router);
+  const suspensionService: SuspensionService = inject(SuspensionService);
   const token = localStorage.getItem('token');
   const rol = localStorage.getItem('rol');
 
@@ -32,6 +34,14 @@ export const authsessionAlumnoGuard : CanActivateFn = (route, state) => {
     // Verificar el rol
     if (rol !== 'alumno') {
       router.navigateByUrl('start');
+      return false;
+    }
+
+    // Verificar si el usuario está suspendido
+    const isSuspended = await suspensionService.checkAndHandleSuspension();
+    if (isSuspended) {
+      // Si está suspendido, redirigir a la página de suspensión
+      router.navigateByUrl('/suspension');
       return false;
     }
 

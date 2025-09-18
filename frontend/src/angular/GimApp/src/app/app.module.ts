@@ -30,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListaPendientesComponent } from './pages/admin/lista-pendientes/lista-pendientes.component';
 import { PlanificacionesAdminComponent } from './pages/admin/planificaciones-admin/planificaciones-admin.component';
+import { SuspensionMessageComponent } from './components/suspension-message/suspension-message.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { PlanificacionesAdminComponent } from './pages/admin/planificaciones-adm
     InfoAlumnoComponent,
     ListaPendientesComponent,
     PlanificacionesAdminComponent,
+    SuspensionMessageComponent,
   ],
   imports: [
     BrowserModule,

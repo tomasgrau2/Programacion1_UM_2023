@@ -143,6 +143,47 @@ export class ListaAlumnosComponent implements OnInit{
     }
   }
 
+  // Método para suspender/activar alumno
+  toggleSuspension(alumno: any, event?: Event) {
+    if (event) {
+      event.stopPropagation(); // Evitar que se abra el modal
+    }
+    
+    const isSuspended = alumno.usuario?.suspendido;
+    const action = isSuspended ? 'activar' : 'suspender';
+    const reason = isSuspended ? '¿Estás seguro de que quieres activar este alumno?' : '¿Estás seguro de que quieres suspender este alumno?';
+    
+    if (confirm(reason)) {
+      this.usuariosService.toggleSuspension(alumno.usuario.id, !isSuspended).subscribe({
+        next: (response) => {
+          // Actualizar el estado local
+          alumno.usuario.suspendido = !isSuspended;
+          
+          // Actualizar en arrayAlumnos
+          const index = this.arrayAlumnos.findIndex((a: any) => a.id === alumno.id);
+          if (index !== -1) {
+            this.arrayAlumnos[index].usuario.suspendido = !isSuspended;
+          }
+          
+          // Actualizar en allAlumnos si está en modo búsqueda
+          if (this.isSearching) {
+            const allIndex = this.allAlumnos.findIndex((a: any) => a.id === alumno.id);
+            if (allIndex !== -1) {
+              this.allAlumnos[allIndex].usuario.suspendido = !isSuspended;
+            }
+          }
+          
+          const status = !isSuspended ? 'suspendido' : 'activado';
+          alert(`Alumno ${status} correctamente`);
+        },
+        error: (error) => {
+          console.error(`Error al ${action} el alumno:`, error);
+          alert(`Error al ${action} el alumno`);
+        }
+      });
+    }
+  }
+
   // Método para abrir el modal de edición
   openEditModal(alumno: any, event?: Event) {
     if (event) {

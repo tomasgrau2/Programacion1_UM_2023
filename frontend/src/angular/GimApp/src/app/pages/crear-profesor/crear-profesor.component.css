@@ -1,19 +1,21 @@
-/* Estilos para el select de especialidad */
+/* Estilos para el select de especialidad - igual que crear_alumno.html */
 select.form-control {
-  background-color: #2c3e50 !important;
-  border: 1px solid #34495e !important;
+  background-color: #191919 !important;
+  border: 1px solid #252525 !important;
   color: #ffffff !important;
+  border-radius: 0% !important;
 }
 
 select.form-control:focus {
-  background-color: #2c3e50 !important;
-  border-color: #3498db !important;
-  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25) !important;
+  background-color: #191919 !important;
+  border-color: #252525 !important;
+  box-shadow: none !important;
+  outline: none !important;
   color: #ffffff !important;
 }
 
 select.form-control option {
-  background-color: #2c3e50;
+  background-color: #191919;
   color: #ffffff;
   padding: 10px;
 }
@@ -53,24 +55,44 @@ select.form-control option {
   color: white;
 }
 
-/* Estilos para los campos del formulario */
+/* Estilos para los campos del formulario - igual que crear_alumno.html */
 .form-control1 {
-  background-color: #2c3e50 !important;
-  border: 1px solid #34495e !important;
+  background-color: #191919 !important;
+  border: 1px solid #252525 !important;
   color: #ffffff !important;
-  border-radius: 8px;
+  border-radius: 0% !important;
   transition: all 0.3s ease;
 }
 
 .form-control1:focus {
-  background-color: #2c3e50 !important;
-  border-color: #3498db !important;
-  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25) !important;
+  background-color: #191919 !important;
+  border-color: #252525 !important;
+  box-shadow: none !important;
+  outline: none !important;
   color: #ffffff !important;
 }
 
 .form-control1::placeholder {
   color: rgba(255, 255, 255, 0.6);
+}
+
+/* Sobrescribir estilos globales de Bootstrap para este componente */
+:host ::ng-deep .form-control1:focus,
+:host ::ng-deep .form-control1:not(:placeholder-shown) {
+  background-color: #191919 !important;
+  border-color: #252525 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Estilos específicos para todos los inputs del formulario */
+:host ::ng-deep input.form-control1:focus,
+:host ::ng-deep select.form-control:focus {
+  background-color: #191919 !important;
+  border-color: #252525 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: #ffffff !important;
 }
 
 /* Estilos para las etiquetas */
